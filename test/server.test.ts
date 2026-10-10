@@ -27,8 +27,8 @@ test('import, persistence, validation and fail-closed Gateway', async () => {
     const denied = await post(`/missions/${copy.id}/finalize`, { mode: 'REAL', permit: 'ACTIVE' });
     assert.equal(denied.status, 403); const result = await denied.json(); assert.match(result.error, /never finalize/); assert.equal(result.mission.gateway.state, 'CLOSED');
     assert.equal((await (await fetch(base + `/missions/${mission.id}/events`)).json()).length, 1);
-    assert.equal((await (await fetch(base + `/missions/${copy.id}/events`)).json()).at(-1).type, 'FINALIZATION_DENIED');
-    const realDenied = await post(`/missions/${mission.id}/finalize`, {}); assert.equal(realDenied.status, 403); assert.match((await realDenied.json()).error, /permit engine/);
+    assert.equal((await (await fetch(base + `/missions/${copy.id}/events`)).json()).at(-1).type, 'GATEWAY_DECISION');
+    const realDenied = await post(`/missions/${mission.id}/finalize`, {}); assert.equal(realDenied.status, 403); assert.match((await realDenied.json()).error, /valid analysis/);
     await Promise.all(Array.from({ length: 5 }, () => post(`/missions/${mission.id}/finalize`, {})));
     assert.equal((await (await fetch(base + `/missions/${mission.id}/events`)).json()).length, 7);
     assert.equal((await post('/missions/00000000-0000-0000-0000-000000000000/finalize', {})).status, 404);

@@ -2,51 +2,60 @@
 
 ## Vision
 
-La Trame est un univers 3D dans lequel Scout traite un vrai rapport Ezio selon l’usage déclaré. Les actions doivent recevoir un permis serveur ACTIVE / SUSPENDED / BLOCKED / NEEDS_HUMAN. La perte d’une preuve devra réévaluer seulement les actions dépendantes. La Passerelle contrôle la finalisation côté serveur. Les expériences sont isolées et ne pourront jamais finaliser, seulement exporter leur rapport d’expérience.
+La Trame est un univers 3D où Scout traite un vrai rapport Ezio selon l’usage déclaré. Les actions reçoivent un permis serveur ACTIVE / SUSPENDED / BLOCKED / NEEDS_HUMAN. La Passerelle contrôle la finalisation du contenu exact. Les expériences sont isolées et ne finalisent jamais.
 
-## Phase réalisée : 1 — socle local
+## Phase réalisée : 2 — intégration d’analyse, politique et documents
 
-React + TypeScript + Vite, API HTTP Node sans framework, Three.js / React Three Fiber / Drei, stockage JSON local. Interface anglaise avec import par collage ou fichier, usage déclaré, création et récupération d’une mission, consultation du rapport original et des événements. Scène 3D navigable, Scout en attente et Passerelle fermée. Aucun appel IA, aucune preuve ou autorisation inventée.
+Base : commit `74a6259` (phase 1). Interface et navigation 3D conservées. Aucune nouvelle dépendance, aucun achat ni déploiement.
 
-Les expériences sont créées exclusivement à partir d’une mission réelle et conservées dans un fichier séparé. Le masquage et l’export ne sont pas encore développés. Le serveur refuse et journalise toute finalisation, même si le client transmet un mode ou permis falsifié. Les refus concurrents sont sérialisés par mission dans le processus Node. Écriture atomique des fichiers.
+Fonctions opérationnelles :
+
+- Import, conservation intégrale du rapport et de l’heure d’import, usage déclaré, stockage local JSON atomique.
+- Chargement serveur de `.env`, vérification de présence seulement, message exact « Analysis unavailable: provider not configured » si incomplet.
+- Adaptateur TokenRouter Chat Completions : endpoint/modèle configurés, HTTPS, timeout 60 s, limite 6 000 tokens / 256 000 octets, sans retries automatiques ni simulation de remplacement. Protocole sponsor réel encore à confirmer.
+- Validation structurée : affirmations, extraits, cinq signaux (faits, citations, biais, complaisance, incertitude), problèmes, usage, recommandation et 2–4 actions. Vérification des IDs, références, cycles et présence des extraits/sources avec normalisation Unicode/espaces.
+- Politique serveur lisible, indépendante d’un simple verdict modèle. Dépendances ciblées, portée des problèmes, usage et contenu exact vérifiés. Une préparation autorisée ne signifie pas une recherche exécutée. Recherche/revue humaine encore nécessaire = aucune finalisation.
+- Note de décision conservant usage, justification, éléments soutenus/nuancés, réserves, question suivante et extraits sources. Édition possible, hash SHA-256 et réévaluation ; aucune réponse humaine promue en preuve factuelle.
+- `/finalize` recharge l’état courant sous verrou, refuse les expériences, réévalue FINALIZE et écrit GATEWAY_DECISION. Document final retourné uniquement pour ACTIVE ; permission liée au hash et au texte exact rendu par le serveur.
+- Exports texte étiquetés : brouillon avec réserves, refus, question humaine ou expérience. Aucun export ordinaire ne se fait passer pour un document final.
+- UI : analyse, progression, erreurs, recommandations, signaux, extraits consultables, permis et raisons, édition/export. Arches colorées selon les permis ; Passerelle ouverte uniquement après décision serveur favorable. Scène et panneau partagent le même état serveur.
+- Récupération d’une analyse interrompue au redémarrage (FAILED, possibilité de réessayer).
+
+Limites explicites : l’extraction, l’interprétation, l’exhaustivité des problèmes et l’évaluation des enjeux dépendent encore du modèle. Une provenance vérifiée n’est pas une vérité factuelle. Aucun enrichissement externe, masquage de preuve ou traitement Keenable. La note est un document de décision nuancé, pas une réponse réécrite dépourvue de traçabilité. Pas de synchronisation temps réel entre plusieurs clients.
 
 ## Structure
 
-- `src/` : interface, scène 3D et styles.
-- `shared/types.ts` : Mission, Claim, Evidence, Action, Permit, Event ; contrats internes, pas un schéma Ezio officiel.
-- `server/` : API, validation, stockage, contrat de la Passerelle.
-- `scripts/dev.mjs` : lancement conjoint Vite + Node.
-- `test/server.test.ts` : tests API avec texte explicitement synthétique, supprimé avec le dossier temporaire.
-- `data/` : données locales ignorées par Git.
-- `.env.example` : quatre variables sponsor vides ; aucun secret côté client.
+- `src/` : interface, AnalysisPanel et scène 3D.
+- `shared/types.ts` : contrats internes, pas un schéma Ezio officiel.
+- `server/analysis.ts` : consignes et validation des extractions.
+- `server/provider.ts` : adaptateur TokenRouter et erreurs assainies.
+- `server/policy.ts` : permis, contenu exact et exports.
+- `server/app.ts` : API, stockage, événements, concurrence.
+- `docs/PERMIT_POLICY.md` : politique et limites détaillées.
+- `test/` : sept tests, fixtures et transport explicitement synthétiques.
+- `data/`, `.env*` : ignorés, sauf `.env.example`.
 
-## Commandes
+## Commandes et parcours
 
 Node 22.12+ ; `npm install`, puis `npm run dev`.
-Interface : http://127.0.0.1:5173 ; API : http://127.0.0.1:3001/api/health.
-`npm test` : tests API. `npm run build` : contrôle TypeScript + build client et serveur.
-`npm start` : API compilée uniquement. Ctrl+C arrête le développement.
+Interface : http://127.0.0.1:5173 ; santé : http://127.0.0.1:3001/api/health.
+`npm test` ; `npm run build` ; `npm start` pour l’API compilée seule.
 
-Les routes sont documentées dans README.md. Recharger une URL `?mission=<id>` récupère la mission stockée. L’application est locale, mono-processus, sans authentification. Aucune intégration fournisseur n’est chargée dans cette phase.
+Renseigner `.env` puis redémarrer Node. Coller/importer un vrai rapport, préciser l’usage, Create mission → Analyze report → consulter les extraits/permis → Decision note → Finalize server note ou export non final. Le bouton de réanalyse régénère la note depuis le rapport original. L’URL `?mission=<id>` recharge l’état conservé.
 
-## Accès et éléments manquants
+## Vérifications réelles de cette phase
 
-- Les quatre vrais rapports exemples Ezio, leur format et les sources/preuves associées.
-- Clé TokenRouter, URL de base et modèle exacts fournis par le sponsor.
-- Clé Keenable et documentation d’intégration nécessaire.
-- Aucun paramètre sponsor deviné. Aucun achat, déploiement, HarnessRouter ou service externe ajouté.
+- Build TypeScript/Vite réussi. Avertissement de taille du bundle Three.js conservé ; pas de refonte pour le supprimer.
+- Sept tests réussis : validation des extraits/références/cycles, dépendance critique manquante, action indépendante conservée, contenu édité, enjeux, incertitudes, contradictions, refus d’expérience, absence/invalidation d’analyse, Gateway autorisée uniquement dans une fixture synthétique conforme, erreurs/limites du transport mocké, absence de fournisseur.
+- Serveur local préexistant réutilisé : santé OK, fournisseur explicitement non configuré. Il n’a pas été arrêté.
+- Capture Chrome : scène préservée et message d’indisponibilité visibles. Pas de validation visuelle d’une analyse réelle ni de test automatisé des interactions souris.
+- Aucun vrai rapport trouvé, y compris dans les données locales ignorées. Les trois variables TokenRouter sont absentes lors de la dernière vérification.
+- **Aucun appel TokenRouter réel réussi ni tenté avec des identifiants inventés. Les quatre rapports n’ont pas été testés.**
 
-## Prochaine phase (ne pas démarrer automatiquement)
+## Éléments manquants et prochaine phase
 
-Adapter les quatre rapports réels sans altérer les originaux ; analyser selon l’usage (exactitude, biais, vérification des affirmations et citations) ; établir les liens preuves/actions ; implémenter et tester le moteur de permis et la propagation ciblée ; connecter la scène et le panneau aux mêmes événements serveur. Développer ensuite le masquage isolé, les exports utiles et la finalisation autorisée des seules missions réelles.
+Attendre les quatre vrais rapports et les paramètres TokenRouter sponsor : clé, URL de base exacte (incluant le chemin de version), modèle, confirmation des paramètres Chat Completions. Aucun endpoint ni modèle par défaut choisi.
 
-## Vérifications de livraison
+À réception, exécuter une analyse réelle et inspecter la couverture des affirmations, les liens extraits/interprétations et les permis. Keenable, résolution par recherche, masquage isolé des preuves et réévaluation après résolution seront traités dans la phase suivante. La politique devra être confrontée aux vrais rapports, sans branches selon leur identité.
 
-- `npm test` : réussi (validation, conservation exacte du texte sur disque, récupération, isolation, refus serveur des expériences et missions réelles, journalisation concurrente).
-- `npm run build` : réussi. Avertissement Vite sur le bundle Three.js supérieur à 500 kB ; optimisation différée.
-- `npm run dev` : démarrage réussi ; santé vérifiée via le proxy Vite.
-- Chrome headless : scène 3D visible à 1512 × 1000 après correction de son dimensionnement ; pas de test automatisé des interactions souris.
-- Secrets et dossiers d’exécution exclus de Git. Aucun vrai rapport ni clé disponible pendant cette phase.
-- Les restrictions du bac à sable ont nécessité une autorisation pour installer les dépendances, ouvrir les sockets locaux et lancer Chrome.
-
-Phase 1 terminée. Reprendre uniquement sur instruction de l’utilisateur.
+Phase 2 terminée côté implémentation ; validation fournisseur réel en attente d’accès. Ne pas démarrer automatiquement la phase suivante.
