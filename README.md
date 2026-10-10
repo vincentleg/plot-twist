@@ -15,7 +15,7 @@ npm run build
 
 Copy `.env.example` to `.env`: TOKENROUTER_API_KEY, TOKENROUTER_BASE_URL (e.g. `https://api.tokenrouter.com/v1`), TOKENROUTER_MODEL. Optional KEENABLE_API_KEY; without it the free public Keenable endpoints are used. Secrets stay server-side and are never logged.
 
-Real reports: put the Ezio exports in `data/reports/ev-market.md` and `data/reports/work-from-home.md` (ignored by Git). The UI then shows **Load real export** buttons that fill the report and a declared use. No verdict is stored or hard-coded. See [docs/DEMO.md](docs/DEMO.md) for the click path and a 90-second script.
+Real reports: put the Ezio exports in `data/reports/ev-market.md` and `data/reports/work-from-home.md` (ignored by Git). The UI then shows **Load real export** buttons that fill the report and a declared use. No verdict is stored or hard-coded. See [docs/DEMO.md](docs/DEMO.md) for the demo path and [docs/SUBMISSION.md](docs/SUBMISSION.md) for the Devpost text.
 
 ## Sponsors actually used
 

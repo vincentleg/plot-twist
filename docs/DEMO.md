@@ -1,34 +1,52 @@
-# PLOT TWIST — 90-second demo
+# PLOT TWIST — demo video (≈105 s)
 
-Prerequisites: `npm run dev`, then open http://127.0.0.1:5173. The two real Ezio exports must be in `data/reports/ev-market.md` and `data/reports/work-from-home.md` (ignored by Git). Analysis takes about 45–55 s per report through TokenRouter (`openai/gpt-6.1-sol`). A search → fetch → assess run takes about 10–15 s. For a smooth recording, you can analyze both missions before you start and reopen them through their `?mission=` URLs.
+Local app (for recording only, not a public link): http://127.0.0.1:5173
 
-## Clicks
+Two real missions, already analyzed, both computed after the research fix:
 
-1. **Load real export · EV market 2024** → **Create mission** → **Analyze report**.
-2. In the Trame: arches show action permits, crystals show report excerpts and Scout halts at the first non-ACTIVE step. Click a crystal to read its excerpt, its claims and the actions that depend on it.
-3. Mission control → **Signals and unresolved issues**: Geely DISPUTED with a HUMAN issue (entity / year / scope), Top 3 UNVERIFIABLE, other figures UNASSESSED.
-4. **Keenable search → fetch → cite → assess**: pick a claim (e.g. the Top 3 ranking) → **Run**. Two sources at most. Each shows its quote, whether the quote was found in the fetched text, entity/period/scope checks and dates.
-5. **Human review**: read the precise question → role "Analyst (client note owner)" → decision → reason → **Record review and re-evaluate**. Watch the FINALIZE permit change.
-6. **Finalize server note** → the Gateway stays closed and the server gives its reason.
-7. **Create isolated experiment** (magenta) → **Mask in experiment** on one excerpt → only the dependent arches change colour → **Reset all excerpts** → Finalize is refused (403).
-8. Back to a new mission: **Load real export · Work from home** → Create → Analyze. Show BIAS CONCERN, Accuracy "Not scored" treated as not evaluated, one SUPPORTED claim and four UNVERIFIABLE ones.
-9. Human review as "Communication lead" → **Accept the qualified rewrite** → FINALIZE moves from NEEDS_HUMAN to SUSPENDED: judgment was recorded, but missing evidence is still missing.
-10. **Export** → labelled "DRAFT WITH RESERVATIONS — NOT FINAL" or "QUESTION FOR HUMAN REVIEW — NOT FINAL".
+- EV market 2024: http://127.0.0.1:5173/?mission=0a1afcf5-f6d5-484d-b880-1e3eeaa7ba4e
+- Work from home: http://127.0.0.1:5173/?mission=e984e024-2d3c-4509-ac49-b17afffd6132
 
-## Script (≈90 s, English)
+Do **not** click "Re-analyze original report" during recording: it calls the model again (about 50 s) and replaces the analysis. Both missions already contain one recorded Keenable run and one recorded human review. Present them as recorded.
 
-> AI answers come with trust reports. PLOT TWIST turns a report into permission. The LLM proposes; the code authorizes.
->
-> Here's a real Ezio export on the 2024 EV market, to be used in a client note. Scout reads it in the Trame. Each arch is an action with a server permit. Each crystal is an exact excerpt from the report.
->
-> Ezio's Geely flag is inconsistent: the contested figure and the cited figure are identical. We keep the original verdict and ask a human to check entity, year and scope. The Top 3 ranking is unverified, not false. Four out of five on accuracy is not an 80 % chance of truth.
->
-> Now live research: Keenable searches, fetches two pages, and the model must quote the page. The server checks that the quote is really there and that the year matches. A source is a candidate, never automatic proof. A contradiction escalates.
->
-> The analyst answers the precise question. That is judgment, not evidence, and the permits are re-evaluated. The Gateway re-checks the exact note on the server, so it stays closed while reservations remain.
->
-> In a magenta experiment, I mask one excerpt: only the actions depending on it suspend. Reset. Experiments can never finalize.
->
-> Second report, an article on remote work for publication as a balanced analysis. Accuracy "Not scored" means not evaluated, never zero. Bias is critical, so editorial revision and a targeted review are needed. That doesn't make the claims false. The communication lead accepts a qualified rewrite: the permit moves from human review to suspended, because missing evidence is still missing.
->
-> Same engine, different reasons, different actions. Evidence before permission. Permission before action.
+## Pre-flight check (2 min, before recording)
+
+1. Open the EV URL. The 3D scene shows cyan buildings, labelled arches, crystals e1…e12 and the Gateway labelled "GATEWAY · CLOSED — finalize permit: NEEDS HUMAN".
+2. Mission control (right panel) shows the declared use, the actions a1–a3 with their reasons, and the buttons "Finalize server note", "Create isolated experiment" and "Export draft / refusal / review question".
+3. Open the WFH URL. The FINALIZE reason reads "Required claim information is unresolved…".
+4. If the 3D scene does not appear, the panels still carry the whole demo.
+
+## Timeline, clicks and narration
+
+**0–10 s — Problem and the Trame** (EV URL open)
+> "An AI answer can sound right and still not be safe to act on. PLOT TWIST is a trust agent: the model proposes, our code authorizes. This is the Trame. These are results from actual runs on two Ezio reports."
+
+**10–40 s — EV market report**
+- Click **View original report** (Declared use panel), scroll briefly, then close it.
+- Expand **Signals and unresolved issues**.
+- Expand **Claims and source excerpts**: c1 · DISPUTED (Geely), c2 · UNVERIFIABLE (Top 3), c6–c12 · UNASSESSED.
+- In the 3D scene, click crystal **e1**: the card shows the Geely excerpt, c1 · DISPUTED and its dependent actions.
+- Expand **Collected web sources · not verified evidence**: the recorded run on c2 (two sources, both INSUFFICIENT, with quotes and period checks).
+> "An analyst wants this EV summary in a client note. Ezio marks Geely 'contradicted', yet the contested and cited figures are identical. We keep that verdict as disputed and ask a human to check entity, year and scope. The Top 3 ranking is unverified, not false. Other figures were never assessed. A recorded Keenable run fetched two sources. Neither settles the 2024 ranking, so nothing is promoted to evidence. The Gateway asks for human review."
+
+**40–60 s — EV experiment**
+- Click **Create isolated experiment**: the view turns magenta (EXPERIMENT / ISOLATED COPY).
+- Expand **Claims and source excerpts**, then under e1 click **Mask in experiment**. The a1 and a3 arches turn SUSPENDED and a2 stays ACTIVE.
+- Click **Finalize server note**: the error banner says experiments can never finalize.
+- Click **Reset all excerpts**.
+> "In an isolated copy, I mask the Geely excerpt. Only the actions depending on it suspend; research stays active. Experiments can never finalize. Reset."
+
+**60–95 s — Work-from-home report**
+- Paste the WFH URL.
+- Expand **Signals and unresolved issues**: BIAS CONCERN (CRITICAL one-sided framing), UNCERTAINTY CONCERN.
+- Expand **Claims and source excerpts**: c5 · SUPPORTED, c1–c4 · UNVERIFIABLE, c6–c8 · UNASSESSED.
+- Expand **Human review · judgment, not evidence**: the precise question, and the recorded review "ACCEPT_QUALIFIED · Communication lead".
+- Point at the FINALIZE reason (Gateway bar): "Required claim information is unresolved. A rewrite cannot verify it."
+> "A communication lead wants to publish this as a balanced analysis. Accuracy is 'Not scored', which means not evaluated, never zero. One claim is supported, four lack evidence: unverified, not false. Critical framing bias calls for an editorial revision and a targeted review. The lead's recorded review accepted a qualified rewrite. The server re-evaluated: the decision moved from 'needs human' to 'suspended', because a human judgment is not evidence."
+
+**95–110 s — Export and close**
+- Click **Export draft / refusal / review question**, then open the downloaded file. Its first line reads "DRAFT WITH RESERVATIONS — NOT FINAL", followed by the hash, the Gateway reason, the note with its "Unknown — not evaluated or lacking evidence" section and the action authorizations.
+> "When finalization isn't allowed, you still get a useful, honestly labelled output. Neither document was finalized, because the server refused for stated reasons. Evidence before permission. Permission before action."
+
+## Verified behaviours used above
+Real TokenRouter analyses of both reports; real Keenable search → fetch → assessment (recorded); masking e1 in the EV experiment suspends a1 and a3 while a2 stays ACTIVE (API run); experiment finalize returns 403; the WFH human review moved FINALIZE from NEEDS_HUMAN to SUSPENDED (API run); export labels as listed. The visual rendering in the browser was not checked by the assistant: run the pre-flight check.
