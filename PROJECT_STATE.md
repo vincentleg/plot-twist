@@ -1,5 +1,28 @@
 # PLOT TWIST — point de reprise
 
+## Phase 3 — deux rapports réels, boucle de recherche, revue humaine, masquage (2026-10-10)
+
+Base : `2230df0`. Pas de nouvelle dépendance, pas de refonte ; 3D conservée et enrichie.
+
+**Rapports réels.** `data/reports/ev-market.md` et `data/reports/work-from-home.md` (exports Ezio intacts, ignorés par Git). `GET /api/samples` et les boutons « Load real export » remplissent rapport et usage déclaré ; aucun verdict n’est stocké. Règles d’analyse génériques ajoutées : « Not scored » = non évalué ; score ≠ probabilité ; titre validé ≠ corps validé ; affirmations non listées = UNASSESSED ; verdict auto-contradictoire conservé, DISPUTED + question HUMAN.
+
+**Parcours réels vérifiés via TokenRouter (`openai/gpt-6.1-sol`) :**
+- EV : ESCALATE / risque HIGH ; Geely DISPUTED + HUMAN (entité, année, périmètre) ; Top 3 UNVERIFIABLE ; Tesla, ventes mondiales, titre SUPPORTED ; 6–7 chiffres UNASSESSED ; FINALIZE NEEDS_HUMAN. Export : « QUESTION FOR HUMAN REVIEW — NOT FINAL ».
+- Télétravail : REWRITE / LOW ; BIAS CONCERN ; 4 affirmations UNVERIFIABLE, 1 SUPPORTED, thèses centrales UNASSESSED ; FINALIZE NEEDS_HUMAN. Après revue « Communication lead / ACCEPT_QUALIFIED » : FINALIZE passe à SUSPENDED (preuves manquantes toujours manquantes). Export : « DRAFT WITH RESERVATIONS — NOT FINAL ».
+- Les verdicts sont produits par le modèle et peuvent varier légèrement d’une analyse à l’autre.
+
+**Boucle Keenable réelle** (search → fetch ≤ 2 → citation → évaluation TokenRouter → permis), testée sur les deux rapports. Le serveur vérifie la présence de la citation dans la page, les drapeaux entité/période/périmètre du modèle et, de façon déterministe, la présence de l’année attendue près de la citation. Défaut réel trouvé puis corrigé : (1) une méta-phrase (« the report could not verify ») dans le texte d’une affirmation provoquait une fausse contradiction ; (2) une source « through August 2026 » était jugée contradictoire avec un classement 2024. Les anciens runs restent dans les missions concernées (journal d’audit) et y maintiennent l’escalade : utiliser de nouvelles missions pour la démo.
+
+**Revue humaine** (`POST .../human`), **masquage/reset** d’expérience (`mask`, `reset`), **3D** (arches étiquetées, cristaux de preuve cliquables avec raisons et actions dépendantes, Scout arrêté au premier permis non ACTIVE, Passerelle et étiquette pilotées par l’état serveur, expérience en magenta, arêtes cyan). Détails : README, docs/PERMIT_POLICY.md, docs/DEMO.md.
+
+**Vérifications.** 8 tests (synthétiques) dont revue humaine/masquage ; build OK (avertissement de taille du bundle Three.js conservé). Contrôles réels : expérience → 403, masque → suspension sélective (EV : a2 reste ACTIVE quand e1 est masqué), reset, note modifiée → NEEDS_HUMAN, aucune finalisation ouverte sur les deux rapports.
+
+**Limites.** Pas de validation visuelle automatisée de la 3D ; pas de détail progressif fin selon le zoom (étiquettes de preuve mises à l’échelle par la distance seulement). Évaluation de sources dépendante du modèle, bornée par les contrôles serveur. Une source SUPPORTS reste candidate : aucune promotion automatique en preuve.
+
+---
+
+## Historique — phases précédentes
+
 ## Mise à jour — connexion sponsor et collecte Keenable
 
 - `.env` contient désormais la clé sous le nom attendu, l’URL sponsor `https://api.tokenrouter.com/v1` et le modèle `openai/gpt-6.1-sol`. Clé jamais affichée ; `.env` reste ignoré et non suivi.

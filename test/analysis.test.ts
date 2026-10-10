@@ -91,3 +91,27 @@ test('synthetic provider transport: configured endpoint/model, limits, malformed
     for (const [value, pattern] of [['http', /HTTP 401/], ['timeout', /timed out/], ['oversize', /too large/], ['invalid', /invalid JSON/], ['truncated', /incomplete provider response/]] as const) { mode = value; await assert.rejects(analyzeReport(report, 'test'), pattern); }
   } finally { keys.forEach((key, index) => { if (previous[index] === undefined) delete process.env[key]; else process.env[key] = previous[index]; }); t.mock.restoreAll(); }
 });
+test('synthetic human review: judgment completes review steps only, never evidence; masking is experiment-only and resettable', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'plot-twist-human-'));
+  const human = () => { const f = fixture(); f.claims.push({ id: 'c3', text: 'Gamma is unknown.', status: 'UNVERIFIABLE', evidenceIds: [] }); f.issues = [{ id: 'i1', description: 'Framing needs editorial judgment', severity: 'HUMAN', claimIds: [], evidenceIds: [] }, { id: 'i2', description: 'Gamma lacks evidence', severity: 'MISSING', claimIds: ['c3'], evidenceIds: [] }]; f.actions[1] = { id: 'a2', title: 'Communication lead review', kind: 'REQUEST_HUMAN', claimIds: ['c2'], evidenceIds: ['e2'], dependsOn: [] }; f.actions.push({ id: 'a3', title: 'Approve Beta', kind: 'APPROVE', claimIds: ['c2'], evidenceIds: ['e2'], dependsOn: ['a2'] }); return f; };
+  const app = createApp(directory, async () => human());
+  await new Promise<void>(resolve => app.listen(0, '127.0.0.1', resolve)); const base = `http://127.0.0.1:${(app.address() as { port: number }).port}/api/missions`;
+  const post = (path: string, data?: unknown) => fetch(base + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data ?? {}) });
+  const status = (m: Mission, id: string) => m.actions.find(a => a.id === id)!.permit!.status;
+  try {
+    const m = await (await post('', { originalReport: report, intendedUse: 'Low stakes summary test' })).json();
+    const analyzed: Mission = await (await post(`/${m.id}/analyze`)).json();
+    assert.equal(status(analyzed, 'a3'), 'NEEDS_HUMAN'); assert.match(analyzed.note!.content, /\[c3\] Gamma is unknown\. — UNVERIFIABLE; neither confirmed nor refuted/);
+    assert.equal((await post(`/${m.id}/human`, { reviewer: 'Communication lead', decision: 'ACCEPT_QUALIFIED', comment: 'x', issueIds: ['i2'] })).status, 400);
+    assert.equal((await post(`/${m.id}/mask`, { evidenceId: 'e1' })).status, 403);
+    const reviewed: Mission = await (await post(`/${m.id}/human`, { reviewer: 'Communication lead', decision: 'ACCEPT_QUALIFIED', comment: 'Qualified rewrite accepted.', actionIds: ['a2'], issueIds: ['i1'] })).json();
+    assert.equal(status(reviewed, 'a3'), 'ACTIVE'); assert.equal(reviewed.claims.find(c => c.id === 'c3')!.status, 'UNVERIFIABLE');
+    assert.match(reviewed.actions.at(-1)!.permit!.reason, /unresolved/); assert.equal((await post(`/${m.id}/finalize`)).status, 403);
+    const copy: Mission = await (await post(`/${m.id}/experiments`)).json();
+    const masked: Mission = await (await post(`/${copy.id}/mask`, { evidenceId: 'e2' })).json();
+    assert.equal(status(masked, 'a3'), 'SUSPENDED'); assert.equal(status(masked, 'a1'), 'ACTIVE');
+    const reset: Mission = await (await post(`/${copy.id}/reset`)).json(); assert.equal(status(reset, 'a3'), 'ACTIVE'); assert.equal((await post(`/${copy.id}/finalize`)).status, 403);
+    const edited: Mission = await (await post(`/${m.id}/note`, { content: reviewed.note!.content + '\nEdited.' })).json(); assert.equal(status(edited, 'a3'), 'NEEDS_HUMAN');
+    await post(`/${m.id}/note`, { content: reviewed.note!.content }); const refused: Mission = await (await post(`/${m.id}/human`, { reviewer: 'Communication lead', decision: 'REFUSE', comment: 'Not balanced.' })).json(); assert.equal(refused.actions.at(-1)!.permit!.status, 'BLOCKED');
+  } finally { await new Promise<void>(resolve => app.close(() => resolve())); await rm(directory, { recursive: true, force: true }); }
+});

@@ -1,66 +1,42 @@
 # PLOT TWIST
 
-A local trust-agent workspace for Decision-Grade AI @ Stanford, challenge 3. Import an original Ezio report, declare its use, request structured analysis and inspect server-evaluated action permissions in the Trame.
+A local trust-agent workspace for Decision-Grade AI @ Stanford, challenge 3. Import an original Ezio report and declare its use. Scout walks the Trame, a 3D world where every action holds a server permit: ACTIVE / SUSPENDED / BLOCKED / NEEDS_HUMAN. **The LLM proposes; the code authorizes.** The Gateway (la Passerelle) opens only after `POST /finalize` re-evaluates the exact note on the server.
 
 ## Run
 
-Node.js 22.12+ and npm:
+Node.js 22.12+:
 
 ```sh
 npm install
-npm run dev
-```
-
-Open http://127.0.0.1:5173. Node listens on http://127.0.0.1:3001; Vite proxies `/api`. Both bind to loopback.
-
-```sh
-npm test
+npm run dev      # API on 127.0.0.1:3001, UI on http://127.0.0.1:5173
+npm test         # synthetic fixtures + mocked transport only
 npm run build
-npm start
 ```
 
-`npm start` runs the compiled API only. `npm run dev` launches the complete local app.
+Copy `.env.example` to `.env`: TOKENROUTER_API_KEY, TOKENROUTER_BASE_URL (e.g. `https://api.tokenrouter.com/v1`), TOKENROUTER_MODEL. Optional KEENABLE_API_KEY; without it the free public Keenable endpoints are used. Secrets stay server-side and are never logged.
 
-## TokenRouter configuration
+Real reports: put the Ezio exports in `data/reports/ev-market.md` and `data/reports/work-from-home.md` (ignored by Git). The UI then shows **Load real export** buttons that fill the report and a declared use. No verdict is stored or hard-coded. See [docs/DEMO.md](docs/DEMO.md) for the click path and a 90-second script.
 
-Copy `.env.example` to `.env` and fill the sponsor-provided values locally. The server loads `.env` on startup; restart after changes. Existing process environment takes precedence. Never put secrets in `VITE_` variables or client code.
+## Sponsors actually used
 
-Required for analysis: TOKENROUTER_API_KEY, TOKENROUTER_BASE_URL, TOKENROUTER_MODEL. No default endpoint or model is supplied. Without them, the UI and API report **Analysis unavailable: provider not configured**. Keenable search → fetch uses the documented public tier when KEENABLE_API_KEY is absent; a configured key selects authenticated endpoints.
+- **Ezio**: the two real trust-analysis exports are the input.
+- **TokenRouter** (`openai/gpt-6.1-sol`): structured report analysis (`max_completion_tokens` 6000) and per-source assessment (2000). Verified with real calls on 2026-10-10.
+- **Keenable** (free public tier): real search, then fetch of at most two results per claim. Fetched text is kept verbatim (no fetch prompt).
+- No HarnessRouter, no paid top-up, no deployment.
 
-The sponsor connection was verified with https://api.tokenrouter.com/v1 and the configured model openai/gpt-6.1-sol. One real minimal JSON completion succeeded; no Ezio analysis has been run yet. BASE_URL must be the supplied HTTPS API base (including its version path), or exact `/chat/completions` endpoint. The adapter appends only `/chat/completions` if necessary. It sends Bearer auth, `messages`, `response_format: {type: "json_object"}`, `max_completion_tokens: 6000`, `stream: false`. Unsupported parameters produce a visible error; there is no silent provider fallback.
+## What the engine does
 
-The report and use are sent only when **Analyze report** is clicked. No request bodies, provider response bodies, keys or endpoint values are logged. Errors are sanitized. There are no purchases, top-ups, deployments or HarnessRouter calls. Research is explicit and bounded.
-
-## Interface
-
-1. Paste/import the real report, provide intended use, then **Create mission**.
-2. **Analyze report** shows progress, errors, model recommendation, report excerpts, issues and server permits.
-3. Inspect **Decision note**, optionally edit and save. Edits invalidate inherited finalization permission.
-4. **Finalize server note** downloads a final document only if the current server permit is ACTIVE. Otherwise use the draft/refusal/review export.
-5. **Create isolated experiment** copies the mission. Its Gateway can never open; export is explicitly labeled as an experiment.
-
-The action arches use green ACTIVE, amber SUSPENDED, red BLOCKED, purple NEEDS_HUMAN; the panel also spells out each status and reason. A permitted research or correction action means authorized preparation, not that the task was executed. An ACTIVE RESEARCH action can now run one explicit Keenable search followed by a fetch of its first eligible result. Pages stay UNVERIFIED and do not resolve issues or unlock finalization. No evidence masking is included yet.
+1. **Analysis**: claims, exact report excerpts (checked against the original text), five signals, issues, use risk and 2–4 actions. Generic rules apply to every report: "Not scored" means not evaluated, never zero; score bars are not probabilities; a heading that checks out does not validate the body; unlisted claims stay UNASSESSED; a self-contradicting verdict is kept, marked DISPUTED and escalated to a human.
+2. **Permits** (`server/policy.ts`): explicit claim and excerpt dependencies, prerequisite chains, issue scope, use stakes, exact note hash. Preparation permits never mean execution.
+3. **Research loop**: search → fetch (≤2) → the model must quote the page → the server checks the quote is in the fetched text, the model's entity/period/scope flags, and deterministically that the expected year appears near the quote. SUPPORTS stays a *candidate* (never promoted to verified evidence). A checked CONTRADICTS escalates FINALIZE to NEEDS_HUMAN and is never auto-resolved. Provenance, content and dates are kept and exported.
+4. **Human review**: the analysis's precise question, the responsible role, a decision (accept the qualified rewrite / require changes / refuse), and optionally a clarified use or claims to withdraw. The review is bound to the analysis and exact note hash, then permits are re-evaluated. A human can complete REQUEST_HUMAN steps and settle HUMAN issues. It can never turn a MISSING issue or an unknown claim into fact.
+5. **Experiments** (magenta): an isolated copy. Mask an excerpt to see only its dependent actions suspend, then Reset. Experiments can never finalize.
+6. **Gateway**: `/finalize` reloads state under a lock, re-evaluates the exact content and records GATEWAY_DECISION. Any error leaves it closed. Outputs: final document (only on ACTIVE), or a labelled draft with reservations, refusal report or question for human review.
 
 ## API
 
-- `GET /api/health`: health and provider configuration presence only.
-- `POST /api/missions`: JSON `{ "originalReport": "…", "intendedUse": "…" }`.
-- `GET /api/missions/:id` and `GET .../events`.
-- `POST .../analyze`: synchronous bounded provider request; GET polling exposes persisted RUNNING state.
-- `POST .../research`: JSON `{ "actionId": "…", "query": "…" }`; requires an ACTIVE RESEARCH permit, persists search/fetch events and unverified sources.
-- `POST .../note`: JSON `{ "content": "…" }`; exact-content re-evaluation.
-- `POST .../experiments`: isolated copy from a real mission.
-- `POST .../finalize`: current-state re-evaluation, GATEWAY_DECISION event, 200 with final document or 403 with reason.
-- `GET .../export`: downloadable text, always explicitly non-final.
+`GET /api/health`, `GET /api/samples`, `POST /api/missions`, `GET /api/missions/:id[/events]`, and `POST /api/missions/:id/` + `analyze`, `research` `{actionId, claimId, query}`, `human` `{reviewer, decision, comment, actionIds?, issueIds?, withdrawClaimIds?, clarifiedUse?}`, `note` `{content}`, `experiments`, `mask` `{evidenceId, masked}` and `reset` (experiments only), `finalize`. `GET .../export` is always non-final.
 
-Mission JSON files are written atomically under ignored `data/`. Original report and import time are preserved. Reload a mission through its `?mission=…` URL. This is a local single-process prototype with no accounts or external database. An interrupted RUNNING analysis is marked failed on server restart.
+## Limits
 
-See [the explicit permit policy](docs/PERMIT_POLICY.md) for limits: matching provenance is not factual truth, extraction remains model-dependent, and absent signals are never invented. Tests use clearly labeled synthetic fixtures and mocked transport only; they do not demonstrate sponsor connectivity or four-report coverage. See PROJECT_STATE.md for the handoff.
-
-## Real connection checks and report handoff
-
-`node --import tsx scripts/check-tokenrouter.ts` is an **opt-in real call** with a 256-token completion cap using the same `.env` loader and transport as the server. It consumes sponsor credits; it is never run automatically. `node --import tsx scripts/check-keenable.ts` makes a real public/keyless search and fetch, with no model call. Both succeeded during connection setup.
-
-Place original Ezio PDFs in `data/reports/` (ignored by Git). The current browser importer accepts text only; a PDF placed there still needs text extraction before mission import. Keep the original PDF intact. No PDF or real Ezio mission was present during setup.
-
-Keenable follows the [official SDK wire contract](https://github.com/keenableai/keenable-sdk/blob/main/typescript/src/client.ts): public endpoints when no key exists, explicit client identification, bounded responses and timeouts. One search returns up to five retained candidates; only the first eligible URL is fetched. Retrieval time and truncation are recorded, without invented expiry. A failed fetch retains actual search results and an explicit error, never fallback content. Non-final exports include the research appendix; final authorization policy is unchanged. Semantic verification of retrieved pages remains to implement.
+Extraction, interpretation and source assessment depend on the model. Server checks bound them (excerpts, quotes, year proximity, hashes) but do not establish truth. The model's entity/scope flags are not independently checked. Excerpt provenance is not factual verification. Single local process, JSON files in `data/`, no accounts and no multi-client sync. See [docs/PERMIT_POLICY.md](docs/PERMIT_POLICY.md) and [PROJECT_STATE.md](PROJECT_STATE.md).

@@ -2,11 +2,11 @@ import { createServer, type IncomingMessage, type ServerResponse } from 'node:ht
 import { mkdir, readFile, rename, writeFile, readdir } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import { randomUUID } from 'node:crypto';
-import type { Mission, Event, ResearchRun } from '../shared/types.js';
+import type { Mission, Event, ResearchRun, HumanReview } from '../shared/types.js';
 import { analyzeReport, providerConfigured, ProviderError } from './provider.js';
 import { validateAnalysis } from './analysis.js';
-import { reevaluate, renderNote, hash, exportDocument } from './policy.js';
-import { searchPages, fetchPage, researchMode, ResearchError } from './keenable.js';
+import { reevaluate, renderNote, hash, exportDocument, analysisHash } from './policy.js';
+import { searchPages, fetchPage, researchMode, ResearchError, assessSource } from './keenable.js';
 const unavailable = 'A valid analysis is required before finalization.';
 class HttpError extends Error { constructor(public status: number, message: string) { super(message); } }
 function event(type: Event['type'], message: string): Event { return { id: randomUUID(), at: new Date().toISOString(), type, message }; }
@@ -46,13 +46,23 @@ export function createApp(dataDir = resolve('data'), analyzer: (report: string, 
       await recovered;
       const url = new URL(req.url ?? '/', 'http://localhost');
       if (req.method === 'GET' && url.pathname === '/api/health') return send(200, { status: 'ok', analysis: providerConfigured() ? 'configured' : 'Analysis unavailable: provider not configured' });
+      // Local real report exports (ignored by Git). Declared uses are the user's briefs; no verdicts are stored.
+      if (req.method === 'GET' && url.pathname === '/api/samples') {
+        const samples = [
+          { id: 'ev-market', title: 'EV market 2024', intendedUse: 'An analyst decides whether this 2024 EV market summary can go into a note for a client. Examine the inconsistent Geely flag (contested and cited figures identical: keep the original verdict, check entity, year and scope), the unverified Top 3 ranking (not shown false) and the unassessed claims. Validation of the heading does not validate the whole text. Do not approve the whole text automatically.' },
+          { id: 'work-from-home', title: 'Work from home', intendedUse: 'A communication lead decides whether this article can be published as a balanced analysis of working models. Accuracy "Not scored" means not evaluated, never zero. One claim is Supported, four lack evidence (unverified, not false). The CRITICAL framing bias calls for editorial revision and targeted human review for this use; it does not show that all claims are false.' },
+        ];
+        const available = [];
+        for (const sample of samples) { try { available.push({ ...sample, report: await readFile(join(dataDir, 'reports', `${sample.id}.md`), 'utf8') }); } catch { /* not present locally */ } }
+        return send(200, available);
+      }
       if (req.method === 'POST' && url.pathname === '/api/missions') {
         const input = await body(req);
         if (input.mode !== undefined && input.mode !== 'REAL') throw new HttpError(400, 'Create an experiment from an existing mission.');
         const mission: Mission = { id: randomUUID(), mode: 'REAL', originalReport: field(input.originalReport, 'Report', 250_000), intendedUse: field(input.intendedUse, 'Intended use', 4000), importedAt: new Date().toISOString(), analysisStatus: 'NOT_AVAILABLE', claims: [], evidence: [], actions: [], gateway: { state: 'CLOSED', reason: unavailable }, events: [event('MISSION_IMPORTED', 'Original report and intended use saved. Ready for analysis when a provider is configured.')] };
         await save(mission); return send(201, mission);
       }
-      const match = url.pathname.match(/^\/api\/missions\/([^/]+)(?:\/(events|experiments|finalize|analyze|note|export|research))?$/);
+      const match = url.pathname.match(/^\/api\/missions\/([^/]+)(?:\/(events|experiments|finalize|analyze|note|export|research|human|mask|reset))?$/);
       if (match) {
         const [, id, operation] = match;
         if (req.method === 'GET' && (!operation || operation === 'events')) { const mission = await read(id); return send(200, operation ? mission.events : mission); }
@@ -68,7 +78,7 @@ export function createApp(dataDir = resolve('data'), analyzer: (report: string, 
           const snapshot = await locked(id, async () => {
             const mission = await read(id);
             if (mission.analysisStatus === 'RUNNING') throw new HttpError(409, 'Analysis is already running.');
-            mission.analysisStatus = 'RUNNING'; delete mission.analysisError; delete mission.analysis; delete mission.note;
+            mission.analysisStatus = 'RUNNING'; delete mission.analysisError; delete mission.analysis; delete mission.note; // Earlier human reviews become stale through analysisHash; they are kept for the audit trail.
             mission.claims = []; mission.evidence = []; mission.actions = []; reevaluate(mission);
             mission.events.push(event('ANALYSIS_STARTED', 'Provider analysis started. Previous content authorization cleared.'));
             await save(mission); return mission;
@@ -92,24 +102,82 @@ export function createApp(dataDir = resolve('data'), analyzer: (report: string, 
         }
         if (req.method === 'POST' && operation === 'research') {
           const input = await body(req); const query = field(input.query, 'Research query', 1000); const actionId = field(input.actionId, 'Action ID', 64);
-          const result = await locked(id, async () => {
+          // Search and assessment run outside the lock; only short state writes are locked.
+          const start = await locked(id, async () => {
             const mission = await read(id); reevaluate(mission);
             const action = mission.actions.find(action => action.id === actionId);
             if (mission.analysisStatus !== 'READY' || action?.kind !== 'RESEARCH' || action.permit?.status !== 'ACTIVE') throw new HttpError(403, 'An ACTIVE server RESEARCH permit is required.');
-            const run: ResearchRun = { id: randomUUID(), actionId, query, mode: researchMode(), at: new Date().toISOString(), analysisHash: hash(JSON.stringify(mission.analysis)), status: 'RUNNING', results: [] };
+            const claimId = typeof input.claimId === 'string' ? input.claimId : action.claimIds[0];
+            if (!action.claimIds.includes(claimId)) throw new HttpError(400, 'The claim must belong to this RESEARCH action.');
+            const run: ResearchRun = { id: randomUUID(), actionId, claimId, claimIds: [claimId], query, mode: researchMode(), at: new Date().toISOString(), analysisHash: hash(JSON.stringify(mission.analysis)), status: 'RUNNING', results: [], pages: [], assessments: [] };
             mission.research ??= []; mission.research.push(run);
-            mission.events.push(event('RESEARCH_STARTED', `Keenable search started for ${actionId} (${run.mode}).`)); await save(mission);
-            try {
-              run.results = await searchPages(query);
-              mission.events.push(event('RESEARCH_SEARCHED', `Keenable returned ${run.results.length} eligible search results for ${actionId}.`)); await save(mission);
-              if (!run.results.length) throw new ResearchError('No eligible Keenable result to fetch.');
-              run.page = await fetchPage(run.results[0].url); run.status = 'COMPLETE';
-              mission.events.push(event('RESEARCH_FETCHED', `Page fetched for ${actionId}. Content is UNVERIFIED; no claim or permit has been promoted.`));
-            } catch (error) { run.status = 'FAILED'; run.error = error instanceof ResearchError ? error.message : 'Research failed.'; mission.events.push(event('RESEARCH_FAILED', run.error)); }
-            // Collection alone does not resolve issues or change factual claim status.
-            reevaluate(mission); await save(mission); return { mission, ...(run.error ? { error: run.error } : {}) };
+            mission.events.push(event('RESEARCH_STARTED', `Keenable search started for ${claimId} via ${actionId} (${run.mode}).`)); await save(mission);
+            const analyzed = /```[a-z]*\n([\s\S]*?)```/.exec(mission.originalReport)?.[1] ?? '';
+            return { run, claim: mission.analysis!.claims.find(c => c.id === claimId)!.text, analyzed };
+          });
+          const { run, claim, analyzed } = start; const notes: Event[] = [];
+          try {
+            run.results = await searchPages(query);
+            notes.push(event('RESEARCH_SEARCHED', `Keenable returned ${run.results.length} eligible result(s) for ${run.claimId} (max 2).`));
+            if (!run.results.length) throw new ResearchError('No eligible Keenable result to fetch.');
+            for (const result of run.results) {
+              try { const page = await fetchPage(result.url); run.pages!.push(page); run.page ??= page; notes.push(event('RESEARCH_FETCHED', `Fetched ${page.url} (${page.content.length} chars). Content UNVERIFIED.`)); }
+              catch (error) { notes.push(event('RESEARCH_FAILED', `Fetch failed for ${result.url}: ${error instanceof ResearchError ? error.message : 'error'}`)); continue; }
+              try { const assessment = await assessSource(claim, run.pages!.at(-1)!, run.claimId!, result.publishedAt, analyzed); run.assessments!.push(assessment); notes.push(event('RESEARCH_ASSESSED', `${run.claimId} vs ${assessment.url}: ${assessment.stance} (quote found: ${assessment.quoteFound}; entity/period/scope: ${assessment.context.entity}/${assessment.context.period}/${assessment.context.scope}).`)); }
+              catch (error) { notes.push(event('RESEARCH_FAILED', `Assessment failed for ${result.url}: ${error instanceof ProviderError ? error.message : 'error'}`)); }
+            }
+            if (!run.pages!.length) throw new ResearchError('No page could be fetched.');
+            run.status = 'COMPLETE';
+          } catch (error) { run.status = 'FAILED'; run.error = error instanceof ResearchError ? error.message : 'Research failed.'; notes.push(event('RESEARCH_FAILED', run.error)); }
+          const result = await locked(id, async () => {
+            const mission = await read(id); const index = (mission.research ?? []).findIndex(r => r.id === run.id);
+            if (index >= 0) mission.research![index] = run; mission.events.push(...notes);
+            // Assessments can escalate a contradiction; they never promote a claim to verified.
+            reevaluate(mission); mission.events.push(event('PERMITS_EVALUATED', 'Permits re-evaluated after source assessment.')); await save(mission); return { mission, ...(run.error ? { error: run.error } : {}) };
           });
           return send(result.error ? 502 : 200, result);
+        }
+        if (req.method === 'POST' && operation === 'human') {
+          const input = await body(req);
+          const decision = input.decision; if (decision !== 'ACCEPT_QUALIFIED' && decision !== 'REQUIRE_CHANGES' && decision !== 'REFUSE') throw new HttpError(400, 'Decision must be ACCEPT_QUALIFIED, REQUIRE_CHANGES or REFUSE.');
+          const reviewer = field(input.reviewer, 'Reviewer role', 120); const comment = field(input.comment, 'Review comment', 4000);
+          const list = (value: unknown, name: string) => { if (value === undefined) return []; if (!Array.isArray(value) || value.length > 20 || value.some(v => typeof v !== 'string')) throw new HttpError(400, `${name} must be a list of IDs.`); return value as string[]; };
+          const actionIds = list(input.actionIds, 'actionIds'); const issueIds = list(input.issueIds, 'issueIds'); const withdrawClaimIds = list(input.withdrawClaimIds, 'withdrawClaimIds');
+          const clarifiedUse = input.clarifiedUse === undefined || input.clarifiedUse === '' ? undefined : field(input.clarifiedUse, 'Clarified use', 2000);
+          const mission = await locked(id, async () => {
+            const current = await read(id);
+            if (current.analysisStatus !== 'READY' || !current.analysis || !current.note) throw new HttpError(409, 'A valid analysis and decision note are required before a human review.');
+            if (actionIds.some(a => !current.analysis!.actions.some(x => x.id === a && x.kind === 'REQUEST_HUMAN'))) throw new HttpError(400, 'Only REQUEST_HUMAN actions can be completed by a human review.');
+            if (issueIds.some(i => !current.analysis!.issues.some(x => x.id === i && x.severity === 'HUMAN'))) throw new HttpError(400, 'Only HUMAN judgment issues can be settled by a human; missing information still needs evidence.');
+            if (withdrawClaimIds.some(c => !current.analysis!.claims.some(x => x.id === c))) throw new HttpError(400, 'Unknown claim to withdraw.');
+            const review: HumanReview = { id: randomUUID(), at: new Date().toISOString(), reviewer, decision, comment, actionIds, issueIds, withdrawClaimIds, ...(clarifiedUse ? { clarifiedUse } : {}), question: current.analysis.nextQuestion, analysisHash: analysisHash(current), noteHash: '' };
+            current.humanReviews ??= []; current.humanReviews.push(review);
+            // Scope changes regenerate the server-rendered note only if it was unedited; the review binds to the resulting exact content.
+            if (hash(current.note.content) === current.note.analyzedHash) { const content = renderNote(current); if (content !== current.note.content) { current.note = { content, contentHash: hash(content), analyzedHash: hash(content), revision: current.note.revision + 1 }; current.events.push(event('CONTENT_CHANGED', 'Server regenerated the note from the human scope change; the new exact content is re-evaluated.')); } }
+            review.noteHash = hash(current.note.content);
+            current.events.push(event('HUMAN_REVIEW_RECORDED', `${reviewer}: ${decision}. Recorded as human judgment, not factual evidence; bound to note SHA-256 ${review.noteHash.slice(0, 12)}.`));
+            reevaluate(current); current.events.push(event('PERMITS_EVALUATED', 'Server policy re-evaluated after the human review.'));
+            await save(current); return current;
+          });
+          return send(200, mission);
+        }
+        if (req.method === 'POST' && (operation === 'mask' || operation === 'reset')) {
+          const input = await body(req);
+          const mission = await locked(id, async () => {
+            const current = await read(id);
+            if (current.mode !== 'EXPERIMENT') throw new HttpError(403, 'Evidence can only be masked in an isolated experiment.');
+            if (current.analysisStatus !== 'READY' || !current.analysis) throw new HttpError(409, 'A valid analysis is required.');
+            if (operation === 'reset') { current.evidence = structuredClone(current.analysis.evidence); current.events.push(event('EXPERIMENT_RESET', 'All excerpts restored from the validated analysis.')); }
+            else {
+              const evidenceId = field(input.evidenceId, 'Evidence ID', 64); const item = current.evidence.find(e => e.id === evidenceId); const original = current.analysis.evidence.find(e => e.id === evidenceId);
+              if (!item || !original) throw new HttpError(404, 'Evidence not found.');
+              const masked = input.masked !== false; item.state = masked ? 'MASKED' : original.state;
+              current.events.push(event(masked ? 'EVIDENCE_MASKED' : 'EVIDENCE_RESTORED', `${evidenceId} ${masked ? 'masked' : 'restored'} in this experiment only.`));
+            }
+            reevaluate(current); current.events.push(event('PERMITS_EVALUATED', 'Dependent actions re-evaluated against the current excerpts.'));
+            await save(current); return current;
+          });
+          return send(200, mission);
         }
         if (req.method === 'POST' && operation === 'note') {
           const input = await body(req); const content = field(input.content, 'Decision note', 100000);
