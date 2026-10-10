@@ -17,12 +17,17 @@ export interface Analysis {
   caveats: string[]; nextQuestion: string;
 }
 export interface DecisionNote { content: string; contentHash: string; analyzedHash: string; revision: number }
-export interface Event { id: string; at: string; type: 'MISSION_IMPORTED' | 'EXPERIMENT_CREATED' | 'FINALIZATION_DENIED' | 'ANALYSIS_STARTED' | 'ANALYSIS_COMPLETED' | 'ANALYSIS_FAILED' | 'PERMITS_EVALUATED' | 'GATEWAY_DECISION' | 'CONTENT_CHANGED'; message: string }
+export interface Event { id: string; at: string; type: 'MISSION_IMPORTED' | 'EXPERIMENT_CREATED' | 'FINALIZATION_DENIED' | 'ANALYSIS_STARTED' | 'ANALYSIS_COMPLETED' | 'ANALYSIS_FAILED' | 'PERMITS_EVALUATED' | 'GATEWAY_DECISION' | 'CONTENT_CHANGED' | 'RESEARCH_STARTED' | 'RESEARCH_SEARCHED' | 'RESEARCH_FETCHED' | 'RESEARCH_FAILED'; message: string }
 export interface Mission {
   id: string; mode: 'REAL' | 'EXPERIMENT'; sourceMissionId?: string;
   originalReport: string; intendedUse: string; importedAt: string;
   analysisStatus: 'NOT_AVAILABLE' | 'RUNNING' | 'READY' | 'FAILED'; analysisError?: string;
+  research?: ResearchRun[];
   analysis?: Analysis; note?: DecisionNote;
   claims: Claim[]; evidence: Evidence[]; actions: Action[];
   gateway: { state: 'CLOSED' | 'OPEN'; reason: string; contentHash?: string }; events: Event[];
 }
+
+export interface ResearchResult { url: string; title: string; snippet: string; publishedAt?: string }
+export interface ResearchPage { url: string; title: string; content: string; truncated: boolean; fetchedAt: string; state: 'UNVERIFIED' }
+export interface ResearchRun { id: string; actionId: string; query: string; mode: 'KEYLESS_PUBLIC' | 'AUTHENTICATED'; at: string; analysisHash: string; status: 'RUNNING' | 'COMPLETE' | 'FAILED'; results: ResearchResult[]; page?: ResearchPage; error?: string }

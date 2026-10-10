@@ -19,7 +19,7 @@ The server validates field types, enum values, bounds, unique IDs, references an
 | BLOCKED | An explicit refusal issue affects approval, or the mission is an experiment attempting FINALIZE. |
 | NEEDS_HUMAN | A contradiction, uncertain stakes, high-stakes use, content change or unresolved judgment prevents approval. |
 
-CORRECT, RESEARCH, REQUEST_HUMAN and BLOCK actions authorize **preparation of the proposed task**, not execution or successful completion. Their known source dependencies can remain available even when a different claim lacks evidence. Research and human resolution are not executed in this phase. `dependsOn` denotes prerequisite authorization conditions, not completed work; action completion is deliberately not fabricated.
+CORRECT, RESEARCH, REQUEST_HUMAN and BLOCK actions authorize **preparation of the proposed task**, not execution or successful completion. Their known source dependencies can remain available even when a different claim lacks evidence. Research collection can now execute via Keenable under an ACTIVE RESEARCH permit. Retrieved pages remain UNVERIFIED and cannot satisfy completion or factual conditions automatically. Human resolution is not implemented. `dependsOn` denotes prerequisite authorization conditions, not completed work; action completion is deliberately not fabricated.
 
 APPROVE checks issues scoped to its claims (empty issue claim scope means global), requires report-supported claims, then applies publication conditions. FINALIZE additionally checks the entire exact note, all its sources, all claims and all plan authorizations. Finalization requires:
 
@@ -41,4 +41,4 @@ Editing `POST .../note` regenerates its hash, closes the Gateway and re-evaluate
 
 Exports always include mode, hash, permissions and explicit labels: draft with reservations, refusal report, question for human review, or experiment report. `/export` never serves a final document, even after a successful Gateway decision. A final document is returned only by successful `/finalize`. This phase produces a decision note with qualified claims and provenance, not a separately rewritten untraceable answer.
 
-State is atomic JSON in one Node process. The 3D scene and panel consume the same returned/polled mission snapshots and event log. Action arches follow action permits; the Gateway opens only after a successful server decision. No real-time multi-client synchronization or external research is claimed.
+State is atomic JSON in one Node process. The 3D scene and panel consume the same returned/polled mission snapshots and event log. Action arches follow action permits; the Gateway opens only after a successful server decision. No real-time multi-client synchronization is claimed. Keenable collections are stored separately with query, URL, timestamp and analysis hash; they never silently modify report-derived evidence.

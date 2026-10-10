@@ -78,7 +78,7 @@ test('synthetic provider transport: configured endpoint/model, limits, malformed
   let mode = 'success';
   t.mock.method(globalThis, 'fetch', async (url: URL, options: RequestInit) => {
     assert.equal(url.toString(), 'https://synthetic.invalid/custom/v1/chat/completions');
-    const payload = JSON.parse(options.body as string); assert.equal(payload.model, 'synthetic-test-model'); assert.equal(payload.max_tokens, 6000); assert.equal(options.redirect, 'error'); assert.ok(options.signal);
+    const payload = JSON.parse(options.body as string); assert.equal(payload.model, 'synthetic-test-model'); assert.equal(payload.max_completion_tokens, 6000); assert.equal(options.redirect, 'error'); assert.ok(options.signal);
     assert.equal(JSON.parse(payload.messages[1].content).originalReport, report);
     if (mode === 'http') return new Response('Secret upstream body must never be exposed', { status: 401 });
     if (mode === 'timeout') throw new DOMException('sensitive network detail', 'TimeoutError');

@@ -2,10 +2,11 @@ import { createServer, type IncomingMessage, type ServerResponse } from 'node:ht
 import { mkdir, readFile, rename, writeFile, readdir } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import { randomUUID } from 'node:crypto';
-import type { Mission, Event } from '../shared/types.js';
+import type { Mission, Event, ResearchRun } from '../shared/types.js';
 import { analyzeReport, providerConfigured, ProviderError } from './provider.js';
 import { validateAnalysis } from './analysis.js';
 import { reevaluate, renderNote, hash, exportDocument } from './policy.js';
+import { searchPages, fetchPage, researchMode, ResearchError } from './keenable.js';
 const unavailable = 'A valid analysis is required before finalization.';
 class HttpError extends Error { constructor(public status: number, message: string) { super(message); } }
 function event(type: Event['type'], message: string): Event { return { id: randomUUID(), at: new Date().toISOString(), type, message }; }
@@ -31,6 +32,9 @@ export function createApp(dataDir = resolve('data'), analyzer: (report: string, 
     for (const file of await readdir(dataDir)) {
       if (!/^[0-9a-f-]{36}\.json$/.test(file)) continue;
       const mission = await read(file.slice(0, -5));
+      let researchInterrupted = false;
+      for (const run of mission.research ?? []) if (run.status === 'RUNNING') { run.status = 'FAILED'; run.error = 'Research interrupted by server restart.'; researchInterrupted = true; mission.events.push(event('RESEARCH_FAILED', run.error)); }
+      if (researchInterrupted) { reevaluate(mission); await save(mission); }
       if (mission.analysisStatus === 'RUNNING') { mission.analysisStatus = 'FAILED'; mission.analysisError = 'Analysis interrupted by server restart. Please retry.'; reevaluate(mission); mission.events.push(event('ANALYSIS_FAILED', mission.analysisError)); await save(mission); }
     }
   })();
@@ -48,13 +52,13 @@ export function createApp(dataDir = resolve('data'), analyzer: (report: string, 
         const mission: Mission = { id: randomUUID(), mode: 'REAL', originalReport: field(input.originalReport, 'Report', 250_000), intendedUse: field(input.intendedUse, 'Intended use', 4000), importedAt: new Date().toISOString(), analysisStatus: 'NOT_AVAILABLE', claims: [], evidence: [], actions: [], gateway: { state: 'CLOSED', reason: unavailable }, events: [event('MISSION_IMPORTED', 'Original report and intended use saved. Ready for analysis when a provider is configured.')] };
         await save(mission); return send(201, mission);
       }
-      const match = url.pathname.match(/^\/api\/missions\/([^/]+)(?:\/(events|experiments|finalize|analyze|note|export))?$/);
+      const match = url.pathname.match(/^\/api\/missions\/([^/]+)(?:\/(events|experiments|finalize|analyze|note|export|research))?$/);
       if (match) {
         const [, id, operation] = match;
         if (req.method === 'GET' && (!operation || operation === 'events')) { const mission = await read(id); return send(200, operation ? mission.events : mission); }
         if (req.method === 'POST' && operation === 'experiments') {
           const source = await read(id);
-          if (source.analysisStatus === 'RUNNING') throw new HttpError(409, 'Wait for analysis to finish before copying.');
+          if (source.analysisStatus === 'RUNNING' || source.research?.some(run => run.status === 'RUNNING')) throw new HttpError(409, 'Wait for analysis or research to finish before copying.');
           if (source.mode !== 'REAL') throw new HttpError(400, 'An experiment must originate from a real mission.');
           const copy: Mission = { ...structuredClone(source), id: randomUUID(), mode: 'EXPERIMENT', sourceMissionId: source.id, gateway: { state: 'CLOSED', reason: 'Experiments can never finalize.' }, events: [event('EXPERIMENT_CREATED', 'Isolated copy created. Experiments can never finalize.')] };
           reevaluate(copy); await save(copy); return send(201, copy);
@@ -85,6 +89,27 @@ export function createApp(dataDir = resolve('data'), analyzer: (report: string, 
             await save(current); return current;
           });
           return send(failure ? 422 : 200, failure ? { error: failure, mission } : mission);
+        }
+        if (req.method === 'POST' && operation === 'research') {
+          const input = await body(req); const query = field(input.query, 'Research query', 1000); const actionId = field(input.actionId, 'Action ID', 64);
+          const result = await locked(id, async () => {
+            const mission = await read(id); reevaluate(mission);
+            const action = mission.actions.find(action => action.id === actionId);
+            if (mission.analysisStatus !== 'READY' || action?.kind !== 'RESEARCH' || action.permit?.status !== 'ACTIVE') throw new HttpError(403, 'An ACTIVE server RESEARCH permit is required.');
+            const run: ResearchRun = { id: randomUUID(), actionId, query, mode: researchMode(), at: new Date().toISOString(), analysisHash: hash(JSON.stringify(mission.analysis)), status: 'RUNNING', results: [] };
+            mission.research ??= []; mission.research.push(run);
+            mission.events.push(event('RESEARCH_STARTED', `Keenable search started for ${actionId} (${run.mode}).`)); await save(mission);
+            try {
+              run.results = await searchPages(query);
+              mission.events.push(event('RESEARCH_SEARCHED', `Keenable returned ${run.results.length} eligible search results for ${actionId}.`)); await save(mission);
+              if (!run.results.length) throw new ResearchError('No eligible Keenable result to fetch.');
+              run.page = await fetchPage(run.results[0].url); run.status = 'COMPLETE';
+              mission.events.push(event('RESEARCH_FETCHED', `Page fetched for ${actionId}. Content is UNVERIFIED; no claim or permit has been promoted.`));
+            } catch (error) { run.status = 'FAILED'; run.error = error instanceof ResearchError ? error.message : 'Research failed.'; mission.events.push(event('RESEARCH_FAILED', run.error)); }
+            // Collection alone does not resolve issues or change factual claim status.
+            reevaluate(mission); await save(mission); return { mission, ...(run.error ? { error: run.error } : {}) };
+          });
+          return send(result.error ? 502 : 200, result);
         }
         if (req.method === 'POST' && operation === 'note') {
           const input = await body(req); const content = field(input.content, 'Decision note', 100000);

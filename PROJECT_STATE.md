@@ -1,5 +1,16 @@
 # PLOT TWIST — point de reprise
 
+## Mise à jour — connexion sponsor et collecte Keenable
+
+- `.env` contient désormais la clé sous le nom attendu, l’URL sponsor `https://api.tokenrouter.com/v1` et le modèle `openai/gpt-6.1-sol`. Clé jamais affichée ; `.env` reste ignoré et non suivi.
+- Serveur et script de contrôle utilisent `server/config.ts`. Santé du serveur : `analysis: configured`.
+- Blocage réel corrigé : le modèle refusait `max_tokens` (HTTP 400) et exige `max_completion_tokens`. Un appel minimal réel a ensuite réussi, JSON `{ "ok": true }` validé, limite de sortie 256 tokens. Pas de recharge ni de fallback modèle.
+- Aucun rapport Ezio présent. Déposer le PDF original dans `/Users/vincentgppm/Projects/plot-twist/data/reports/`, ignoré par Git. Extraction PDF à effectuer à réception ; import navigateur actuellement texte uniquement.
+- `server/keenable.ts` : recherche puis fetch réels, mode public sans clé Keenable, timeouts 30 s par appel, 5 résultats retenus, 1 page récupérée, contenu borné et marqué UNVERIFIED. Smoke check réel réussi : 5 résultats et page `https://docs.keenable.ai/api-reference` récupérée (2 865 caractères).
+- `POST .../research` et panneau existant : requête explicite sous permis RESEARCH ACTIVE, événements persistés, sources consultables et exportables. Pas de promotion automatique en preuve factuelle, pas de résolution implicite des problèmes et aucun changement de politique de finalisation. La 3D est inchangée.
+- Vérification TypeScript ciblée effectuée. Pas de répétition des tests généraux ni du build complet. Les contrôles réels de transport ne constituent pas une analyse Ezio ni une validation des quatre rapports.
+- Prochaine étape : recevoir le vrai rapport et son usage, extraire/importer puis analyser ; ensuite relier l’examen des sources récupérées à une résolution explicite et traçable des problèmes. Les sections phase 2 ci-dessous décrivent le précédent jalon ; cette mise à jour remplace leur ancien constat d’accès manquants.
+
 ## Vision
 
 La Trame est un univers 3D où Scout traite un vrai rapport Ezio selon l’usage déclaré. Les actions reçoivent un permis serveur ACTIVE / SUSPENDED / BLOCKED / NEEDS_HUMAN. La Passerelle contrôle la finalisation du contenu exact. Les expériences sont isolées et ne finalisent jamais.

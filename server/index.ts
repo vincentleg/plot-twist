@@ -1,5 +1,4 @@
-import { existsSync } from 'node:fs';
-if (existsSync('.env')) process.loadEnvFile('.env');
+import './config.js';
 import { createApp } from './app.js';
 const server = createApp();
 server.listen(3001, '127.0.0.1', () => console.log('PLOT TWIST API: http://127.0.0.1:3001'));
