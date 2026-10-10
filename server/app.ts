@@ -2,10 +2,11 @@ import { createServer, type IncomingMessage, type ServerResponse } from 'node:ht
 import { mkdir, readFile, rename, writeFile, readdir } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import { randomUUID } from 'node:crypto';
-import type { Mission, Event, ResearchRun, HumanReview } from '../shared/types.js';
+import type { Mission, Event, ResearchRun, HumanReview, Revision } from '../shared/types.js';
 import { analyzeReport, providerConfigured, ProviderError } from './provider.js';
 import { validateAnalysis } from './analysis.js';
 import { reevaluate, renderNote, hash, exportDocument, analysisHash } from './policy.js';
+import { createRevision, evaluateRevision, revisionPdf } from './revision.js';
 import { searchPages, fetchPage, researchMode, ResearchError, assessSource } from './keenable.js';
 const unavailable = 'A valid analysis is required before finalization.';
 class HttpError extends Error { constructor(public status: number, message: string) { super(message); } }
@@ -61,6 +62,50 @@ export function createApp(dataDir = resolve('data'), analyzer: (report: string, 
         if (input.mode !== undefined && input.mode !== 'REAL') throw new HttpError(400, 'Create an experiment from an existing mission.');
         const mission: Mission = { id: randomUUID(), mode: 'REAL', originalReport: field(input.originalReport, 'Report', 250_000), intendedUse: field(input.intendedUse, 'Intended use', 4000), importedAt: new Date().toISOString(), analysisStatus: 'NOT_AVAILABLE', claims: [], evidence: [], actions: [], gateway: { state: 'CLOSED', reason: unavailable }, events: [event('MISSION_IMPORTED', 'Original report and intended use saved. Ready for analysis when a provider is configured.')] };
         await save(mission); return send(201, mission);
+      }
+      const rev = url.pathname.match(/^\/api\/missions\/([^/]+)\/revisions(?:\/([0-9a-f-]{36})(?:\/(review|finalize|pdf))?)?$/);
+      if (rev) {
+        const [, id, rid, op] = rev;
+        const find = (m: Mission): Revision => { const r = m.revisions?.find(x => x.id === rid); if (!r) throw new HttpError(404, 'Revision not found.'); return r; };
+        const refresh = (m: Mission, r: Revision) => { const e = evaluateRevision(m, r); r.permit = e.permit; r.humanReasons = e.humanReasons; return e.permit; };
+        if (req.method === 'POST' && !rid) {
+          const result = await locked(id, async () => {
+            const m = await read(id);
+            if (m.mode !== 'REAL') throw new HttpError(403, 'Experiments can never produce a finalizable revision.');
+            if (m.analysisStatus !== 'READY' || !m.analysis) throw new HttpError(409, 'A valid analysis is required.');
+            const r = createRevision(m); refresh(m, r); m.revisions ??= []; m.revisions.push(r);
+            m.events.push(event('REVISION_CREATED', `Revision ${r.id.slice(0, 8)}: kept ${r.keptClaimIds.length}, removed ${r.removed.length}. Permit ${r.permit!.status}: ${r.permit!.reason}`));
+            await save(m); return { mission: m, revision: r };
+          });
+          return send(201, result);
+        }
+        if (req.method === 'POST' && op === 'review') {
+          const input = await body(req); const decision = input.decision;
+          if (decision !== 'ACCEPT_LIMITED_USE' && decision !== 'DECLINE') throw new HttpError(400, 'Decision must be ACCEPT_LIMITED_USE or DECLINE.');
+          const reviewer = field(input.reviewer, 'Reviewer role', 120); const comment = typeof input.comment === 'string' ? input.comment.slice(0, 2000) : '';
+          const result = await locked(id, async () => {
+            const m = await read(id); const r = find(m);
+            r.reviews.push({ at: new Date().toISOString(), reviewer, decision, comment, acceptedUse: r.proposedUse, contentHash: r.contentHash });
+            refresh(m, r); m.events.push(event('REVISION_REVIEWED', `${reviewer}: ${decision} on revision ${r.id.slice(0, 8)} (human judgment, not evidence). Permit ${r.permit!.status}.`));
+            await save(m); return { mission: m, revision: r };
+          });
+          return send(200, result);
+        }
+        if (req.method === 'POST' && op === 'finalize') {
+          const result = await locked(id, async () => {
+            const m = await read(id); const r = find(m); const permit = refresh(m, r);
+            const allowed = m.mode === 'REAL' && permit.status === 'ACTIVE';
+            if (allowed) r.finalized = { at: new Date().toISOString(), contentHash: r.contentHash };
+            m.events.push(event('GATEWAY_DECISION', `${allowed ? 'ALLOWED' : 'DENIED'} revision ${r.id.slice(0, 8)}: ${permit.reason} Content SHA-256: ${r.contentHash}`));
+            await save(m); return { allowed, mission: m, revision: r, ...(allowed ? {} : { error: permit.reason }) };
+          });
+          return send(result.allowed ? 200 : 403, result);
+        }
+        if (req.method === 'GET' && op === 'pdf') {
+          const m = await read(id); const r = find(m); const { file, approved } = revisionPdf(m, r);
+          res.writeHead(200, { 'Content-Type': 'application/pdf', 'Content-Disposition': `attachment; filename="plot-twist-revision-${r.id.slice(0, 8)}-${approved ? 'approved' : 'DRAFT'}.pdf"`, 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' });
+          return res.end(file);
+        }
       }
       const match = url.pathname.match(/^\/api\/missions\/([^/]+)(?:\/(events|experiments|finalize|analyze|note|export|research|human|mask|reset))?$/);
       if (match) {

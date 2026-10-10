@@ -35,7 +35,7 @@ Real reports: put the Ezio exports in `data/reports/ev-market.md` and `data/repo
 
 ## API
 
-`GET /api/health`, `GET /api/samples`, `POST /api/missions`, `GET /api/missions/:id[/events]`, and `POST /api/missions/:id/` + `analyze`, `research` `{actionId, claimId, query}`, `human` `{reviewer, decision, comment, actionIds?, issueIds?, withdrawClaimIds?, clarifiedUse?}`, `note` `{content}`, `experiments`, `mask` `{evidenceId, masked}` and `reset` (experiments only), `finalize`. `GET .../export` is always non-final.
+`GET /api/health`, `GET /api/samples`, `POST /api/missions`, `GET /api/missions/:id[/events]`, and `POST /api/missions/:id/` + `analyze`, `research` `{actionId, claimId, query}`, `human` `{reviewer, decision, comment, actionIds?, issueIds?, withdrawClaimIds?, clarifiedUse?}`, `note` `{content}`, `experiments`, `mask` `{evidenceId, masked}` and `reset` (experiments only), `finalize`. `GET .../export` is always non-final. Revised documents: `POST .../revisions`, `POST .../revisions/:rid/review` `{reviewer, decision: ACCEPT_LIMITED_USE|DECLINE}`, `POST .../revisions/:rid/finalize` and `GET .../revisions/:rid/pdf` (approved only after an ACTIVE finalize of the same hash; otherwise DRAFT).
 
 ## Limits
 

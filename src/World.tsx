@@ -4,7 +4,7 @@ import { OrbitControls, Grid, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import type { Mission, PermitStatus, Action } from '../shared/types';
 // Staging only: camera framing, highlights and Scout's stop. Object states always come from the server mission.
-export type SceneFocus = { kind: 'overview' | 'scout' | 'evidence' | 'action' | 'gateway' | 'source'; ids?: string[]; links?: boolean };
+export type SceneFocus = { kind: 'overview' | 'scout' | 'evidence' | 'action' | 'gateway' | 'source' | 'cross'; ids?: string[]; links?: boolean };
 export const kindLabel: Record<string, string> = { RESEARCH: 'Research', REQUEST_HUMAN: 'Ask a person', CORRECT: 'Prepare a corrected draft', APPROVE: 'Approve claims', BLOCK: 'Refuse', FINALIZE: 'Final document' };
 export const permitWord: Record<PermitStatus, string> = { ACTIVE: 'Allowed to work', SUSPENDED: 'Paused', BLOCKED: 'Blocked', NEEDS_HUMAN: 'Needs a person' };
 export const dependsOnEvidence = (mission: Mission, action: Action, evidenceId: string) => action.evidenceIds.includes(evidenceId) || mission.claims.some(c => action.claimIds.includes(c.id) && c.evidenceIds.includes(evidenceId));
@@ -36,6 +36,7 @@ function focusPoint(mission: Mission | null, focus?: SceneFocus): { scout?: [num
     case 'scout': return { cam: [-1.5, 3.6, 8.5], target: [-1.5, 1, 2] };
     case 'evidence': { const xs = (focus.ids ?? []).map(id => ev.findIndex(e => e.id === id)).filter(i => i >= 0).map(i => crystalX(i, ev.length)); const x = xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : 0; return { scout: [x, 3.6], cam: [x * .6, focus.links ? 6.5 : 4.2, focus.links ? 12 : 10], target: [x * .5, .6, focus.links ? 2.6 : 4.4] }; }
     case 'action': { const i = Math.max(0, plan.findIndex(a => focus.ids?.includes(a.id))); const x = archX(i, plan.length); return { scout: [x, 1.4], cam: [x * .5 + 1, 5, 9.5], target: [x * .5, 1, .4] }; }
+    case 'cross': return { scout: [0, -6.5], cam: [4.5, 4.5, 5.5], target: [0, 1.6, -4] };
     case 'gateway': return { scout: [0, -.6], cam: [0, 4.2, 5.5], target: [0, 2, -3.2] };
     case 'source': { const [x, z] = sourcePos(0); return { scout: [x - .6, z + 1.4], cam: [x + 1.3, 4.6, z + 8.5], target: [x + 1.3, 1, z] }; }
     default: return { cam: [9, 7, 11], target: [0, 1, 0] };
@@ -53,11 +54,12 @@ function CameraRig({ mission, focus }: { mission: Mission | null; focus?: SceneF
   });
   return null;
 }
-function Scout({ mission, focus }: { mission: Mission | null; focus?: SceneFocus }) {
+function Scout({ mission, focus, carrying }: { mission: Mission | null; focus?: SceneFocus; carrying?: boolean }) {
   const ref = useRef<THREE.Group>(null);
   const [tx, tz] = focusPoint(mission, focus).scout ?? scoutTarget(mission);
   useFrame(({ clock }, delta) => { const g = ref.current; if (!g) return; g.position.x += (tx - g.position.x) * Math.min(1, delta * 1.6); g.position.z += (tz - g.position.z) * Math.min(1, delta * 1.6); g.position.y = 1.05 + Math.sin(clock.elapsedTime * 1.5) * .09; });
   return <group ref={ref} position={[-2.2, 1.05, 3]} rotation={[0,.35,0]}>
+    {carrying && <mesh position={[0, .85, 0]} rotation={[-.3, .35, 0]}><boxGeometry args={[.5, .66, .03]} /><meshBasicMaterial color="#f4f1ea" /></mesh>}
     <mesh><octahedronGeometry args={[.48, 0]} /><meshStandardMaterial color="#173a43" metalness={.65} roughness={.35} /></mesh>
     <mesh position={[0, .04, .35]}><boxGeometry args={[.34, .085, .09]} /><meshBasicMaterial color="#a1fff1" /></mesh>
     <mesh position={[0,-.62,0]} rotation={[-Math.PI/2,0,0]}><ringGeometry args={[.31,.34,32]} /><meshBasicMaterial color="#56d7ce" side={THREE.DoubleSide} /></mesh>
@@ -93,9 +95,10 @@ function EvidenceCrystals({ mission, selected, onSelect, focus }: { mission: Mis
     <Html position={[0, -.42, 0]} center zIndexRange={[4, 0]}><div className="scene-label" style={{ color: evidenceColor(e.state), padding: '1px 4px' }}>{e.id}</div></Html>
   </group>; })}</group>;
 }
-function GatewayLabel({ mission }: { mission: Mission | null }) {
+function GatewayLabel({ mission, revisionOpen }: { mission: Mission | null; revisionOpen?: boolean }) {
   const final = mission?.actions.find(a => a.kind === 'FINALIZE')?.permit;
   if (!final) return null;
+  if (revisionOpen) return <Html position={[0, 4.3, -3.2]} center zIndexRange={[5, 0]}><div className="scene-label big" style={{ color: permitColors.ACTIVE }}>REVISED DOCUMENT AUTHORIZED<small>Original still not authorized</small></div></Html>;
   const open = mission?.gateway.state === 'OPEN'; const color = open ? permitColors.ACTIVE : permitColors[final.status];
   return <Html position={[0, 4.3, -3.2]} center zIndexRange={[5, 0]}><div className="scene-label big" style={{ color }}>{open ? 'FINAL DOCUMENT AUTHORIZED' : 'FINAL DOCUMENT: NOT AUTHORIZED'}<small>{permitWord[final.status]}</small></div></Html>;
 }
@@ -125,11 +128,11 @@ function EvidenceCard({ mission, id, onClose }: { mission: Mission; id: string; 
   const claims = mission.claims.filter(c => c.evidenceIds.includes(id)); const actions = mission.actions.filter(a => a.kind !== 'FINALIZE' && (a.evidenceIds.includes(id) || claims.some(c => a.claimIds.includes(c.id))));
   return <div className="evidence-card"><button onClick={onClose} aria-label="Close">×</button><span className="eyebrow">{e.id} · {e.state === 'VERIFIED' ? 'EXCERPT MATCHED (provenance only)' : e.state}</span><blockquote>{e.text.slice(0, 400)}</blockquote>{claims.map(c => <p key={c.id}><b>{c.id} · {c.status}</b> {c.text.slice(0, 140)}</p>)}<small>Depending actions: {actions.map(a => `${a.id} ${a.permit?.status}`).join(' · ') || 'none'}</small></div>;
 }
-export default function World({ mission, focus, testWorld }: { mission: Mission | null; focus?: SceneFocus; testWorld?: boolean }) {
+export default function World({ mission, focus, testWorld, gateOpen }: { mission: Mission | null; focus?: SceneFocus; testWorld?: boolean; gateOpen?: boolean }) {
   const [selected, setSelected] = useState('');
   return <section className="world" aria-label="Interactive 3D world reflecting server permissions">
     <div className="world-top"><span className="eyebrow">LIVE ENVIRONMENT / LA TRAME</span><span className="world-state">◌ {mission ? mission.analysisStatus : 'Awaiting mission'}</span></div>
-    <SceneBoundary><Canvas style={{ position: 'absolute', inset: 0 }} dpr={[1,1.5]} camera={{ position: [9,7,11], fov: 44 }} gl={{ antialias: true }}><color attach="background" args={[testWorld || mission?.mode === 'EXPERIMENT' ? '#1a0820' : '#080f17']} /><fog attach="fog" args={['#080f17',16,36]} /><ambientLight intensity={.7} /><directionalLight position={[4,8,5]} intensity={2} color="#a5e7f4" /><Grid args={[50,50]} cellSize={1} cellThickness={.5} cellColor="#17313b" sectionSize={5} sectionThickness={.8} sectionColor="#28505a" fadeDistance={30} infiniteGrid /><Architecture /><Gateway open={mission?.gateway.state === 'OPEN'} /><GatewayLabel mission={mission} /><ActionArches mission={mission} focus={focus} /><EvidenceCrystals mission={mission} selected={selected} onSelect={setSelected} focus={focus} /><DependencyLinks mission={mission} focus={focus} /><SourceBeacons mission={mission} /><Scout mission={mission} focus={focus} /><CameraRig mission={mission} focus={focus} /><OrbitControls makeDefault minDistance={5} maxDistance={23} maxPolarAngle={Math.PI/2-.08} target={[0,1,0]} /></Canvas></SceneBoundary>
+    <SceneBoundary><Canvas style={{ position: 'absolute', inset: 0 }} dpr={[1,1.5]} camera={{ position: [9,7,11], fov: 44 }} gl={{ antialias: true }}><color attach="background" args={[testWorld || mission?.mode === 'EXPERIMENT' ? '#1a0820' : '#080f17']} /><fog attach="fog" args={['#080f17',16,36]} /><ambientLight intensity={.7} /><directionalLight position={[4,8,5]} intensity={2} color="#a5e7f4" /><Grid args={[50,50]} cellSize={1} cellThickness={.5} cellColor="#17313b" sectionSize={5} sectionThickness={.8} sectionColor="#28505a" fadeDistance={30} infiniteGrid /><Architecture /><Gateway open={mission?.gateway.state === 'OPEN' || !!gateOpen} /><GatewayLabel mission={mission} revisionOpen={!!gateOpen} /><ActionArches mission={mission} focus={focus} /><EvidenceCrystals mission={mission} selected={selected} onSelect={setSelected} focus={focus} /><DependencyLinks mission={mission} focus={focus} /><SourceBeacons mission={mission} /><Scout mission={mission} focus={focus} carrying={focus?.kind === 'cross'} /><CameraRig mission={mission} focus={focus} /><OrbitControls makeDefault minDistance={5} maxDistance={23} maxPolarAngle={Math.PI/2-.08} target={[0,1,0]} /></Canvas></SceneBoundary>
     {(testWorld || mission?.mode === 'EXPERIMENT') && <div className="test-banner">TEST WORLD — original unchanged</div>}
     {mission && selected && <EvidenceCard mission={mission} id={selected} onClose={() => setSelected('')} />}<div className="world-bottom"><div><span className="eyebrow">SCOUT / {mission?.analysisStatus === 'RUNNING' ? 'ANALYZING' : 'STANDBY'}</span><p>{mission?.analysisStatus === 'READY' ? (() => { const stop = mission.actions.find(a => a.kind !== 'FINALIZE' && a.permit?.status !== 'ACTIVE'); return stop ? `Scout halts at “${kindLabel[stop.kind] ?? stop.kind}”: ${stop.permit?.reason}` : mission.gateway.state === 'OPEN' ? 'Gateway opened by the server for this exact note.' : 'All plan arches ACTIVE. The Gateway still re-checks the exact note.'; })() : 'No validated analysis. No active permits.'}</p><p className="legend"><span style={{ color: permitColors.ACTIVE }}>■ ACTIVE</span> <span style={{ color: permitColors.SUSPENDED }}>■ SUSPENDED</span> <span style={{ color: permitColors.BLOCKED }}>■ BLOCKED</span> <span style={{ color: permitColors.NEEDS_HUMAN }}>■ NEEDS HUMAN</span> · ◆ excerpt matched · ◇ masked</p></div><span className="controls">Drag to orbit · Scroll to zoom</span></div>
   </section>;

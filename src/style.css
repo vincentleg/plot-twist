@@ -48,3 +48,10 @@ select,.human-review input{width:100%;background:#0b1620;color:inherit;border:1p
 @media(max-width:1150px){.demo-layout{grid-template-columns:1fr}.demo-panel{max-height:none}.demo-title{font-size:34px}}
 .demo-items li b{white-space:normal;max-width:60%}.demo-layout{align-items:start}.demo-stage .world{min-height:600px}
 .scene-label small{max-width:220px;white-space:normal}
+.demo-track{list-style:none;display:flex;flex-wrap:wrap;gap:6px;padding:0;margin:0 0 12px}
+.demo-track li{font-size:14px;padding:5px 9px;border-radius:999px;border:1px solid #2a4a55;color:#7f9aa2}
+.demo-track li.done{border-color:#7ce0c4;color:#7ce0c4}.demo-track li.current{border-color:#fff;color:#fff;font-weight:700}.demo-track li.failed{border-color:#dc7777;color:#dc7777}
+.demo-decision{border:2px solid #ad96e5;border-radius:10px;padding:12px 14px;margin:0 0 12px;background:rgba(173,150,229,.08)}
+.demo-decision b{font-size:19px;color:#d9ccff}.demo-decision p{margin:8px 0 4px;font-size:16px}.demo-decision ul{margin:0;padding-left:18px;font-size:15px;line-height:1.35}
+.demo-decision blockquote{margin:4px 0 10px;font-size:15px}.demo-decision-buttons{display:flex;gap:10px}.demo-decision-buttons button{width:auto;padding:10px 16px;font-size:17px;margin:0}
+.demo-pdf{padding:12px 18px;border-radius:8px;border:1px solid #d3ac69;color:#d3ac69;text-decoration:none;font-size:17px}.demo-pdf.approved{border-color:#7ce0c4;background:#7ce0c4;color:#06231d;font-weight:700}

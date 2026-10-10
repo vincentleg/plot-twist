@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import type { Mission, PermitStatus } from '../shared/types';
+import type { Mission, PermitStatus, Revision } from '../shared/types';
 import { kindLabel, permitWord, dependsOnEvidence, type SceneFocus } from './World';
 import { download } from './AnalysisPanel';
 
@@ -11,9 +11,9 @@ export interface Item { label: string; status: string; tone: Tone; note?: string
 export interface DemoView {
   status: 'idle' | 'running' | 'paused' | 'done' | 'error';
   step: number; title: string; sentence: string; found: Item[]; why: string; next: string;
-  focus?: SceneFocus; testWorld: boolean; gateway?: { text: string; tone: Tone }; exportText?: string; exportName?: string; error?: string; ending: boolean;
+  focus?: SceneFocus; testWorld: boolean; gateOpen?: boolean; track?: { label: string; state: 'done' | 'current' | 'todo' | 'skipped' | 'failed' }[]; decision?: { role: string; reasons: string[]; proposedUse: string }; pdf?: { url: string; approved: boolean }; gateway?: { text: string; tone: Tone }; exportText?: string; exportName?: string; error?: string; ending: boolean;
 }
-const TOTAL = 7;
+const TOTAL = 8;
 const initial: DemoView = { status: 'idle', step: 0, title: 'Ready', sentence: 'Click “Run demo” to follow an AI-generated answer from report to decision.', found: [], why: 'A fluent answer, or one global trust score, is not enough to act on.', next: 'The agent will read a real Ezio report, plan actions, and ask the server for permission.', testWorld: false, ending: false };
 const tone = (s?: PermitStatus): Tone => s === 'ACTIVE' ? 'ok' : s === 'SUSPENDED' ? 'warn' : s === 'BLOCKED' ? 'bad' : s === 'NEEDS_HUMAN' ? 'human' : 'neutral';
 const claimWord: Record<string, [string, Tone]> = { SUPPORTED: ['Supported by Ezio’s checks', 'ok'], DISPUTED: ['Disputed', 'human'], UNVERIFIABLE: ['Not enough evidence', 'warn'], UNASSESSED: ['Not checked', 'neutral'] };
@@ -24,6 +24,7 @@ class Cancelled extends Error {}
 export function useDemo(show: (m: Mission) => void) {
   const [view, setView] = useState<DemoView>(initial);
   const ctl = useRef({ token: 0, paused: false, running: false });
+  const decider = useRef<((accept: boolean) => void) | null>(null);
   const patch = (token: number, value: Partial<DemoView>) => { if (ctl.current.token === token) setView(v => ({ ...v, ...value })); };
   async function wait(token: number, ms: number) {
     let left = ms;
@@ -138,14 +139,59 @@ export function useDemo(show: (m: Mission) => void) {
     }
     await wait(token, 9000);
 
-    // 6 — Second report
+    // 6 — Resolution: a separate revised document, evaluated on its own exact content
+    const stages = ['Original blocked', 'Unsupported statements removed', 'Revised document checked', 'Gateway opened', 'PDF ready'];
+    const track = (current: number, failedAt = -1) => stages.map((label, i) => ({ label, state: (i === failedAt ? 'failed' : i < current ? 'done' : i === current ? 'current' : 'todo') as 'done' | 'current' | 'todo' | 'failed' }));
+    patch(token, { step: 6, title: 'Resolution — a revised document', track: track(1), focus: { kind: 'overview' }, gateway: { text: 'Original: not authorized', tone: 'human' },
+      sentence: 'Keep only what the Ezio report supports. Remove the rest — into a separate, new document.', found: [], why: 'The original report and the original document stay unchanged.', next: 'The server builds the revision from the recorded analysis.' });
+    const revR = await api(token, `/missions/${DEMO_MISSIONS.ev}/revisions`, 'POST');
+    if (!revR.ok) throw new Error(`The server could not build a revision: ${revR.data?.error ?? revR.status}`);
+    let rev = revR.data.revision as Revision; show(revR.data.mission);
+    const byReason = (status: string) => rev.removed.filter(x => x.status === status).length;
+    const keptClaims = ev.claims.filter(c => rev.keptClaimIds.includes(c.id));
+    patch(token, { focus: { kind: 'evidence', ids: keptClaims.flatMap(c => c.evidenceIds) },
+      sentence: `Before: ${ev.claims.length} statements, refused. After: ${rev.keptClaimIds.length} statement${rev.keptClaimIds.length === 1 ? '' : 's'} kept, ${rev.removed.length} removed.`,
+      found: [...keptClaims.map(c => ({ label: short(c.text, 80), status: 'Kept', tone: 'ok' as Tone, note: 'Supported by the Ezio report, with its listed sources.' })),
+        { label: 'Removed', status: `${byReason('DISPUTED')} disputed · ${byReason('UNVERIFIABLE')} without evidence · ${byReason('UNASSESSED')} not checked · ${byReason('SUPPORTED')} supported but with an open issue`, tone: 'warn' as Tone, note: 'Each removal and its reason goes to an annex. Removed does not mean false.' },
+        ...rev.removed.filter(x => x.status === 'SUPPORTED').map(x => ({ label: short(x.text, 70), status: 'Removed', tone: 'warn' as Tone, note: short(x.reason, 160) }))],
+      why: 'A “Supported” heading does not validate the whole text. Only report-supported statements without open issues remain.', next: 'The server checks this exact new text and its use.' });
+    await wait(token, 9500);
+    patch(token, { track: track(2), focus: { kind: 'gateway' }, sentence: 'Checking the revised document on the server…', gateway: { text: 'Checking permission…', tone: 'neutral' } });
+    await wait(token, 1500);
+    if (rev.permit?.status === 'NEEDS_HUMAN') {
+      patch(token, { status: 'paused', sentence: 'A person must decide. The demo waits — it never answers for you.', gateway: { text: 'Waiting for a human decision', tone: 'human' },
+        decision: { role: 'Analyst (client note owner)', reasons: rev.humanReasons ?? [], proposedUse: rev.proposedUse },
+        found: [{ label: 'Server decision', status: permitWord.NEEDS_HUMAN, tone: 'human', note: rev.permit.reason }], why: 'The use is high-stakes, so a responsible person must accept the narrower use.', next: 'Accept or decline below.' });
+      const accept = await new Promise<boolean>(resolve => { decider.current = resolve; });
+      decider.current = null; if (ctl.current.token !== token) throw new Cancelled();
+      patch(token, { status: 'running', decision: undefined, sentence: accept ? 'Recording your acceptance and re-checking…' : 'Recording your refusal…' });
+      const rv = await api(token, `/missions/${DEMO_MISSIONS.ev}/revisions/${rev.id}/review`, 'POST', { reviewer: 'Analyst (client note owner)', decision: accept ? 'ACCEPT_LIMITED_USE' : 'DECLINE', comment: accept ? 'Accepted in the guided demo by the viewer.' : 'Declined in the guided demo by the viewer.' });
+      if (!rv.ok) throw new Error(`The review could not be recorded: ${rv.data?.error ?? rv.status}`);
+      rev = rv.data.revision; show(rv.data.mission);
+    }
+    patch(token, { found: [{ label: 'Revised document', status: permitWord[rev.permit!.status], tone: tone(rev.permit?.status), note: rev.permit!.reason }], gateway: { text: 'Checking permission…', tone: 'neutral' }, sentence: 'Asking the Gateway to finalize the revised document…' });
+    const fin = await api(token, `/missions/${DEMO_MISSIONS.ev}/revisions/${rev.id}/finalize`, 'POST').catch(e => { if (e instanceof Cancelled) throw e; return null; });
+    const pdfUrl = `/api/missions/${DEMO_MISSIONS.ev}/revisions/${rev.id}/pdf`;
+    if (fin?.ok && fin.data?.allowed) {
+      show(fin.data.mission);
+      patch(token, { track: track(3), gateOpen: true, focus: { kind: 'cross' }, gateway: { text: 'Revised document authorized', tone: 'ok' }, sentence: 'Revised document authorized. The Gateway opens and Scout carries it through.',
+        found: [{ label: 'Server decision', status: 'Final version allowed', tone: 'ok', note: fin.data.revision.permit.reason }], why: 'Only this exact text is authorized. Any change requires a new check.', next: 'The approved PDF is generated from exactly this version.' });
+      await wait(token, 6000);
+      patch(token, { track: track(5), pdf: { url: pdfUrl, approved: true }, sentence: 'PDF ready: the authorized text, its sources, its limits and the annex of removed statements.', next: 'Use “Download approved PDF”. Then: does every report end this way?' });
+    } else {
+      patch(token, { track: track(2, 2), gateOpen: false, gateway: { text: fin ? `Refused — ${fin.data?.error ?? 'closed'}` : 'Check unavailable — Gateway remains closed', tone: 'bad' }, pdf: { url: pdfUrl, approved: false },
+        sentence: 'The revised document was not authorized. The Gateway stays closed.', found: [{ label: 'Server decision', status: 'Refused', tone: 'bad', note: fin?.data?.error ?? 'No response' }], why: 'Only a PDF explicitly marked DRAFT is available.', next: 'Then: a different report.' });
+    }
+    await wait(token, 7000);
+
+    // 7 — Second report
     const wfh = await load(token, DEMO_MISSIONS.wfh, 'Work from home'); show(wfh);
     const w = wfh.analysis!; const bias = w.signals.find(s => s.kind === 'BIAS');
     const notScored = /Accuracy:\s*Not scored/i.test(wfh.originalReport);
     const reviews = wfh.humanReviews ?? []; const review = reviews.at(-1);
     const wfinal = wfh.actions.find(x => x.kind === 'FINALIZE')?.permit;
     const human = wfh.actions.find(x => x.kind === 'REQUEST_HUMAN');
-    patch(token, { step: 6, title: 'A different report', gateway: wfinal ? { text: `Not authorized — ${permitWord[wfinal.status]}`, tone: tone(wfinal.status) } : undefined, focus: { kind: 'overview' },
+    patch(token, { step: 7, title: 'A different report', gateOpen: false, track: undefined, decision: undefined, gateway: wfinal ? { text: `Not authorized — ${permitWord[wfinal.status]}`, tone: tone(wfinal.status) } : undefined, focus: { kind: 'overview' },
       sentence: 'A communication lead wants to publish an article on remote work as a balanced analysis.',
       found: [
         ...(bias ? [{ label: 'Framing bias (Ezio: CRITICAL)', status: bias.assessment === 'CONCERN' ? 'Concern' : bias.assessment, tone: (bias.assessment === 'CONCERN' ? 'bad' : 'neutral') as Tone, note: short(bias.explanation, 150) }] : []),
@@ -161,7 +207,7 @@ export function useDemo(show: (m: Mission) => void) {
     await wait(token, 10000);
 
     // 7 — Useful result
-    patch(token, { step: 7, title: 'The useful result', focus: { kind: 'gateway' }, sentence: 'Fetching the real export from the server…' });
+    patch(token, { step: 8, title: 'The useful result', focus: { kind: 'gateway' }, sentence: 'Fetching the real export from the server…' });
     const exp = await api(token, `/missions/${wfh.id}/export`, 'GET', undefined, true);
     if (!exp.ok) throw new Error('The export could not be retrieved.');
     const text = exp.data as string; const lines = text.split('\n');
@@ -185,20 +231,24 @@ export function useDemo(show: (m: Mission) => void) {
     catch (e) { if (!(e instanceof Cancelled) && ctl.current.token === token) setView(v => ({ ...v, status: 'error', error: (e as Error).message || 'The demo could not continue.', gateway: v.gateway?.text === 'Checking permission…' ? { text: 'Check unavailable — Gateway remains closed', tone: 'bad' } : v.gateway })); }
     finally { if (ctl.current.token === token) ctl.current.running = false; }
   }
+  function decide(accept: boolean) { decider.current?.(accept); }
   function toggle() {
+    if (decider.current) return;
     if (view.status === 'running') { ctl.current.paused = true; setView(v => ({ ...v, status: 'paused' })); }
     else if (view.status === 'paused') { ctl.current.paused = false; setView(v => ({ ...v, status: 'running' })); }
     else void run();
   }
-  function restart() { ctl.current.token++; ctl.current.running = false; ctl.current.paused = false; void run(); }
+  function restart() { decider.current?.(false); decider.current = null; ctl.current.token++; ctl.current.running = false; ctl.current.paused = false; void run(); }
   const save = () => { if (view.exportText) download(view.exportText, view.exportName ?? 'plot-twist-result.txt'); };
-  return { view, toggle, restart, save, total: TOTAL };
+  return { view, toggle, restart, save, decide, total: TOTAL };
 }
 
-export function DemoPanel({ view, total }: { view: DemoView; total: number }) {
+export function DemoPanel({ view, total, onDecide }: { view: DemoView; total: number; onDecide: (accept: boolean) => void }) {
   return <aside className="demo-panel" aria-live="polite">
     <div className="demo-step">{view.step ? `Step ${view.step} of ${total}` : 'Guided demo'} · <b>{view.title}</b></div>
     <p className="demo-sentence">{view.sentence}</p>
+    {view.track && <ol className="demo-track">{view.track.map(t => <li key={t.label} className={t.state}>{t.label}</li>)}</ol>}
+    {view.decision && <div className="demo-decision"><b>Human decision required · {view.decision.role}</b><p>Why a person is needed:</p><ul>{view.decision.reasons.map((x, i) => <li key={i}>{short(x, 200)}</li>)}</ul><p>Proposed limited use:</p><blockquote>{view.decision.proposedUse}</blockquote><div className="demo-decision-buttons"><button className="primary" onClick={() => onDecide(true)}>Accept limited use</button><button onClick={() => onDecide(false)}>Decline</button></div><small>Your click is recorded as a human judgment. It is never counted as evidence.</small></div>}
     {view.error && <div className="demo-error" role="alert"><b>The demo stopped.</b> {view.error}<br />Click “Run demo” to try again.</div>}
     {!!view.found.length && <section><h3>What the agent found</h3><ul className="demo-items">{view.found.map((item, i) => <li key={i} className={`tone-${item.tone}`}><div><span>{item.label}</span>{item.status && <b>{item.status}</b>}</div>{item.note && <small>{item.note}</small>}</li>)}</ul></section>}
     <section><h3>Why it matters</h3><p>{view.why}</p></section>

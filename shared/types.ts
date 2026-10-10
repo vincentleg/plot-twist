@@ -17,12 +17,12 @@ export interface Analysis {
   caveats: string[]; nextQuestion: string;
 }
 export interface DecisionNote { content: string; contentHash: string; analyzedHash: string; revision: number }
-export interface Event { id: string; at: string; type: 'MISSION_IMPORTED' | 'EXPERIMENT_CREATED' | 'FINALIZATION_DENIED' | 'ANALYSIS_STARTED' | 'ANALYSIS_COMPLETED' | 'ANALYSIS_FAILED' | 'PERMITS_EVALUATED' | 'GATEWAY_DECISION' | 'CONTENT_CHANGED' | 'RESEARCH_STARTED' | 'RESEARCH_SEARCHED' | 'RESEARCH_FETCHED' | 'RESEARCH_FAILED' | 'RESEARCH_ASSESSED' | 'HUMAN_REVIEW_RECORDED' | 'EVIDENCE_MASKED' | 'EVIDENCE_RESTORED' | 'EXPERIMENT_RESET'; message: string }
+export interface Event { id: string; at: string; type: 'MISSION_IMPORTED' | 'EXPERIMENT_CREATED' | 'FINALIZATION_DENIED' | 'ANALYSIS_STARTED' | 'ANALYSIS_COMPLETED' | 'ANALYSIS_FAILED' | 'PERMITS_EVALUATED' | 'GATEWAY_DECISION' | 'CONTENT_CHANGED' | 'RESEARCH_STARTED' | 'RESEARCH_SEARCHED' | 'RESEARCH_FETCHED' | 'RESEARCH_FAILED' | 'RESEARCH_ASSESSED' | 'REVISION_CREATED' | 'REVISION_REVIEWED' | 'HUMAN_REVIEW_RECORDED' | 'EVIDENCE_MASKED' | 'EVIDENCE_RESTORED' | 'EXPERIMENT_RESET'; message: string }
 export interface Mission {
   id: string; mode: 'REAL' | 'EXPERIMENT'; sourceMissionId?: string;
   originalReport: string; intendedUse: string; importedAt: string;
   analysisStatus: 'NOT_AVAILABLE' | 'RUNNING' | 'READY' | 'FAILED'; analysisError?: string;
-  research?: ResearchRun[]; humanReviews?: HumanReview[];
+  research?: ResearchRun[]; humanReviews?: HumanReview[]; revisions?: Revision[];
   analysis?: Analysis; note?: DecisionNote;
   claims: Claim[]; evidence: Evidence[]; actions: Action[];
   gateway: { state: 'CLOSED' | 'OPEN'; reason: string; contentHash?: string }; events: Event[];
@@ -38,3 +38,6 @@ export interface SourceAssessment { claimId: string; url: string; publishedAt?: 
 // it is never evidence and never changes a claim's status, an excerpt or a MISSING issue.
 export type HumanDecision = 'ACCEPT_QUALIFIED' | 'REQUIRE_CHANGES' | 'REFUSE';
 export interface HumanReview { id: string; at: string; reviewer: string; decision: HumanDecision; comment: string; actionIds: string[]; issueIds: string[]; withdrawClaimIds?: string[]; clarifiedUse?: string; question?: string; analysisHash: string; noteHash: string }
+// A separate revised document limited to report-supported claims. Its permit is evaluated on its exact content.
+export interface RevisionReview { at: string; reviewer: string; decision: 'ACCEPT_LIMITED_USE' | 'DECLINE'; comment: string; acceptedUse: string; contentHash: string }
+export interface Revision { id: string; createdAt: string; keptClaimIds: string[]; removed: { claimId: string; text: string; status: string; reason: string }[]; proposedUse: string; content: string; contentHash: string; analysisHash: string; reviews: RevisionReview[]; permit: Permit | null; humanReasons?: string[]; finalized?: { at: string; contentHash: string } }

@@ -34,13 +34,13 @@ function App() {
   return <div className={`demo-app ${demo.view.testWorld || mission?.mode === 'EXPERIMENT' ? 'experiment-mode' : ''}`}>
     <header className="demo-header"><div><h1 className="demo-title">PLOT <span>TWIST</span></h1><p className="demo-tagline">AI answers need evidence before they become decisions.</p></div>
       <div className="demo-controls"><span className="demo-badge">Recorded analysis • Live permission checks</span>
-        <button className="primary demo-run" onClick={demo.toggle}>{demo.view.status === 'running' ? '❚❚ Pause' : demo.view.status === 'paused' ? '▶ Resume' : '▶ Run demo'}</button>
+        <button className="primary demo-run" onClick={demo.toggle}>{demo.view.decision ? 'Waiting for your decision' : demo.view.status === 'running' ? '❚❚ Pause' : demo.view.status === 'paused' ? '▶ Resume' : '▶ Run demo'}</button>
         <button onClick={demo.restart} disabled={demo.view.status === 'idle'}>↺ Restart demo</button>
-        <button onClick={demo.save} disabled={!demo.view.exportText}>Download result</button></div></header>
-    <section className="demo-layout"><div className="demo-stage"><World mission={mission} focus={demo.view.focus} testWorld={demo.view.testWorld} />
+        {demo.view.pdf && <a className={`demo-pdf ${demo.view.pdf.approved ? 'approved' : ''}`} href={demo.view.pdf.url}>{demo.view.pdf.approved ? 'Download approved PDF' : 'Download DRAFT PDF'}</a>}<button onClick={demo.save} disabled={!demo.view.exportText}>Download result</button></div></header>
+    <section className="demo-layout"><div className="demo-stage"><World mission={mission} focus={demo.view.focus} testWorld={demo.view.testWorld} gateOpen={demo.view.gateOpen} />
       {demo.view.ending && <div className="demo-end"><h2>PLOT <span>TWIST</span></h2><p>See what an agent can do, why, and what must wait.</p><small>Ezio reports • TokenRouter analysis • Keenable research • Server-enforced permissions</small></div>}
       <div className={`demo-gate tone-${demo.view.gateway?.tone ?? 'neutral'}`}><span>THE GATEWAY · FINAL DOCUMENT</span><b>{demo.view.gateway?.text ?? (mission ? (mission.gateway.state === 'OPEN' ? 'Authorized by the server' : 'Closed — ' + mission.gateway.reason) : 'Closed until the server allows a final version')}</b></div></div>
-      <DemoPanel view={demo.view} total={demo.total} /></section>
+      <DemoPanel view={demo.view} total={demo.total} onDecide={demo.decide} /></section>
     <details className="advanced"><summary>Advanced — manual workspace, raw data, analysis and server log</summary>
     <div className="workspace advanced-workspace"><aside className="panel import-panel"><div className="panel-heading"><span className="eyebrow">01 / MISSION INPUT</span><span>↗</span></div><h2>Start with the source.</h2><p className="muted">Import an original Ezio report and tell Scout how the answer will be used.</p>
     {!!samples.length && <div className="samples">{samples.map(s => <button type="button" key={s.id} disabled={busy} onClick={() => { setReport(s.report); setUse(s.intendedUse); }}>Load real export · {s.title}</button>)}</div>}<form onSubmit={create}><label htmlFor="report">Ezio report <span>Raw text</span></label><textarea id="report" value={report} onChange={e => setReport(e.target.value)} maxLength={250000} required placeholder="Paste the original report here…" />

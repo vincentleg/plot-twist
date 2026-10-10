@@ -4,7 +4,9 @@
 
 http://127.0.0.1:5173 (local, after `npm run dev`).
 
-The guided demo lasts about 95 seconds and runs by itself. Use Pause/Resume and ↺ Restart demo as needed. **Download result** becomes available at the end.
+The guided demo lasts about 2 minutes and runs by itself. Use Pause/Resume and ↺ Restart demo as needed. **Download result** becomes available at the end.
+
+Step 6 (EV resolution) **pauses for a real human decision**: click *Accept limited use* or *Decline*. The demo never decides for you. Only after the server answers ACTIVE does the Gateway open and **Download approved PDF** appear. Otherwise only a PDF marked DRAFT is offered.
 
 Notes for presenters:
 - "Recorded analysis • Live permission checks": the demo replays the recorded results of real TokenRouter analyses and real Keenable research. It never calls TokenRouter or Keenable again.
