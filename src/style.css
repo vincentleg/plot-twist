@@ -18,6 +18,7 @@ select,.human-review input{width:100%;background:#0b1620;color:inherit;border:1p
 .demo-header{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:12px}
 .demo-title{font-size:44px;letter-spacing:.14em;margin:0;line-height:1}.demo-title span{color:#3fd8e8}
 .demo-tagline{margin:6px 0 0;font-size:21px;color:#bfeff6}
+.demo-badge{display:inline-block;margin:8px 0 0;padding:4px 10px;border:1px solid #f5c26b;border-radius:999px;font-size:13px;color:#f5c26b;background:rgba(245,194,107,.08)}
 .demo-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.demo-controls button{width:auto;padding:12px 18px;font-size:17px;margin:0}
 .demo-run{min-width:160px;font-weight:700}
 .demo-badge{border:1px solid #3fd8e8;color:#9fefff;border-radius:999px;padding:7px 14px;font-size:14px;letter-spacing:.04em}

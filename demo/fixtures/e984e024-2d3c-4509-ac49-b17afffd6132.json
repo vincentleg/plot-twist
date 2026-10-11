@@ -1,0 +1,909 @@
+{
+ "id": "e984e024-2d3c-4509-ac49-b17afffd6132",
+ "mode": "REAL",
+ "originalReport": "# ezio Trust Analysis — sanitized demo fixture\n\nRecorded analysis replayed by the PLOT TWIST public demo. The private result link, account details, export timestamps, internal scoring note and footer were removed. No live analysis runs on this site.\n\n## Analyzed text\n\n```text\nPermanent remote work is the best model for knowledge workers because it optimizes the one resource that matters most: uninterrupted cognitive time. Offices and hybrid schedules fragment attention with commutes, desk-side interruptions, and calendar sprawl built around presence instead of output. Remote-first teams can design work around deep focus, async communication, and written clarity. The results are measurable: studies consistently show remote knowledge workers gaining the equivalent of several productive hours per week, with less time lost to commuting and fewer low-value meetings.\n\nIt also outperforms hybrid because hybrid preserves the worst parts of the office while adding new friction. Employees still organize life around commuting, while teams suffer unequal communication between in-room and remote participants. Permanent remote work removes that ambiguity. Everyone works in the same operating system: digital-first, documented, and transparent. That structure improves execution speed, shortens decision cycles, and raises individual accountability because performance is judged by results, not visibility.\n\nMost important, permanent remote work is a retention engine. Knowledge workers overwhelmingly value autonomy, flexibility, and control over their day, and companies that offer fully remote roles gain access to wider talent pools and keep people longer. Remote organizations routinely report lower attrition and higher employee satisfaction than office-bound peers. In a market where replacing experienced talent is expensive and slow, permanent remote work is not a perk — it is a decisive competitive advantage.\n```\n\n## Verdict\nNot enough checkable claims to score accuracy. 4 could not be checked against reliable sources. The answer leans to one side.\nIssues found: 4\n\n## Module Scores\n\nAccuracy:    Not scored\nBias:        █░░░░  full = balanced framing\nTone:        ████░  full = neutral tone\nAgreement:   █████  full = no flattery or excessive agreement detected\n\n## Claim analysis\n\nOnly the listed claims were assessed. Other statements may not have been checked.\n\n### Claim 1\nOffices and hybrid schedules fragment attention with commutes, desk-side interruptions, and calendar sprawl built around presence instead of output.\n\nVerdict: Not enough evidence\nVerification: Completed\nCould not be checked against reliable sources.\n- What: Offices and hybrid schedules fragment attention with commutes, desk-side interruptions, and calendar sprawl built around presence instead of output — Not found in the sources checked.\n\nSources:\n- [1 Other · Hybrid Work Schedule Examples for 2026: Models & Tools](<https://blog.tmetric.com/hybrid-work-schedule-examples-for-2026-models-tools>) — Published: 2026-04-27\n- [2 Other · The Complete Guide to Hybrid Work in 2026 - Hubstar : Hubstar](<https://www.hubstar.com/complete-guide-to-hybrid-work-2026>) — Published: 2026-01-01\n- [3 Other · Hybrid work statistics: What data says in 2026](<https://www.deskbird.com/blog/hybrid-work-statistics>) — Published: 2026-06-15\n- [4 Other · Hybrid Work Schedule: 8 Models Compared for 2026](<https://www.gable.to/blog/post/hybrid-work-schedule>) — Published: 2025-10-09\n- [5 Other · 80+ Hybrid Work Statistics in 2026: Productivity & Preferences](<https://archieapp.co/blog/hybrid-workplace-stats>) — Published: 2025-12-04\n- [6 Other · Hybrid vs Remote Work in 2026: A Complete Organizational Guide — DeskFlex Blog](<https://www.deskflex.com/blog/hybrid-vs-remote-work-the-guide-for-evolving-organizations>) — Published: 2026-08-20\n\n### Claim 2\nRemote-first teams can design work around deep focus, async communication, and written clarity.\n\nVerdict: Not enough evidence\nVerification: Completed\nCould not be checked against reliable sources.\n- What: Remote-first teams can design work around deep focus, async communication, and written clarity. — matches (Source 1)\n\nSources:\n- [1 Other · Async Writing for Remote Teams | RemoteWorkSaaS Blog](<https://remoteworksaas.netlify.app/async-writing-remote-team-communication-skill>) — Published: 2026-07-06\n- [2 Other · Async-First for Developers: Reclaim Your Deep Work Hours](<https://super-productivity.com/blog/async-first-remote-developer-career>) — Published: 2025-12-16\n- [3 Other · Async Communication for Remote & Hybrid Teams](<https://www.supportingcast.fm/post/async-communication>) — Published: 2026-05-28\n- [4 Other · Async-First Teams: The Step-by-Step Framework for Engineering Teams That Ship Without Constant Meetings - HR Oasis](<https://hroasis.com/async-first-teams-engineering-framework>) — Published: 2026-06-08\n- [5 Other · How to Move Your Team Toward Async-First Communication](<https://async.twist.com/how-to-move-your-team-toward-async-first-communication>) — Published: 2021-03-02\n- [6 Other · Asynchronous Communication: How to Use It for Remote Work Success](<https://www.indeed.com/hire/c/info/asynchronous-communication>) — Published: 2025-07-29\n\n### Claim 3\nEmployees still organize life around commuting, while teams suffer unequal communication between in-room and remote participants.\n\nVerdict: Not enough evidence\nVerification: Completed\nCould not be checked against reliable sources.\n- What: Employees still organize life around commuting, while teams suffer unequal communication between in-room and remote participants. — Not found in the sources checked.\n\nSources:\n- [1 News · Remote work productivity: Employees and managers split on commuting factor | Fortune](<https://fortune.com/2023/01/09/commuting-time-factor-employees-think-more-productive-when-working-from-home>) — Published: 2023-01-09\n\n### Claim 4\nPermanent remote work removes that ambiguity.\n\nVerdict: Not enough evidence\nVerification: Completed\nCould not be checked against reliable sources.\n- What: Permanent remote work removes that ambiguity — sources give a different detail (Source 2)\n\nSources:\n- [1 Official · Work from home and employee well-being: a double-edged sword](<https://pmc.ncbi.nlm.nih.gov/articles/PMC12333122>) — Published: 2025-08-08\n- [2 Reference · Remote work - Wikipedia](<https://en.wikipedia.org/wiki/Remote_work>)\n\n### Claim 5\nThe results are measurable: studies consistently show remote knowledge workers gaining the equivalent of several productive hours per week, with less time lost to commuting and fewer low-value meetings.\n\nVerdict: Supported\nVerification: Completed\n- What: studies consistently show remote knowledge workers gaining the equivalent of several productive hours per week, with less time lost to commuting and fewer low-value meetings — matches (Source 2)\n\nSources:\n- [1 Official · The Future of Working Away from Work and Daily Travel](<https://rosap.ntl.bts.gov/view/dot/67225/dot_67225_DS1.pdf>)\n- [2 Official · Supporting the productivity and wellbeing of remote workers](<https://pmc.ncbi.nlm.nih.gov/articles/PMC9190665>) — Published: 2021-07-23\n- [3 Official · Are We Really More Productive Working from Home? | Chicago Booth Review](<https://review.chicagobooth.edu/economics/2021/article/are-we-really-more-productive-working-home>)\n- [4 Official · Are We Really More Productive Working from Home? | Chicago Booth Review](<https://www.chicagobooth.edu/review/2021/august/are-we-really-more-productive-working-home>)\n- [5 Official · Are We Really More Productive Working from Home? | Chicago Booth Review](<https://www.chicagobooth.edu/review/are-we-really-more-productive-working-home>) — Published: 2021-08-18\n- [6 News · Too Many Zoom Meetings? ‘Core Hours’ Keep Some Remote Workers Productive and Sane - WSJ](<https://www.wsj.com/lifestyle/workplace/too-many-zoom-meetings-core-hours-keep-some-remote-workers-productive-and-sane-11626753660?eafs_enabled=false>) — Published: 2021-07-20\n\n## Findings\n\n### Sentiment & Objectivity (NOTE)\nTone skews positive / enthusiastic. Strong positive loading can signal advocacy rather than balanced analysis.\n\n### Factual Claim Analysis (N/A)\n1 of 1 checked claims verified against current web evidence. 4 claim\\(s\\) could not be checked against reliable sources. Fewer than two claims could be checked, so accuracy is not scored.\n\nEvidence:\n- \"✓ The results are measurable: studies consistently show remote knowledge workers gaining the equivalent of several productive hours per week, with less time lost to commuting and fewer low-value meetings.\"\n- \"? Offices and hybrid schedules fragment attention with commutes, desk-side interruptions, and calendar sprawl built around presence instead of output.\"\n- \"? Remote-first teams can design work around deep focus, async communication, and written clarity.\"\n- \"? Employees still organize life around commuting, while teams suffer unequal communication between in-room and remote participants.\"\n- \"? Permanent remote work removes that ambiguity.\"\n\n### Framing Bias Detection (CRITICAL)\nFraming is one-sided. The response advocates a single stance without acknowledging alternatives.\n\nReasoning: The response is framed almost entirely in favor of permanent remote work, presenting it as the best model and repeatedly reinforcing that conclusion with efficiency, accountability, and retention claims. Other perspectives are largely absent; hybrid and office work are mentioned only as inferior foils, with no serious consideration of potential drawbacks of fully remote arrangements or benefits of in-person work.\n\n### Sycophancy Detection (NOTE)\nNo significant sycophancy markers detected. Response reads as independent.\n\n## Methodology\n\n**Tone:** Detects emotional tone and enthusiasm patterns. Highly emotional or enthusiastic responses lower this score.\n**Accuracy:** Extracts factual claims and checks each one against reliable web sources. The bar counts only claims that could be checked; claims that could not be checked are reported separately and never counted as wrong. Fewer than two checkable claims shows no score.\n**Bias:** Detects whether the response leans one-sided or presents balanced perspectives.\n**Agreement:** Detects patterns of excessive agreement like \"great question\" or \"absolutely right\". Counted as penalty, not score.\n",
+ "intendedUse": "A communication lead decides whether this article can be published as a balanced analysis of working models. Accuracy \"Not scored\" means not evaluated, never zero. One claim is Supported, four lack evidence (unverified, not false). The CRITICAL framing bias calls for editorial revision and targeted human review for this use; it does not show that all claims are false.",
+ "importedAt": "2026-10-10T21:44:42.364Z",
+ "analysisStatus": "READY",
+ "claims": [
+  {
+   "id": "c1",
+   "text": "Offices and hybrid schedules fragment attention through commutes, interruptions, and presence-oriented scheduling. The report found insufficient evidence, not evidence of falsity.",
+   "status": "UNVERIFIABLE",
+   "evidenceIds": [
+    "e1"
+   ]
+  },
+  {
+   "id": "c2",
+   "text": "Remote-first teams can design work around deep focus, asynchronous communication, and written clarity. The report retains an insufficient-evidence verdict despite recording a source match.",
+   "status": "UNVERIFIABLE",
+   "evidenceIds": [
+    "e2"
+   ]
+  },
+  {
+   "id": "c3",
+   "text": "Hybrid employees organize their lives around commuting, and teams experience unequal communication between in-room and remote participants. The report could not verify this claim.",
+   "status": "UNVERIFIABLE",
+   "evidenceIds": [
+    "e3"
+   ]
+  },
+  {
+   "id": "c4",
+   "text": "Permanent remote work removes the communication ambiguity attributed to hybrid work. The report records insufficient evidence and an unspecified difference in a source, without enough detail to establish falsity.",
+   "status": "UNVERIFIABLE",
+   "evidenceIds": [
+    "e4"
+   ]
+  },
+  {
+   "id": "c5",
+   "text": "Studies consistently show remote knowledge workers gaining several productive hours per week, with less commuting and fewer low-value meetings. The report explicitly marks this claim Supported; this is report support, not independent verification.",
+   "status": "SUPPORTED",
+   "evidenceIds": [
+    "e5"
+   ]
+  },
+  {
+   "id": "c6",
+   "text": "Permanent remote work is the best model for knowledge workers and outperforms hybrid work. These broad comparative conclusions were not listed as checked.",
+   "status": "UNASSESSED",
+   "evidenceIds": [
+    "e6",
+    "e7",
+    "e10"
+   ]
+  },
+  {
+   "id": "c7",
+   "text": "Digital-first remote structures improve execution speed, shorten decision cycles, and raise accountability. These outcome claims were not listed as checked.",
+   "status": "UNASSESSED",
+   "evidenceIds": [
+    "e8",
+    "e10"
+   ]
+  },
+  {
+   "id": "c8",
+   "text": "Fully remote roles widen talent pools and improve retention, while remote organizations routinely have lower attrition and higher satisfaction than office-based peers. These claims were not listed as checked.",
+   "status": "UNASSESSED",
+   "evidenceIds": [
+    "e9",
+    "e10"
+   ]
+  }
+ ],
+ "evidence": [
+  {
+   "id": "e1",
+   "text": "What: Offices and hybrid schedules fragment attention with commutes, desk-side interruptions, and calendar sprawl built around presence instead of output — Not found in the sources checked.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e2",
+   "text": "Verdict: Not enough evidence\nVerification: Completed\nCould not be checked against reliable sources.\n- What: Remote-first teams can design work around deep focus, async communication, and written clarity. — matches (Source 1)",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e3",
+   "text": "What: Employees still organize life around commuting, while teams suffer unequal communication between in-room and remote participants. — Not found in the sources checked.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e4",
+   "text": "Verdict: Not enough evidence\nVerification: Completed\nCould not be checked against reliable sources.\n- What: Permanent remote work removes that ambiguity — sources give a different detail (Source 2)",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e5",
+   "text": "Verdict: Supported\nVerification: Completed\n- What: studies consistently show remote knowledge workers gaining the equivalent of several productive hours per week, with less time lost to commuting and fewer low-value meetings — matches (Source 2)",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e6",
+   "text": "Permanent remote work is the best model for knowledge workers because it optimizes the one resource that matters most: uninterrupted cognitive time.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e7",
+   "text": "It also outperforms hybrid because hybrid preserves the worst parts of the office while adding new friction.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e8",
+   "text": "That structure improves execution speed, shortens decision cycles, and raises individual accountability because performance is judged by results, not visibility.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e9",
+   "text": "Knowledge workers overwhelmingly value autonomy, flexibility, and control over their day, and companies that offer fully remote roles gain access to wider talent pools and keep people longer. Remote organizations routinely report lower attrition and higher employee satisfaction than office-bound peers.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e10",
+   "text": "Only the listed claims were assessed. Other statements may not have been checked.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e11",
+   "text": "1 of 1 checked claims verified against current web evidence. 4 claim\\(s\\) could not be checked against reliable sources. Fewer than two claims could be checked, so accuracy is not scored.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e12",
+   "text": "### Framing Bias Detection (CRITICAL)\nFraming is one-sided. The response advocates a single stance without acknowledging alternatives.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e13",
+   "text": "Other perspectives are largely absent; hybrid and office work are mentioned only as inferior foils, with no serious consideration of potential drawbacks of fully remote arrangements or benefits of in-person work.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e14",
+   "text": "No significant sycophancy markers detected. Response reads as independent.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e15",
+   "text": "[2 Official · Supporting the productivity and wellbeing of remote workers](<https://pmc.ncbi.nlm.nih.gov/articles/PMC9190665>) — Published: 2021-07-23",
+   "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9190665",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e16",
+   "text": "[1 Other · Async Writing for Remote Teams | RemoteWorkSaaS Blog](<https://remoteworksaas.netlify.app/async-writing-remote-team-communication-skill>) — Published: 2026-07-06",
+   "source": "https://remoteworksaas.netlify.app/async-writing-remote-team-communication-skill",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e17",
+   "text": "Accuracy:    Not scored",
+   "state": "VERIFIED"
+  }
+ ],
+ "actions": [
+  {
+   "id": "a1",
+   "kind": "CORRECT",
+   "title": "Prepare a balanced revision that qualifies categorical conclusions and addresses alternatives; this is editorial preparation, not factual verification",
+   "claimIds": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c6",
+    "c7",
+    "c8"
+   ],
+   "evidenceIds": [
+    "e6",
+    "e7",
+    "e10",
+    "e12",
+    "e13"
+   ],
+   "dependsOn": [],
+   "permit": {
+    "status": "ACTIVE",
+    "reason": "Report-grounded preparation is permitted; this does not execute the action or verify its claims.",
+    "evaluatedAt": "2026-10-11T22:24:00.119Z"
+   }
+  },
+  {
+   "id": "a2",
+   "kind": "RESEARCH",
+   "title": "Obtain claim-specific evidence for unresolved assertions and examine the scope of the supported productivity finding",
+   "claimIds": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8"
+   ],
+   "evidenceIds": [
+    "e1",
+    "e2",
+    "e3",
+    "e4",
+    "e5",
+    "e8",
+    "e9",
+    "e10",
+    "e15"
+   ],
+   "dependsOn": [],
+   "permit": {
+    "status": "ACTIVE",
+    "reason": "Report-grounded preparation is permitted; this does not execute the action or verify its claims.",
+    "evaluatedAt": "2026-10-11T22:24:00.121Z"
+   }
+  },
+  {
+   "id": "a3",
+   "kind": "REQUEST_HUMAN",
+   "title": "Request targeted editorial and evidence review before authorizing publication as balanced analysis",
+   "claimIds": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8"
+   ],
+   "evidenceIds": [
+    "e2",
+    "e4",
+    "e5",
+    "e10",
+    "e11",
+    "e12",
+    "e13"
+   ],
+   "dependsOn": [
+    "a1",
+    "a2"
+   ],
+   "permit": {
+    "status": "ACTIVE",
+    "reason": "Report-grounded preparation is permitted; this does not execute the action or verify its claims.",
+    "evaluatedAt": "2026-10-11T22:24:00.123Z"
+   }
+  },
+  {
+   "id": "finalize",
+   "kind": "FINALIZE",
+   "title": "Finalize this exact decision note",
+   "claimIds": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8"
+   ],
+   "evidenceIds": [
+    "e1",
+    "e2",
+    "e3",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17"
+   ],
+   "dependsOn": [
+    "a1",
+    "a2",
+    "a3"
+   ],
+   "permit": {
+    "status": "SUSPENDED",
+    "reason": "Required claim information is unresolved. A rewrite cannot verify it.",
+    "evaluatedAt": "2026-10-11T22:24:00.125Z",
+    "contentHash": "8078e76f2b6ce45902185bc391413b9d1e18c704547d93b6d8e2bdcadb2e81de"
+   }
+  }
+ ],
+ "gateway": {
+  "state": "CLOSED",
+  "reason": "Required claim information is unresolved. A rewrite cannot verify it.",
+  "contentHash": "8078e76f2b6ce45902185bc391413b9d1e18c704547d93b6d8e2bdcadb2e81de"
+ },
+ "events": [
+  {
+   "id": "5add6f2c-6592-4c20-a33a-ec0901624283",
+   "at": "2026-10-10T21:44:42.364Z",
+   "type": "MISSION_IMPORTED",
+   "message": "Original report and intended use saved. Ready for analysis when a provider is configured."
+  },
+  {
+   "id": "10a25f5e-89b3-4895-a584-adf82f12a223",
+   "at": "2026-10-10T21:44:42.369Z",
+   "type": "ANALYSIS_STARTED",
+   "message": "Provider analysis started. Previous content authorization cleared."
+  },
+  {
+   "id": "2328820a-1a83-423a-9b71-8d04d529af8b",
+   "at": "2026-10-10T21:45:27.492Z",
+   "type": "ANALYSIS_COMPLETED",
+   "message": "Structured analysis validated. Excerpts matched to the report; interpretation remains model-dependent."
+  },
+  {
+   "id": "c61d057a-faa9-4e55-99d6-7d13812bbc65",
+   "at": "2026-10-10T21:45:27.505Z",
+   "type": "PERMITS_EVALUATED",
+   "message": "Server policy evaluated action dependencies and the exact note."
+  },
+  {
+   "id": "ffc2ea93-1146-4673-89f1-41b71cf968d7",
+   "at": "2026-10-10T21:45:27.523Z",
+   "type": "RESEARCH_STARTED",
+   "message": "Keenable search started for c1 via a2 (KEYLESS_PUBLIC)."
+  },
+  {
+   "id": "0ef7885d-856d-4949-aa06-83301ea9878d",
+   "at": "2026-10-10T21:45:28.965Z",
+   "type": "RESEARCH_SEARCHED",
+   "message": "Keenable returned 2 eligible result(s) for c1 (max 2)."
+  },
+  {
+   "id": "89d8a383-d987-4352-9d4d-06720537e4a7",
+   "at": "2026-10-10T21:45:29.367Z",
+   "type": "RESEARCH_FETCHED",
+   "message": "Fetched https://goalsandprogress.com/digital-distractions-hybrid-work (36325 chars). Content UNVERIFIED."
+  },
+  {
+   "id": "005f7c1c-9d9c-4fc4-8277-ac96401b8bc3",
+   "at": "2026-10-10T21:45:35.255Z",
+   "type": "RESEARCH_ASSESSED",
+   "message": "c1 vs https://goalsandprogress.com/digital-distractions-hybrid-work: INSUFFICIENT (quote found: true; entity/period/scope: true/true/true)."
+  },
+  {
+   "id": "cf3a01be-1c90-4d41-9d9f-e2c19d26398f",
+   "at": "2026-10-10T21:45:35.560Z",
+   "type": "RESEARCH_FETCHED",
+   "message": "Fetched https://www.workstyleiq.com/blog/why-hybrid-teams-lose-the-focus-war/ (8644 chars). Content UNVERIFIED."
+  },
+  {
+   "id": "6448a188-e54a-44de-b8eb-00953a36bc1d",
+   "at": "2026-10-10T21:45:40.051Z",
+   "type": "RESEARCH_ASSESSED",
+   "message": "c1 vs https://www.workstyleiq.com/blog/why-hybrid-teams-lose-the-focus-war/: SUPPORTS (quote found: true; entity/period/scope: true/true/true)."
+  },
+  {
+   "id": "0323647e-6ac0-4f2b-adb2-e7e0c9181f0d",
+   "at": "2026-10-10T21:45:40.065Z",
+   "type": "PERMITS_EVALUATED",
+   "message": "Permits re-evaluated after source assessment."
+  },
+  {
+   "id": "73e4a3aa-c866-4cea-aaac-48d5043a8bbe",
+   "at": "2026-10-10T21:45:40.127Z",
+   "type": "HUMAN_REVIEW_RECORDED",
+   "message": "Communication lead: ACCEPT_QUALIFIED. Recorded as human judgment, not factual evidence; bound to note SHA-256 8078e76f2b6c."
+  },
+  {
+   "id": "8502223d-88fa-4092-9ca0-0852dd7ebb90",
+   "at": "2026-10-10T21:45:40.136Z",
+   "type": "PERMITS_EVALUATED",
+   "message": "Server policy re-evaluated after the human review."
+  },
+  {
+   "id": "5ecc4b48-44dc-4cec-9b6a-233290fc9666",
+   "at": "2026-10-10T21:45:40.162Z",
+   "type": "CONTENT_CHANGED",
+   "message": "Decision note changed; exact-content permission re-evaluated."
+  },
+  {
+   "id": "c91262ac-c959-4b52-8bf4-8bb96d7a5f37",
+   "at": "2026-10-10T21:45:40.176Z",
+   "type": "CONTENT_CHANGED",
+   "message": "Decision note changed; exact-content permission re-evaluated."
+  }
+ ],
+ "analysis": {
+  "claims": [
+   {
+    "id": "c1",
+    "text": "Offices and hybrid schedules fragment attention through commutes, interruptions, and presence-oriented scheduling. The report found insufficient evidence, not evidence of falsity.",
+    "status": "UNVERIFIABLE",
+    "evidenceIds": [
+     "e1"
+    ]
+   },
+   {
+    "id": "c2",
+    "text": "Remote-first teams can design work around deep focus, asynchronous communication, and written clarity. The report retains an insufficient-evidence verdict despite recording a source match.",
+    "status": "UNVERIFIABLE",
+    "evidenceIds": [
+     "e2"
+    ]
+   },
+   {
+    "id": "c3",
+    "text": "Hybrid employees organize their lives around commuting, and teams experience unequal communication between in-room and remote participants. The report could not verify this claim.",
+    "status": "UNVERIFIABLE",
+    "evidenceIds": [
+     "e3"
+    ]
+   },
+   {
+    "id": "c4",
+    "text": "Permanent remote work removes the communication ambiguity attributed to hybrid work. The report records insufficient evidence and an unspecified difference in a source, without enough detail to establish falsity.",
+    "status": "UNVERIFIABLE",
+    "evidenceIds": [
+     "e4"
+    ]
+   },
+   {
+    "id": "c5",
+    "text": "Studies consistently show remote knowledge workers gaining several productive hours per week, with less commuting and fewer low-value meetings. The report explicitly marks this claim Supported; this is report support, not independent verification.",
+    "status": "SUPPORTED",
+    "evidenceIds": [
+     "e5"
+    ]
+   },
+   {
+    "id": "c6",
+    "text": "Permanent remote work is the best model for knowledge workers and outperforms hybrid work. These broad comparative conclusions were not listed as checked.",
+    "status": "UNASSESSED",
+    "evidenceIds": [
+     "e6",
+     "e7",
+     "e10"
+    ]
+   },
+   {
+    "id": "c7",
+    "text": "Digital-first remote structures improve execution speed, shorten decision cycles, and raise accountability. These outcome claims were not listed as checked.",
+    "status": "UNASSESSED",
+    "evidenceIds": [
+     "e8",
+     "e10"
+    ]
+   },
+   {
+    "id": "c8",
+    "text": "Fully remote roles widen talent pools and improve retention, while remote organizations routinely have lower attrition and higher satisfaction than office-based peers. These claims were not listed as checked.",
+    "status": "UNASSESSED",
+    "evidenceIds": [
+     "e9",
+     "e10"
+    ]
+   }
+  ],
+  "evidence": [
+   {
+    "id": "e1",
+    "text": "What: Offices and hybrid schedules fragment attention with commutes, desk-side interruptions, and calendar sprawl built around presence instead of output — Not found in the sources checked.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e2",
+    "text": "Verdict: Not enough evidence\nVerification: Completed\nCould not be checked against reliable sources.\n- What: Remote-first teams can design work around deep focus, async communication, and written clarity. — matches (Source 1)",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e3",
+    "text": "What: Employees still organize life around commuting, while teams suffer unequal communication between in-room and remote participants. — Not found in the sources checked.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e4",
+    "text": "Verdict: Not enough evidence\nVerification: Completed\nCould not be checked against reliable sources.\n- What: Permanent remote work removes that ambiguity — sources give a different detail (Source 2)",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e5",
+    "text": "Verdict: Supported\nVerification: Completed\n- What: studies consistently show remote knowledge workers gaining the equivalent of several productive hours per week, with less time lost to commuting and fewer low-value meetings — matches (Source 2)",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e6",
+    "text": "Permanent remote work is the best model for knowledge workers because it optimizes the one resource that matters most: uninterrupted cognitive time.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e7",
+    "text": "It also outperforms hybrid because hybrid preserves the worst parts of the office while adding new friction.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e8",
+    "text": "That structure improves execution speed, shortens decision cycles, and raises individual accountability because performance is judged by results, not visibility.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e9",
+    "text": "Knowledge workers overwhelmingly value autonomy, flexibility, and control over their day, and companies that offer fully remote roles gain access to wider talent pools and keep people longer. Remote organizations routinely report lower attrition and higher employee satisfaction than office-bound peers.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e10",
+    "text": "Only the listed claims were assessed. Other statements may not have been checked.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e11",
+    "text": "1 of 1 checked claims verified against current web evidence. 4 claim\\(s\\) could not be checked against reliable sources. Fewer than two claims could be checked, so accuracy is not scored.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e12",
+    "text": "### Framing Bias Detection (CRITICAL)\nFraming is one-sided. The response advocates a single stance without acknowledging alternatives.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e13",
+    "text": "Other perspectives are largely absent; hybrid and office work are mentioned only as inferior foils, with no serious consideration of potential drawbacks of fully remote arrangements or benefits of in-person work.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e14",
+    "text": "No significant sycophancy markers detected. Response reads as independent.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e15",
+    "text": "[2 Official · Supporting the productivity and wellbeing of remote workers](<https://pmc.ncbi.nlm.nih.gov/articles/PMC9190665>) — Published: 2021-07-23",
+    "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9190665",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e16",
+    "text": "[1 Other · Async Writing for Remote Teams | RemoteWorkSaaS Blog](<https://remoteworksaas.netlify.app/async-writing-remote-team-communication-skill>) — Published: 2026-07-06",
+    "source": "https://remoteworksaas.netlify.app/async-writing-remote-team-communication-skill",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e17",
+    "text": "Accuracy:    Not scored",
+    "state": "VERIFIED"
+   }
+  ],
+  "signals": [
+   {
+    "kind": "FACT_CHECK",
+    "assessment": "POSITIVE",
+    "explanation": "The report explicitly records one supported claim and a verification finding. This limited positive finding does not establish article-wide accuracy: four claims lack reliable verification, other statements were not assessed, and accuracy was not scored.",
+    "evidenceIds": [
+     "e5",
+     "e10",
+     "e11",
+     "e17"
+    ]
+   },
+   {
+    "kind": "CITATIONS",
+    "assessment": "POSITIVE",
+    "explanation": "The report supplies identifiable sources and links tied to claim findings. Their presence establishes traceability, not independent truth or sufficient support for every claim.",
+    "evidenceIds": [
+     "e5",
+     "e15",
+     "e16"
+    ]
+   },
+   {
+    "kind": "BIAS",
+    "assessment": "CONCERN",
+    "explanation": "The report explicitly flags CRITICAL one-sided framing and the absence of serious consideration of alternatives. This is incompatible with publication as balanced analysis without editorial revision.",
+    "evidenceIds": [
+     "e12",
+     "e13"
+    ]
+   },
+   {
+    "kind": "SYCOPHANCY",
+    "assessment": "POSITIVE",
+    "explanation": "The report explicitly finds no significant sycophancy markers.",
+    "evidenceIds": [
+     "e14"
+    ]
+   },
+   {
+    "kind": "UNCERTAINTY",
+    "assessment": "CONCERN",
+    "explanation": "The report discloses verification limits, but the article makes categorical superiority and outcome claims without corresponding qualifications. Those limits must be reflected in publication wording.",
+    "evidenceIds": [
+     "e6",
+     "e7",
+     "e9",
+     "e10",
+     "e11"
+    ]
+   }
+  ],
+  "issues": [
+   {
+    "id": "i1",
+    "description": "Critical one-sided framing prevents the current article from serving as balanced analysis. Alternatives, remote-work drawbacks, and context-dependent trade-offs need substantive treatment.",
+    "severity": "HUMAN",
+    "claimIds": [
+     "c6",
+     "c7",
+     "c8"
+    ],
+    "evidenceIds": [
+     "e12",
+     "e13"
+    ]
+   },
+   {
+    "id": "i2",
+    "description": "Four assessed claims lack reliable verification. Their wording needs targeted evidence review, qualification, or removal rather than treatment as disproved.",
+    "severity": "MISSING",
+    "claimIds": [
+     "c1",
+     "c2",
+     "c3",
+     "c4"
+    ],
+    "evidenceIds": [
+     "e1",
+     "e2",
+     "e3",
+     "e4",
+     "e11"
+    ]
+   },
+   {
+    "id": "i3",
+    "description": "The report records a source match for claim 2 but retains an insufficient-evidence verdict. Human review should determine whether the match supports only wording or actually provides reliable evidence for the claim; a match alone does not overturn the verdict.",
+    "severity": "HUMAN",
+    "claimIds": [
+     "c2"
+    ],
+    "evidenceIds": [
+     "e2",
+     "e16"
+    ]
+   },
+   {
+    "id": "i4",
+    "description": "For claim 4, the report does not specify the different source detail or explain whether it contradicts the claim, concerns a different scope, or simply fails to support it.",
+    "severity": "HUMAN",
+    "claimIds": [
+     "c4"
+    ],
+    "evidenceIds": [
+     "e4"
+    ]
+   },
+   {
+    "id": "i5",
+    "description": "Material superiority, execution, accountability, talent-pool, and retention claims remain outside the report's checked claim list.",
+    "severity": "MISSING",
+    "claimIds": [
+     "c6",
+     "c7",
+     "c8"
+    ],
+    "evidenceIds": [
+     "e6",
+     "e7",
+     "e8",
+     "e9",
+     "e10"
+    ]
+   },
+   {
+    "id": "i6",
+    "description": "The supported productivity claim is broad. Publication review should confirm that its population, circumstances, magnitude, and meeting-related component are supported without extending it into proof of overall remote-work superiority.",
+    "severity": "HUMAN",
+    "claimIds": [
+     "c5",
+     "c6"
+    ],
+    "evidenceIds": [
+     "e5",
+     "e6",
+     "e15"
+    ]
+   }
+  ],
+  "actions": [
+   {
+    "id": "a1",
+    "kind": "CORRECT",
+    "title": "Prepare a balanced revision that qualifies categorical conclusions and addresses alternatives; this is editorial preparation, not factual verification",
+    "claimIds": [
+     "c1",
+     "c2",
+     "c3",
+     "c4",
+     "c6",
+     "c7",
+     "c8"
+    ],
+    "evidenceIds": [
+     "e6",
+     "e7",
+     "e10",
+     "e12",
+     "e13"
+    ],
+    "dependsOn": [],
+    "permit": null
+   },
+   {
+    "id": "a2",
+    "kind": "RESEARCH",
+    "title": "Obtain claim-specific evidence for unresolved assertions and examine the scope of the supported productivity finding",
+    "claimIds": [
+     "c1",
+     "c2",
+     "c3",
+     "c4",
+     "c5",
+     "c6",
+     "c7",
+     "c8"
+    ],
+    "evidenceIds": [
+     "e1",
+     "e2",
+     "e3",
+     "e4",
+     "e5",
+     "e8",
+     "e9",
+     "e10",
+     "e15"
+    ],
+    "dependsOn": [],
+    "permit": null
+   },
+   {
+    "id": "a3",
+    "kind": "REQUEST_HUMAN",
+    "title": "Request targeted editorial and evidence review before authorizing publication as balanced analysis",
+    "claimIds": [
+     "c1",
+     "c2",
+     "c3",
+     "c4",
+     "c5",
+     "c6",
+     "c7",
+     "c8"
+    ],
+    "evidenceIds": [
+     "e2",
+     "e4",
+     "e5",
+     "e10",
+     "e11",
+     "e12",
+     "e13"
+    ],
+    "dependsOn": [
+     "a1",
+     "a2"
+    ],
+    "permit": null
+   }
+  ],
+  "recommendation": "REWRITE",
+  "justification": "Do not publish the current article as balanced analysis. Its critical framing bias calls for revision and targeted human review, while unresolved factual claims require evidence work. One supported claim does not validate the article's broader conclusions; unscored accuracy and insufficient evidence do not mean factual failure.",
+  "useAssessment": {
+   "risk": "LOW",
+   "rationale": "The declared use is an editorial publication decision, not a medical, legal, financial, safety-critical, or consequential personal decision. Accuracy and balance still matter for readers and publication credibility."
+  },
+  "caveats": [
+   "Accuracy was not evaluated as a score; Not scored must not be treated as zero, low accuracy, or failure.",
+   "SUPPORTED means supported by this report, not independently verified.",
+   "The four insufficient-evidence findings establish uncertainty, not falsity.",
+   "A source match does not necessarily establish reliable factual support.",
+   "The framing flag does not make individual claims false.",
+   "Only listed claims were assessed; revision alone will not verify the remaining assertions.",
+   "The 2021 source date alone is not grounds to reject the supported claim."
+  ],
+  "nextQuestion": "Can the communication lead provide a revised draft that addresses remote-work trade-offs and claim-level evidence for the unresolved superiority, execution, and retention assertions?"
+ },
+ "note": {
+  "content": "PLOT TWIST — Decision note\n\nIntended use\nA communication lead decides whether this article can be published as a balanced analysis of working models. Accuracy \"Not scored\" means not evaluated, never zero. One claim is Supported, four lack evidence (unverified, not false). The CRITICAL framing bias calls for editorial revision and targeted human review for this use; it does not show that all claims are false.\n\nModel recommendation: REWRITE\nDo not publish the current article as balanced analysis. Its critical framing bias calls for revision and targeted human review, while unresolved factual claims require evidence work. One supported claim does not validate the article's broader conclusions; unscored accuracy and insufficient evidence do not mean factual failure.\n\nUse assessment: LOW\nThe declared use is an editorial publication decision, not a medical, legal, financial, safety-critical, or consequential personal decision. Accuracy and balance still matter for readers and publication credibility.\n\nReport-supported elements (not independently verified)\n- [c5] Studies consistently show remote knowledge workers gaining several productive hours per week, with less commuting and fewer low-value meetings. The report explicitly marks this claim Supported; this is report support, not independent verification. [e5]\n\nNuanced wording required (contested or framed claims)\n- None identified by the model.\n\nUnknown — not evaluated or lacking evidence (unknown does not mean false)\n- [c1] Offices and hybrid schedules fragment attention through commutes, interruptions, and presence-oriented scheduling. The report found insufficient evidence, not evidence of falsity. — UNVERIFIABLE; neither confirmed nor refuted. Do not assert. [e1]\n- [c2] Remote-first teams can design work around deep focus, asynchronous communication, and written clarity. The report retains an insufficient-evidence verdict despite recording a source match. — UNVERIFIABLE; neither confirmed nor refuted. Do not assert. [e2]\n- [c3] Hybrid employees organize their lives around commuting, and teams experience unequal communication between in-room and remote participants. The report could not verify this claim. — UNVERIFIABLE; neither confirmed nor refuted. Do not assert. [e3]\n- [c4] Permanent remote work removes the communication ambiguity attributed to hybrid work. The report records insufficient evidence and an unspecified difference in a source, without enough detail to establish falsity. — UNVERIFIABLE; neither confirmed nor refuted. Do not assert. [e4]\n- [c6] Permanent remote work is the best model for knowledge workers and outperforms hybrid work. These broad comparative conclusions were not listed as checked. — UNASSESSED; neither confirmed nor refuted. Do not assert. [e6, e7, e10]\n- [c7] Digital-first remote structures improve execution speed, shorten decision cycles, and raise accountability. These outcome claims were not listed as checked. — UNASSESSED; neither confirmed nor refuted. Do not assert. [e8, e10]\n- [c8] Fully remote roles widen talent pools and improve retention, while remote organizations routinely have lower attrition and higher satisfaction than office-based peers. These claims were not listed as checked. — UNASSESSED; neither confirmed nor refuted. Do not assert. [e9, e10]\n\nAvailable report signals\n- FACT_CHECK: POSITIVE — The report explicitly records one supported claim and a verification finding. This limited positive finding does not establish article-wide accuracy: four claims lack reliable verification, other statements were not assessed, and accuracy was not scored. [e5, e10, e11, e17]\n- CITATIONS: POSITIVE — The report supplies identifiable sources and links tied to claim findings. Their presence establishes traceability, not independent truth or sufficient support for every claim. [e5, e15, e16]\n- BIAS: CONCERN — The report explicitly flags CRITICAL one-sided framing and the absence of serious consideration of alternatives. This is incompatible with publication as balanced analysis without editorial revision. [e12, e13]\n- SYCOPHANCY: POSITIVE — The report explicitly finds no significant sycophancy markers. [e14]\n- UNCERTAINTY: CONCERN — The report discloses verification limits, but the article makes categorical superiority and outcome claims without corresponding qualifications. Those limits must be reflected in publication wording. [e6, e7, e9, e10, e11]\n\nUnresolved issues\n- HUMAN: Critical one-sided framing prevents the current article from serving as balanced analysis. Alternatives, remote-work drawbacks, and context-dependent trade-offs need substantive treatment.\n- MISSING: Four assessed claims lack reliable verification. Their wording needs targeted evidence review, qualification, or removal rather than treatment as disproved.\n- HUMAN: The report records a source match for claim 2 but retains an insufficient-evidence verdict. Human review should determine whether the match supports only wording or actually provides reliable evidence for the claim; a match alone does not overturn the verdict.\n- HUMAN: For claim 4, the report does not specify the different source detail or explain whether it contradicts the claim, concerns a different scope, or simply fails to support it.\n- MISSING: Material superiority, execution, accountability, talent-pool, and retention claims remain outside the report's checked claim list.\n- HUMAN: The supported productivity claim is broad. Publication review should confirm that its population, circumstances, magnitude, and meeting-related component are supported without extending it into proof of overall remote-work superiority.\n\nReservations and uncertainty\n- Accuracy was not evaluated as a score; Not scored must not be treated as zero, low accuracy, or failure.\n- SUPPORTED means supported by this report, not independently verified.\n- The four insufficient-evidence findings establish uncertainty, not falsity.\n- A source match does not necessarily establish reliable factual support.\n- The framing flag does not make individual claims false.\n- Only listed claims were assessed; revision alone will not verify the remaining assertions.\n- The 2021 source date alone is not grounds to reject the supported claim.\nExtraction and interpretation depend on the model. Matching excerpts confirms provenance only. Web sources collected later stay unverified and are not cited here. This rewrite adds no evidence and does not verify unknown facts.\n\nNext question\nCan the communication lead provide a revised draft that addresses remote-work trade-offs and claim-level evidence for the unresolved superiority, execution, and retention assertions?\n\nSources and exact report excerpts\n- [e1] Imported report; no source label supplied\n  What: Offices and hybrid schedules fragment attention with commutes, desk-side interruptions, and calendar sprawl built around presence instead of output — Not found in the sources checked.\n- [e2] Imported report; no source label supplied\n  Verdict: Not enough evidence\nVerification: Completed\nCould not be checked against reliable sources.\n- What: Remote-first teams can design work around deep focus, async communication, and written clarity. — matches (Source 1)\n- [e3] Imported report; no source label supplied\n  What: Employees still organize life around commuting, while teams suffer unequal communication between in-room and remote participants. — Not found in the sources checked.\n- [e4] Imported report; no source label supplied\n  Verdict: Not enough evidence\nVerification: Completed\nCould not be checked against reliable sources.\n- What: Permanent remote work removes that ambiguity — sources give a different detail (Source 2)\n- [e5] Imported report; no source label supplied\n  Verdict: Supported\nVerification: Completed\n- What: studies consistently show remote knowledge workers gaining the equivalent of several productive hours per week, with less time lost to commuting and fewer low-value meetings — matches (Source 2)\n- [e6] Imported report; no source label supplied\n  Permanent remote work is the best model for knowledge workers because it optimizes the one resource that matters most: uninterrupted cognitive time.\n- [e7] Imported report; no source label supplied\n  It also outperforms hybrid because hybrid preserves the worst parts of the office while adding new friction.\n- [e8] Imported report; no source label supplied\n  That structure improves execution speed, shortens decision cycles, and raises individual accountability because performance is judged by results, not visibility.\n- [e9] Imported report; no source label supplied\n  Knowledge workers overwhelmingly value autonomy, flexibility, and control over their day, and companies that offer fully remote roles gain access to wider talent pools and keep people longer. Remote organizations routinely report lower attrition and higher employee satisfaction than office-bound peers.\n- [e10] Imported report; no source label supplied\n  Only the listed claims were assessed. Other statements may not have been checked.\n- [e11] Imported report; no source label supplied\n  1 of 1 checked claims verified against current web evidence. 4 claim\\(s\\) could not be checked against reliable sources. Fewer than two claims could be checked, so accuracy is not scored.\n- [e12] Imported report; no source label supplied\n  ### Framing Bias Detection (CRITICAL)\nFraming is one-sided. The response advocates a single stance without acknowledging alternatives.\n- [e13] Imported report; no source label supplied\n  Other perspectives are largely absent; hybrid and office work are mentioned only as inferior foils, with no serious consideration of potential drawbacks of fully remote arrangements or benefits of in-person work.\n- [e14] Imported report; no source label supplied\n  No significant sycophancy markers detected. Response reads as independent.\n- [e15] https://pmc.ncbi.nlm.nih.gov/articles/PMC9190665\n  [2 Official · Supporting the productivity and wellbeing of remote workers](<https://pmc.ncbi.nlm.nih.gov/articles/PMC9190665>) — Published: 2021-07-23\n- [e16] https://remoteworksaas.netlify.app/async-writing-remote-team-communication-skill\n  [1 Other · Async Writing for Remote Teams | RemoteWorkSaaS Blog](<https://remoteworksaas.netlify.app/async-writing-remote-team-communication-skill>) — Published: 2026-07-06\n- [e17] Imported report; no source label supplied\n  Accuracy:    Not scored\n",
+  "contentHash": "8078e76f2b6ce45902185bc391413b9d1e18c704547d93b6d8e2bdcadb2e81de",
+  "analyzedHash": "8078e76f2b6ce45902185bc391413b9d1e18c704547d93b6d8e2bdcadb2e81de",
+  "revision": 3
+ },
+ "research": [
+  {
+   "id": "d105e2cc-b56b-4af3-958e-f4e6fb228080",
+   "actionId": "a2",
+   "claimId": "c1",
+   "claimIds": [
+    "c1"
+   ],
+   "query": "Offices and hybrid schedules fragment attention through commutes, interruptions, and presence-oriented scheduling. The report found insufficient evidence, not evidence of falsity.",
+   "mode": "KEYLESS_PUBLIC",
+   "at": "2026-10-10T21:45:27.523Z",
+   "analysisHash": "aa6317f60ba15138f1c79ef86cd5d6b6f1f64beeede6d9e99238269220331992",
+   "status": "COMPLETE",
+   "results": [
+    {
+     "url": "https://goalsandprogress.com/digital-distractions-hybrid-work",
+     "title": "Digital distractions in hybrid work: 3 layers to focus",
+     "snippet": "According to Nicholas Bloom’s 2024 randomized trial at Trip.com (n=1,612), published in *Nature* with co-authors Ruobing Han and James Liang, workers assigned to a structured hybrid schedule of two days home and three in office showed equi…",
+     "publishedAt": "2025-02-21T22:20:03Z"
+    },
+    {
+     "url": "https://workstyleiq.com/blog/why-hybrid-teams-lose-the-focus-war",
+     "title": "Why hybrid teams lose the focus war — and how to win it",
+     "snippet": "On that measure, the supposed compromise performs worst of all. Benchmark tracking data puts hybrid teams at just 31% of their working hours in uninterrupted deep focus, below fully in-office teams at 45% and fully remote teams at 41%.12 T…",
+     "publishedAt": "2026-07-08T00:00:00Z"
+    }
+   ],
+   "pages": [
+    {
+     "url": "https://goalsandprogress.com/digital-distractions-hybrid-work",
+     "title": "Digital distractions in hybrid work: 3 layers to focus",
+     "content": "[Page text not republished in the public demo. Open the link to read the source.]",
+     "truncated": false,
+     "fetchedAt": "2026-10-10T21:45:29.366Z",
+     "state": "UNVERIFIED"
+    },
+    {
+     "url": "https://www.workstyleiq.com/blog/why-hybrid-teams-lose-the-focus-war/",
+     "title": "Why hybrid teams lose the focus war — and how to win it",
+     "content": "[Page text not republished in the public demo. Open the link to read the source.]",
+     "truncated": false,
+     "fetchedAt": "2026-10-10T21:45:35.560Z",
+     "state": "UNVERIFIED"
+    }
+   ],
+   "assessments": [
+    {
+     "claimId": "c1",
+     "url": "https://goalsandprogress.com/digital-distractions-hybrid-work",
+     "publishedAt": "2025-02-21T22:20:03Z",
+     "fetchedAt": "2026-10-10T21:45:29.366Z",
+     "stance": "INSUFFICIENT",
+     "quote": "The challenge in hybrid work is that you carry attention residue across two completely different contexts and switch between them every two or three days.",
+     "quoteFound": true,
+     "context": {
+      "entity": true,
+      "period": true,
+      "scope": true
+     },
+     "rationale": "The page supports attention fragmentation from hybrid scheduling, office interruptions, and presence pressures, but does not establish commutes as a cause. It therefore does not fully settle the factual assertion; the statement about the report’s findings is excluded from this judgment."
+    },
+    {
+     "claimId": "c1",
+     "url": "https://www.workstyleiq.com/blog/why-hybrid-teams-lose-the-focus-war/",
+     "publishedAt": "2026-07-08T00:00:00Z",
+     "fetchedAt": "2026-10-10T21:45:35.560Z",
+     "stance": "SUPPORTS",
+     "quote": "When colleagues come in on different days, an organisation pays the full commute and meeting cost and captures little of the collaboration benefit, while remote days fill with the async overflow the office days could not hold.2",
+     "quoteFound": true,
+     "context": {
+      "entity": true,
+      "period": true,
+      "scope": true
+     },
+     "rationale": "The page links office and hybrid schedules to commuting costs, interruptions, and fragmented focus, and says mandated office days increase meetings and messages. The claim’s statement about what a report found is excluded from the factual assessment."
+    }
+   ]
+  }
+ ],
+ "humanReviews": [
+  {
+   "id": "6e9dea2b-757f-42b7-b7eb-70da21c147ef",
+   "at": "2026-10-10T21:45:40.126Z",
+   "reviewer": "Communication lead",
+   "decision": "ACCEPT_QUALIFIED",
+   "comment": "Qualified rewrite accepted for review only; unknowns stay unknown.",
+   "actionIds": [
+    "a3"
+   ],
+   "issueIds": [
+    "i1",
+    "i3",
+    "i4",
+    "i6"
+   ],
+   "withdrawClaimIds": [],
+   "question": "Can the communication lead provide a revised draft that addresses remote-work trade-offs and claim-level evidence for the unresolved superiority, execution, and retention assertions?",
+   "analysisHash": "aa6317f60ba15138f1c79ef86cd5d6b6f1f64beeede6d9e99238269220331992",
+   "noteHash": "8078e76f2b6ce45902185bc391413b9d1e18c704547d93b6d8e2bdcadb2e81de"
+  }
+ ]
+}

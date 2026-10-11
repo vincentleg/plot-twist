@@ -1,7 +1,7 @@
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { mkdir, readFile, rename, writeFile, readdir } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
-import { randomUUID } from 'node:crypto';
+import { newId } from './ids.js';
 import type { Mission, Event, ResearchRun, HumanReview, Revision } from '../shared/types.js';
 import { analyzeReport, providerConfigured, ProviderError } from './provider.js';
 import { validateAnalysis } from './analysis.js';
@@ -10,7 +10,7 @@ import { createRevision, evaluateRevision, revisionPdf } from './revision.js';
 import { searchPages, fetchPage, researchMode, ResearchError, assessSource } from './keenable.js';
 const unavailable = 'A valid analysis is required before finalization.';
 class HttpError extends Error { constructor(public status: number, message: string) { super(message); } }
-function event(type: Event['type'], message: string): Event { return { id: randomUUID(), at: new Date().toISOString(), type, message }; }
+function event(type: Event['type'], message: string): Event { return { id: newId(), at: new Date().toISOString(), type, message }; }
 async function body(req: IncomingMessage): Promise<Record<string, unknown>> {
   if (!req.headers['content-type']?.startsWith('application/json')) throw new HttpError(415, 'Send application/json.');
   let size = 0; const chunks: Buffer[] = [];
@@ -22,11 +22,11 @@ function field(value: unknown, name: string, limit: number): string {
   if (typeof value !== 'string' || !value.trim() || value.length > limit) throw new HttpError(400, `${name} must contain 1–${limit} characters and cannot be blank.`);
   return value;
 }
-export function createApp(dataDir = resolve('data'), analyzer: (report: string, use: string) => Promise<unknown> = analyzeReport) {
+export function createHandler(dataDir = resolve('data'), analyzer: (report: string, use: string) => Promise<unknown> = analyzeReport) {
   const queues = new Map<string, Promise<unknown>>();
   const path = (id: string) => { if (!/^[0-9a-f-]{36}$/.test(id)) throw new HttpError(404, 'Mission not found.'); return join(dataDir, `${id}.json`); };
   async function read(id: string): Promise<Mission> { try { return JSON.parse(await readFile(path(id), 'utf8')); } catch (e) { if ((e as NodeJS.ErrnoException).code === 'ENOENT') throw new HttpError(404, 'Mission not found.'); throw e; } }
-  async function save(mission: Mission) { await mkdir(dataDir, { recursive: true }); const target = path(mission.id); const temp = `${target}.${randomUUID()}.tmp`; await writeFile(temp, JSON.stringify(mission, null, 2), { mode: 0o600 }); await rename(temp, target); }
+  async function save(mission: Mission) { await mkdir(dataDir, { recursive: true }); const target = path(mission.id); const temp = `${target}.${newId()}.tmp`; await writeFile(temp, JSON.stringify(mission, null, 2), { mode: 0o600 }); await rename(temp, target); }
   async function locked<T>(id: string, operation: () => Promise<T>): Promise<T> { const next = (queues.get(id) ?? Promise.resolve()).catch(() => {}).then(operation); queues.set(id, next); try { return await next; } finally { if (queues.get(id) === next) queues.delete(id); } }
   const recovered = (async () => {
     await mkdir(dataDir, { recursive: true });
@@ -41,7 +41,7 @@ export function createApp(dataDir = resolve('data'), analyzer: (report: string, 
   })();
   // Keep initialization failures handled until the next request reports a safe error.
   void recovered.catch(() => {});
-  return createServer(async (req: IncomingMessage, res: ServerResponse) => {
+  return async (req: IncomingMessage, res: ServerResponse) => {
     const send = (status: number, value: unknown) => { res.writeHead(status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' }); res.end(JSON.stringify(value)); };
     try {
       await recovered;
@@ -60,7 +60,7 @@ export function createApp(dataDir = resolve('data'), analyzer: (report: string, 
       if (req.method === 'POST' && url.pathname === '/api/missions') {
         const input = await body(req);
         if (input.mode !== undefined && input.mode !== 'REAL') throw new HttpError(400, 'Create an experiment from an existing mission.');
-        const mission: Mission = { id: randomUUID(), mode: 'REAL', originalReport: field(input.originalReport, 'Report', 250_000), intendedUse: field(input.intendedUse, 'Intended use', 4000), importedAt: new Date().toISOString(), analysisStatus: 'NOT_AVAILABLE', claims: [], evidence: [], actions: [], gateway: { state: 'CLOSED', reason: unavailable }, events: [event('MISSION_IMPORTED', 'Original report and intended use saved. Ready for analysis when a provider is configured.')] };
+        const mission: Mission = { id: newId(), mode: 'REAL', originalReport: field(input.originalReport, 'Report', 250_000), intendedUse: field(input.intendedUse, 'Intended use', 4000), importedAt: new Date().toISOString(), analysisStatus: 'NOT_AVAILABLE', claims: [], evidence: [], actions: [], gateway: { state: 'CLOSED', reason: unavailable }, events: [event('MISSION_IMPORTED', 'Original report and intended use saved. Ready for analysis when a provider is configured.')] };
         await save(mission); return send(201, mission);
       }
       const rev = url.pathname.match(/^\/api\/missions\/([^/]+)\/revisions(?:\/([0-9a-f-]{36})(?:\/(review|finalize|pdf))?)?$/);
@@ -115,7 +115,7 @@ export function createApp(dataDir = resolve('data'), analyzer: (report: string, 
           const source = await read(id);
           if (source.analysisStatus === 'RUNNING' || source.research?.some(run => run.status === 'RUNNING')) throw new HttpError(409, 'Wait for analysis or research to finish before copying.');
           if (source.mode !== 'REAL') throw new HttpError(400, 'An experiment must originate from a real mission.');
-          const copy: Mission = { ...structuredClone(source), id: randomUUID(), mode: 'EXPERIMENT', sourceMissionId: source.id, gateway: { state: 'CLOSED', reason: 'Experiments can never finalize.' }, events: [event('EXPERIMENT_CREATED', 'Isolated copy created. Experiments can never finalize.')] };
+          const copy: Mission = { ...structuredClone(source), id: newId(), mode: 'EXPERIMENT', sourceMissionId: source.id, gateway: { state: 'CLOSED', reason: 'Experiments can never finalize.' }, events: [event('EXPERIMENT_CREATED', 'Isolated copy created. Experiments can never finalize.')] };
           reevaluate(copy); await save(copy); return send(201, copy);
         }
         if (req.method === 'POST' && operation === 'analyze') {
@@ -154,7 +154,7 @@ export function createApp(dataDir = resolve('data'), analyzer: (report: string, 
             if (mission.analysisStatus !== 'READY' || action?.kind !== 'RESEARCH' || action.permit?.status !== 'ACTIVE') throw new HttpError(403, 'An ACTIVE server RESEARCH permit is required.');
             const claimId = typeof input.claimId === 'string' ? input.claimId : action.claimIds[0];
             if (!action.claimIds.includes(claimId)) throw new HttpError(400, 'The claim must belong to this RESEARCH action.');
-            const run: ResearchRun = { id: randomUUID(), actionId, claimId, claimIds: [claimId], query, mode: researchMode(), at: new Date().toISOString(), analysisHash: hash(JSON.stringify(mission.analysis)), status: 'RUNNING', results: [], pages: [], assessments: [] };
+            const run: ResearchRun = { id: newId(), actionId, claimId, claimIds: [claimId], query, mode: researchMode(), at: new Date().toISOString(), analysisHash: hash(JSON.stringify(mission.analysis)), status: 'RUNNING', results: [], pages: [], assessments: [] };
             mission.research ??= []; mission.research.push(run);
             mission.events.push(event('RESEARCH_STARTED', `Keenable search started for ${claimId} via ${actionId} (${run.mode}).`)); await save(mission);
             const analyzed = /```[a-z]*\n([\s\S]*?)```/.exec(mission.originalReport)?.[1] ?? '';
@@ -195,7 +195,7 @@ export function createApp(dataDir = resolve('data'), analyzer: (report: string, 
             if (actionIds.some(a => !current.analysis!.actions.some(x => x.id === a && x.kind === 'REQUEST_HUMAN'))) throw new HttpError(400, 'Only REQUEST_HUMAN actions can be completed by a human review.');
             if (issueIds.some(i => !current.analysis!.issues.some(x => x.id === i && x.severity === 'HUMAN'))) throw new HttpError(400, 'Only HUMAN judgment issues can be settled by a human; missing information still needs evidence.');
             if (withdrawClaimIds.some(c => !current.analysis!.claims.some(x => x.id === c))) throw new HttpError(400, 'Unknown claim to withdraw.');
-            const review: HumanReview = { id: randomUUID(), at: new Date().toISOString(), reviewer, decision, comment, actionIds, issueIds, withdrawClaimIds, ...(clarifiedUse ? { clarifiedUse } : {}), question: current.analysis.nextQuestion, analysisHash: analysisHash(current), noteHash: '' };
+            const review: HumanReview = { id: newId(), at: new Date().toISOString(), reviewer, decision, comment, actionIds, issueIds, withdrawClaimIds, ...(clarifiedUse ? { clarifiedUse } : {}), question: current.analysis.nextQuestion, analysisHash: analysisHash(current), noteHash: '' };
             current.humanReviews ??= []; current.humanReviews.push(review);
             // Scope changes regenerate the server-rendered note only if it was unedited; the review binds to the resulting exact content.
             if (hash(current.note.content) === current.note.analyzedHash) { const content = renderNote(current); if (content !== current.note.content) { current.note = { content, contentHash: hash(content), analyzedHash: hash(content), revision: current.note.revision + 1 }; current.events.push(event('CONTENT_CHANGED', 'Server regenerated the note from the human scope change; the new exact content is re-evaluated.')); } }
@@ -249,5 +249,6 @@ export function createApp(dataDir = resolve('data'), analyzer: (report: string, 
       }
       throw new HttpError(404, 'Endpoint not found.');
     } catch (error) { send(error instanceof HttpError ? error.status : 500, { error: error instanceof HttpError ? error.message : 'Storage or server error. The Gateway remains closed.' }); }
-  });
+  };
 }
+export const createApp = (...args: Parameters<typeof createHandler>) => createServer(createHandler(...args));

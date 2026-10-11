@@ -22,7 +22,7 @@ Real reports: put the Ezio exports in `data/reports/ev-market.md` and `data/repo
 - **Ezio**: the two real trust-analysis exports are the input.
 - **TokenRouter** (`openai/gpt-6.1-sol`): structured report analysis (`max_completion_tokens` 6000) and per-source assessment (2000). Verified with real calls on 2026-10-10.
 - **Keenable** (free public tier): real search, then fetch of at most two results per claim. Fetched text is kept verbatim (no fetch prompt).
-- No HarnessRouter, no paid top-up, no deployment.
+- No HarnessRouter, no paid top-up.
 
 ## What the engine does
 
@@ -40,3 +40,7 @@ Real reports: put the Ezio exports in `data/reports/ev-market.md` and `data/repo
 ## Limits
 
 Extraction, interpretation and source assessment depend on the model. Server checks bound them (excerpts, quotes, year proximity, hashes) but do not establish truth. The model's entity/scope flags are not independently checked. Excerpt provenance is not factual verification. Single local process, JSON files in `data/`, no accounts and no multi-client sync. See [docs/PERMIT_POLICY.md](docs/PERMIT_POLICY.md) and [PROJECT_STATE.md](PROJECT_STATE.md).
+
+## Public demo (Vercel)
+
+`api/handler.js` serves a read-only demo from `demo/fixtures/`: the two recorded missions, sanitized by `scripts/build-demo-fixtures.ts` (private Ezio result link, account notice, timestamps, internal scoring note and third-party page bodies removed). Analysis, research, imports and edits return 403 and no provider key is configured. Each browser's demo actions (experiment, mask, revision, review, finalize) are kept in a short cookie log and replayed through the same server handler on every request, so permits are still computed server-side. The UI shows a "Public demo" badge in this mode.

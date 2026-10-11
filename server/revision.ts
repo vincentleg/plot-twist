@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto';
+import { newId } from './ids.js';
 import type { Mission, Permit, PermitStatus, Revision, Claim } from '../shared/types.js';
 import { hash, analysisHash } from './policy.js';
 import { normalize, validateAnalysis } from './analysis.js';
@@ -41,7 +41,7 @@ export function renderRevision(m: Mission, r: Pick<Revision, 'id' | 'keptClaimId
 
 export function createRevision(m: Mission): Revision {
   const { kept, removed } = selectClaims(m);
-  const base = { id: randomUUID(), createdAt: new Date().toISOString(), keptClaimIds: kept.map(c => c.id), removed, proposedUse: proposedLimitedUse(m) };
+  const base = { id: newId(), createdAt: new Date().toISOString(), keptClaimIds: kept.map(c => c.id), removed, proposedUse: proposedLimitedUse(m) };
   const content = renderRevision(m, base);
   return { ...base, content, contentHash: hash(content), analysisHash: analysisHash(m), reviews: [], permit: null };
 }

@@ -1,0 +1,970 @@
+{
+ "id": "0a1afcf5-f6d5-484d-b880-1e3eeaa7ba4e",
+ "mode": "REAL",
+ "originalReport": "# ezio Trust Analysis — sanitized demo fixture\n\nRecorded analysis replayed by the PLOT TWIST public demo. The private result link, account details, export timestamps, internal scoring note and footer were removed. No live analysis runs on this site.\n\n## Analyzed text\n```\n**2024 global EV market snapshot**\n\n- **Worldwide EV unit sales:** About **17.1 million** electric vehicles were sold globally in **2024** (battery-electric + plug-in hybrid), up from roughly **13.9 million** in 2023.\n- **Top 3 manufacturers by EV volume:**\n  1. **BYD:** **4.27 million** vehicles\n  2. **Tesla:** **1.79 million** vehicles delivered\n  3. **Geely Group:** **~1.49 million** new-energy vehicles\n- **Average lithium-ion battery pack price:** The 2024 global average fell to **$115 per kWh**, a sharp year-over-year decline.\n- **Tesla annual revenue:** Tesla reported **$97.7 billion** in **2024** revenue.\n- **China’s share of global EV production:** China accounted for roughly **70%** of global EV production in 2024, maintaining its dominant manufacturing position.\n- **Battery recycling:** Battery recycling expanded quickly in 2024, with leading processes now able to recover **over 90%** of key metals such as **nickel, cobalt, and lithium**, improving supply security and reducing raw-material intensity.\n\nOverall, 2024 was another record year for EVs: sales kept growing, battery costs fell materially, China remained the production hub, and recycling became a more important part of the industry’s economics.\n```\n\n## Verdict\n\n3 of 4 checkable claims hold up. 1 has a wrong amount. 1 could not be checked against reliable sources.\n\nIssues found: 4\n\n## Module Scores\n\nAccuracy: ████░ full = every checked claim held up\n\nBias: █████ full = balanced framing\n\nTone: █████ full = neutral tone\n\nAgreement: █████ full = no flattery or excessive agreement detected\n\n## Claim analysis\n\nOnly the listed claims were assessed. Other statements may not have been checked.\n\n### Claim 1\n\nGeely Group: 1.49 million new-energy vehicles\n\nVerdict: Contradicted: amount\n\nVerification: Completed\n\n- What: Geely Group: 1.49 million new-energy vehicles — Not found in the sources checked.\n- Amount: 1.49 million new-energy vehicles — sources say 1.49 million, growing 52 percent compared with 2023 (Source 4)\n\nSources:\n\n- [1 Official · Geely Auto Exceeds 3.02 Million Vehicle Sales in 2025, Sets New Growth Targets for 2026](https://www.geely.com/en/news/2026/geely-auto-sales-2025) — Published: 2026-03-23\n- [2 Official · Brand](https://www.geely.com/en/brand)\n- [3 Reference · Geely Auto - Wikipedia](https://en.wikipedia.org/wiki/Geely_Auto) — Published: 2026-08-23\n- [4 Other · Geely aiming for stable growth amid intense market contest - Chinadaily.com.cn](https://www.chinadaily.com.cn/a/202501/13/WS67847095a310f1265a1da677.html) — Published: 2025-01-13\n- [5 Other · Geely Auto（A brand under Zhejiang Geely Holding Group）\\_Baiduwiki](https://baike.baidu.com/en/item/Geely%20Auto/929000)\n- [6 Other · Geely Cars: China’s Global Auto Group and EV Strategy - ChoZan](https://chozan.co/geely-cars) — Published: 2026-06-02\n\n### Claim 2\n\nTop 3 manufacturers by EV volume:\n\nVerdict: Not enough evidence\n\nVerification: Completed\n\nCould not be checked against reliable sources.\n\n- What: Top 3 manufacturers by EV volume — Not found in the sources checked.\n\nSources:\n\n- [1 News · A bumpy road for EV manufacturers | TechCrunch](https://techcrunch.com/2024/02/23/a-bumpy-road-for-ev-manufacturers) — Published: 2024-02-23\n- [2 News · 2027 Chevy Bolt, Rare Sub-$30K EV, Arrives In Volume At Dealers](https://www.forbes.com/sites/brookecrothers/2026/03/06/2027-chevy-bolt-rare-sub-30k-ev-arrives-in-volume-at-dealers)\n- [3 News · Used EV Market Volume Reaches New High, So What’s Next?](https://www.forbes.com/sites/stacynoblet/2025/02/19/used-ev-market-volume-reaches-new-high-so-whats-next)\n\n### Claim 3\n\nTesla annual revenue: Tesla reported $97.7 billion in 2024 revenue.\n\nVerdict: Supported\n\nVerification: Completed\n\n- What: Tesla annual revenue: Tesla reported $97.7 billion in 2024 revenue — matches (Source 1)\n- Amount: $97.7 billion — matches (Source 1)\n- When: 2024 — matches (Source 1)\n\nSources:\n\n- [1 Official · tsla-20241231](https://www.sec.gov/Archives/edgar/data/1318605/000162828025003063/tsla-20241231.htm) — Published: 2025-01-29\n- [2 News · Tesla Reports First Annual Revenue Decline Ever](https://www.forbes.com/sites/antoniopequenoiv/2026/01/28/tesla-reports-first-full-year-revenue-decline-ever-despite-topping-fourth-quarter-estimates) — Published: 2026-01-28\n- [3 Other · Tesla releases 2024 financial results: Revenue is up, but profits are down - electrive.com](https://www.electrive.com/2025/01/30/tesla-releases-2024-financial-results-revenue-is-up-but-profits-are-down) — Published: 2025-01-29\n- [4 Other · Tesla Growth and Production Statistics: How Many Vehicles Are Sold Across the Globe?](https://www.investing.com/academy/statistics/tesla-facts) — Published: 2022-09-14\n- [5 Other · Tesla Revenue 2012-2026 | TSLA](https://www.macrotrends.net/stocks/charts/TSLA/tesla/revenue)\n- [6 Other · Tesla tops Q4 expectations as annual revenue falls for first time](https://www.cbtnews.com/tesla-beats-q4-expectations-annual-revenue-falls) — Published: 2026-01-29\n\n### Claim 4\n\n2024 global EV market snapshot\n\nVerdict: Supported\n\nVerification: Completed\n\n- What: 2024 global EV market snapshot — matches (Source 1)\n- When: 2024 — matches (Source 1)\n\nSources:\n\n- [1 Official · Trends in electric cars – Global EV Outlook 2026 – Analysis - IEA](https://www.iea.org/reports/global-ev-outlook-2026/trends-in-electric-cars)\n- [2 Official · Global EV Outlook 2026 – Analysis - IEA](https://www.iea.org/reports/global-ev-outlook-2026) — Published: 2026-05-20\n- [3 Reference · Electric car use by country](https://en.wikipedia.org/wiki/Electric_car_use_by_country) — Published: 2010-04-10\n- [4 Other · What Happened in 2024 - On This Day](https://www.onthisday.com/date/2024)\n\n### Claim 5\n\nWorldwide EV unit sales: About 17.1 million electric vehicles were sold globally in 2024 (battery-electric + plug-in hybrid), up from roughly 13.9 million in 2023.\n\nVerdict: Supported\n\nVerification: Completed\n\n- What: About 17.1 million electric vehicles were sold globally in 2024 (battery-electric + plug-in hybrid), up from roughly 13.9 million in 2023 — matches (Source 1)\n- When: 2024 — matches (Source 1)\n- Amount: roughly 13.9 million — matches (Source 1)\n- When: 2023 — matches (Source 1)\n\nSources:\n\n- [1 Official · Trends in electric car markets – Global EV Outlook 2025 – Analysis - IEA](https://www.iea.org/reports/global-ev-outlook-2025/trends-in-electric-car-markets-2)\n- [2 Official · Hybrid-Electric, Plug-in Hybrid-Electric and Electric Vehicle Sales | Bureau of Transportation Statistics](https://www.bts.gov/content/gasoline-hybrid-and-electric-vehicle-sales) — Published: 2026-08-22\n- [3 Reference · Electric car use by country](https://en.wikipedia.org/wiki/Electric_car_use_by_country) — Published: 2010-04-10\n- [4 Reference · Tracking global data on electric vehicles | Our World in Data](https://ourworldindata.org/electric-car-sales?37767ffb_page=2) — Published: 2024-02-26\n- [5 Other · Unlocking growth: 5 key electric vehicle stats for 2024 · Smartcar blog](https://smartcar.com/blog/2024-ev-statistic) — Published: 2024-01-10\n- [6 Other · The Global Electric Vehicle Market In 2025](https://www.virta.global/global-electric-vehicle-market) — Published: 2025-08-07\n\n## Findings\n\n### Sentiment & Objectivity (NOTE)\n\nTone is neutral and objective.\n\n### Factual Claim Analysis (NOTE)\n\n3 of 4 checked claims verified against current web evidence. 1 claim(s) could not be checked against reliable sources.\n\nEvidence:\n\n- \"✓ Tesla annual revenue: Tesla reported $97.7 billion in 2024 revenue.\"\n- \"✓ 2024 global EV market snapshot\"\n- \"✓ Worldwide EV unit sales: About 17.1 million electric vehicles were sold globally in 2024 (battery-electric + plug-in hybrid), up from roughly 13.9 million in 2023.\"\n- \"✗ Geely Group: 1.49 million new-energy vehicles\"\n- \"? Top 3 manufacturers by EV volume:\"\n\n### Framing Bias Detection (NOTE)\n\nFraming is balanced. The response presents multiple perspectives without pushing a single stance.\n\nReasoning: This is a straightforward factual market snapshot with no argumentative framing and no competing viewpoint to represent. It lists industry metrics and concludes with a summary of trends, but it does not dismiss any alternative perspective or debate a contested policy issue.\n\n### Sycophancy Detection (NOTE)\n\nNo significant sycophancy markers detected. Response reads as independent.\n\n## Methodology\n\n**Tone:** Detects emotional tone and enthusiasm patterns. Highly emotional or enthusiastic responses lower this score.\n\n**Accuracy:** Extracts factual claims and checks each one against reliable web sources. The bar counts only claims that could be checked; claims that could not be checked are reported separately and never counted as wrong. Fewer than two checkable claims shows no score.\n\n**Bias:** Detects whether the response leans one-sided or presents balanced perspectives.\n\n**Agreement:** Detects patterns of excessive agreement like \"great question\" or \"absolutely right\". Counted as penalty, not score.\n",
+ "intendedUse": "An analyst decides whether this 2024 EV market summary can go into a note for a client. Examine the inconsistent Geely flag (contested and cited figures identical: keep the original verdict, check entity, year and scope), the unverified Top 3 ranking (not shown false) and the unassessed claims. Validation of the heading does not validate the whole text. Do not approve the whole text automatically.",
+ "importedAt": "2026-10-10T21:46:16.585Z",
+ "analysisStatus": "READY",
+ "claims": [
+  {
+   "id": "c1",
+   "text": "Geely Group had approximately 1.49 million new-energy vehicles in 2024. The report's original verdict is 'Contradicted: amount', but its cited amount is also 1.49 million; entity, year and scope remain unresolved.",
+   "status": "DISPUTED",
+   "evidenceIds": [
+    "e1",
+    "e2"
+   ]
+  },
+  {
+   "id": "c2",
+   "text": "BYD, Tesla and Geely Group were the top three manufacturers by EV volume, in that order. The report could not verify this ranking; it did not establish that the ranking is false.",
+   "status": "UNVERIFIABLE",
+   "evidenceIds": [
+    "e3",
+    "e4"
+   ]
+  },
+  {
+   "id": "c3",
+   "text": "Tesla reported $97.7 billion in revenue in 2024. The report explicitly marks the amount and year as matching its source.",
+   "status": "SUPPORTED",
+   "evidenceIds": [
+    "e5"
+   ]
+  },
+  {
+   "id": "c4",
+   "text": "The heading describes a 2024 global EV market snapshot. The report supports this heading, not every statement in the body.",
+   "status": "SUPPORTED",
+   "evidenceIds": [
+    "e6",
+    "e7"
+   ]
+  },
+  {
+   "id": "c5",
+   "text": "Worldwide battery-electric and plug-in hybrid vehicle sales were about 17.1 million in 2024, versus roughly 13.9 million in 2023. The report marks this claim as supported.",
+   "status": "SUPPORTED",
+   "evidenceIds": [
+    "e8"
+   ]
+  },
+  {
+   "id": "c6",
+   "text": "BYD's 2024 vehicle volume was 4.27 million. This individual volume was not separately listed as assessed.",
+   "status": "UNASSESSED",
+   "evidenceIds": [
+    "e3",
+    "e7"
+   ]
+  },
+  {
+   "id": "c7",
+   "text": "Tesla delivered 1.79 million vehicles in 2024. This individual delivery figure was not separately listed as assessed.",
+   "status": "UNASSESSED",
+   "evidenceIds": [
+    "e3",
+    "e7"
+   ]
+  },
+  {
+   "id": "c8",
+   "text": "The 2024 global average lithium-ion battery pack price fell to $115 per kWh, a sharp year-over-year decline. This was not listed as assessed.",
+   "status": "UNASSESSED",
+   "evidenceIds": [
+    "e9",
+    "e7"
+   ]
+  },
+  {
+   "id": "c9",
+   "text": "China accounted for roughly 70% of global EV production in 2024 and maintained its dominant manufacturing position. This was not listed as assessed.",
+   "status": "UNASSESSED",
+   "evidenceIds": [
+    "e10",
+    "e7"
+   ]
+  },
+  {
+   "id": "c10",
+   "text": "Battery recycling expanded quickly in 2024; leading processes can recover over 90% of nickel, cobalt and lithium, improving supply security and reducing raw-material intensity. These statements were not listed as assessed.",
+   "status": "UNASSESSED",
+   "evidenceIds": [
+    "e11",
+    "e7"
+   ]
+  },
+  {
+   "id": "c11",
+   "text": "2024 was a record EV year, battery costs fell materially, China remained the production hub, and recycling became more important to industry economics. This concluding synthesis was not separately assessed, although the report supports the stated sales increase.",
+   "status": "UNASSESSED",
+   "evidenceIds": [
+    "e12",
+    "e7",
+    "e8"
+   ]
+  }
+ ],
+ "evidence": [
+  {
+   "id": "e1",
+   "text": "Geely Group: 1.49 million new-energy vehicles\n\nVerdict: Contradicted: amount\n\nVerification: Completed",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e2",
+   "text": "- What: Geely Group: 1.49 million new-energy vehicles — Not found in the sources checked.\n- Amount: 1.49 million new-energy vehicles — sources say 1.49 million, growing 52 percent compared with 2023 (Source 4)",
+   "source": "https://www.chinadaily.com.cn/a/202501/13/WS67847095a310f1265a1da677.html",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e3",
+   "text": "- **Top 3 manufacturers by EV volume:**\n  1. **BYD:** **4.27 million** vehicles\n  2. **Tesla:** **1.79 million** vehicles delivered\n  3. **Geely Group:** **~1.49 million** new-energy vehicles",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e4",
+   "text": "Top 3 manufacturers by EV volume:\n\nVerdict: Not enough evidence\n\nVerification: Completed\n\nCould not be checked against reliable sources.\n\n- What: Top 3 manufacturers by EV volume — Not found in the sources checked.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e5",
+   "text": "- What: Tesla annual revenue: Tesla reported $97.7 billion in 2024 revenue — matches (Source 1)\n- Amount: $97.7 billion — matches (Source 1)\n- When: 2024 — matches (Source 1)",
+   "source": "https://www.sec.gov/Archives/edgar/data/1318605/000162828025003063/tsla-20241231.htm",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e6",
+   "text": "2024 global EV market snapshot\n\nVerdict: Supported\n\nVerification: Completed\n\n- What: 2024 global EV market snapshot — matches (Source 1)\n- When: 2024 — matches (Source 1)",
+   "source": "https://www.iea.org/reports/global-ev-outlook-2026/trends-in-electric-cars",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e7",
+   "text": "Only the listed claims were assessed. Other statements may not have been checked.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e8",
+   "text": "Worldwide EV unit sales: About 17.1 million electric vehicles were sold globally in 2024 (battery-electric + plug-in hybrid), up from roughly 13.9 million in 2023.\n\nVerdict: Supported\n\nVerification: Completed\n\n- What: About 17.1 million electric vehicles were sold globally in 2024 (battery-electric + plug-in hybrid), up from roughly 13.9 million in 2023 — matches (Source 1)\n- When: 2024 — matches (Source 1)\n- Amount: roughly 13.9 million — matches (Source 1)\n- When: 2023 — matches (Source 1)",
+   "source": "https://www.iea.org/reports/global-ev-outlook-2025/trends-in-electric-car-markets-2",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e9",
+   "text": "- **Average lithium-ion battery pack price:** The 2024 global average fell to **$115 per kWh**, a sharp year-over-year decline.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e10",
+   "text": "- **China’s share of global EV production:** China accounted for roughly **70%** of global EV production in 2024, maintaining its dominant manufacturing position.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e11",
+   "text": "- **Battery recycling:** Battery recycling expanded quickly in 2024, with leading processes now able to recover **over 90%** of key metals such as **nickel, cobalt, and lithium**, improving supply security and reducing raw-material intensity.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e12",
+   "text": "Overall, 2024 was another record year for EVs: sales kept growing, battery costs fell materially, China remained the production hub, and recycling became a more important part of the industry’s economics.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e13",
+   "text": "Framing is balanced. The response presents multiple perspectives without pushing a single stance.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e14",
+   "text": "No significant sycophancy markers detected. Response reads as independent.",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e15",
+   "text": "- [1 Official · tsla-20241231](https://www.sec.gov/Archives/edgar/data/1318605/000162828025003063/tsla-20241231.htm) — Published: 2025-01-29",
+   "state": "VERIFIED"
+  },
+  {
+   "id": "e16",
+   "text": "**Accuracy:** Extracts factual claims and checks each one against reliable web sources. The bar counts only claims that could be checked; claims that could not be checked are reported separately and never counted as wrong. Fewer than two checkable claims shows no score.",
+   "state": "VERIFIED"
+  }
+ ],
+ "actions": [
+  {
+   "id": "a1",
+   "kind": "REQUEST_HUMAN",
+   "title": "Resolve the internally inconsistent Geely verdict by checking entity, year and scope without silently changing the original verdict",
+   "claimIds": [
+    "c1"
+   ],
+   "evidenceIds": [
+    "e1",
+    "e2",
+    "e3"
+   ],
+   "dependsOn": [],
+   "permit": {
+    "status": "ACTIVE",
+    "reason": "Report-grounded preparation is permitted; this does not execute the action or verify its claims.",
+    "evaluatedAt": "2026-10-11T22:24:00.105Z"
+   }
+  },
+  {
+   "id": "a2",
+   "kind": "RESEARCH",
+   "title": "Obtain comparable ranking evidence and verify the unassessed volumes, pricing, production, recycling and concluding claims",
+   "claimIds": [
+    "c2",
+    "c6",
+    "c7",
+    "c8",
+    "c9",
+    "c10",
+    "c11"
+   ],
+   "evidenceIds": [
+    "e3",
+    "e4",
+    "e7",
+    "e9",
+    "e10",
+    "e11",
+    "e12"
+   ],
+   "dependsOn": [],
+   "permit": {
+    "status": "ACTIVE",
+    "reason": "Report-grounded preparation is permitted; this does not execute the action or verify its claims.",
+    "evaluatedAt": "2026-10-11T22:24:00.109Z"
+   }
+  },
+  {
+   "id": "a3",
+   "kind": "CORRECT",
+   "title": "Prepare a scoped client-note revision using resolved findings, removing or qualifying claims that remain unsupported; revision alone does not verify them",
+   "claimIds": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8",
+    "c9",
+    "c10",
+    "c11"
+   ],
+   "evidenceIds": [
+    "e1",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e12"
+   ],
+   "dependsOn": [
+    "a1",
+    "a2"
+   ],
+   "permit": {
+    "status": "ACTIVE",
+    "reason": "Report-grounded preparation is permitted; this does not execute the action or verify its claims.",
+    "evaluatedAt": "2026-10-11T22:24:00.112Z"
+   }
+  },
+  {
+   "id": "finalize",
+   "kind": "FINALIZE",
+   "title": "Finalize this exact decision note",
+   "claimIds": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8",
+    "c9",
+    "c10",
+    "c11"
+   ],
+   "evidenceIds": [
+    "e1",
+    "e2",
+    "e3",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16"
+   ],
+   "dependsOn": [
+    "a1",
+    "a2",
+    "a3"
+   ],
+   "permit": {
+    "status": "NEEDS_HUMAN",
+    "reason": "An unresolved contradiction or human judgment prevents finalization.",
+    "evaluatedAt": "2026-10-11T22:24:00.114Z",
+    "contentHash": "24de45640d7186aab1c38873581cd6d527138b53fa45a93877043b9018e6b1cd"
+   }
+  }
+ ],
+ "gateway": {
+  "state": "CLOSED",
+  "reason": "An unresolved contradiction or human judgment prevents finalization.",
+  "contentHash": "24de45640d7186aab1c38873581cd6d527138b53fa45a93877043b9018e6b1cd"
+ },
+ "events": [
+  {
+   "id": "626ec9a1-3b21-492c-a561-0b75f7495fd7",
+   "at": "2026-10-10T21:46:16.585Z",
+   "type": "MISSION_IMPORTED",
+   "message": "Original report and intended use saved. Ready for analysis when a provider is configured."
+  },
+  {
+   "id": "379c68a5-a4e4-4035-8b98-6eeed522ea94",
+   "at": "2026-10-10T21:46:16.590Z",
+   "type": "ANALYSIS_STARTED",
+   "message": "Provider analysis started. Previous content authorization cleared."
+  },
+  {
+   "id": "83d8a617-8d78-41a8-8598-67dc2ffc743d",
+   "at": "2026-10-10T21:47:10.343Z",
+   "type": "ANALYSIS_COMPLETED",
+   "message": "Structured analysis validated. Excerpts matched to the report; interpretation remains model-dependent."
+  },
+  {
+   "id": "9c8b00f3-b990-4cee-a5b4-96dcdf836cd5",
+   "at": "2026-10-10T21:47:10.353Z",
+   "type": "PERMITS_EVALUATED",
+   "message": "Server policy evaluated action dependencies and the exact note."
+  },
+  {
+   "id": "7e6fdf10-acf6-4899-9d9f-dd1a714ff7af",
+   "at": "2026-10-10T21:47:10.376Z",
+   "type": "RESEARCH_STARTED",
+   "message": "Keenable search started for c2 via a2 (KEYLESS_PUBLIC)."
+  },
+  {
+   "id": "200055fe-4843-4704-82bf-88683f8843a9",
+   "at": "2026-10-10T21:47:10.608Z",
+   "type": "RESEARCH_SEARCHED",
+   "message": "Keenable returned 2 eligible result(s) for c2 (max 2)."
+  },
+  {
+   "id": "3455fb60-f5dd-4dc3-92c1-1050ff5a0afe",
+   "at": "2026-10-10T21:47:10.947Z",
+   "type": "RESEARCH_FETCHED",
+   "message": "Fetched https://www.techradar.com/vehicle-tech/hybrid-electric-vehicles/tesla-model-y-tops-global-ev-sales-figures-again-but-new-report-reveals-byd-is-closing-fast-with-4-of-the-top-10-models (5929 chars). Content UNVERIFIED."
+  },
+  {
+   "id": "88538fe1-c13a-4d27-a3aa-8c02abfaf9a0",
+   "at": "2026-10-10T21:47:17.441Z",
+   "type": "RESEARCH_ASSESSED",
+   "message": "c2 vs https://www.techradar.com/vehicle-tech/hybrid-electric-vehicles/tesla-model-y-tops-global-ev-sales-figures-again-but-new-report-reveals-byd-is-closing-fast-with-4-of-the-top-10-models: INSUFFICIENT (quote found: true; entity/period/scope: true/false/true)."
+  },
+  {
+   "id": "ea7d126a-d2d7-48fa-921b-ee27d020ec1a",
+   "at": "2026-10-10T21:47:17.811Z",
+   "type": "RESEARCH_FETCHED",
+   "message": "Fetched https://motorwatt.com/ratings/ev-manufacturers (22639 chars). Content UNVERIFIED."
+  },
+  {
+   "id": "fbcff0bc-ab98-444b-aa08-36980b3fd13f",
+   "at": "2026-10-10T21:47:24.030Z",
+   "type": "RESEARCH_ASSESSED",
+   "message": "c2 vs https://motorwatt.com/ratings/ev-manufacturers: INSUFFICIENT (quote found: true; entity/period/scope: true/false/false)."
+  },
+  {
+   "id": "059506f1-5980-43fc-a336-c95dd2d93581",
+   "at": "2026-10-10T21:47:24.045Z",
+   "type": "PERMITS_EVALUATED",
+   "message": "Permits re-evaluated after source assessment."
+  },
+  {
+   "id": "183eef21-6be3-4c40-8b6a-7c8c6c8e031c",
+   "at": "2026-10-10T21:47:24.100Z",
+   "type": "HUMAN_REVIEW_RECORDED",
+   "message": "Analyst (client note owner): ACCEPT_QUALIFIED. Recorded as human judgment, not factual evidence; bound to note SHA-256 b14dde6709d3."
+  },
+  {
+   "id": "87f9fcfb-a2c5-49d1-8ad6-1d828b3264bc",
+   "at": "2026-10-10T21:47:24.109Z",
+   "type": "PERMITS_EVALUATED",
+   "message": "Server policy re-evaluated after the human review."
+  },
+  {
+   "id": "b59e9c90-430f-4a99-8414-94cd0281cbb1",
+   "at": "2026-10-10T21:47:24.135Z",
+   "type": "CONTENT_CHANGED",
+   "message": "Decision note changed; exact-content permission re-evaluated."
+  },
+  {
+   "id": "2d4cdcbc-3255-4b1c-a9c2-90f2337060c1",
+   "at": "2026-10-10T21:47:24.149Z",
+   "type": "CONTENT_CHANGED",
+   "message": "Decision note changed; exact-content permission re-evaluated."
+  },
+  {
+   "id": "ec11bd09-8140-4a43-a242-cb5ac89ef5f5",
+   "at": "2026-10-10T22:09:06.412Z",
+   "type": "ANALYSIS_STARTED",
+   "message": "Provider analysis started. Previous content authorization cleared."
+  },
+  {
+   "id": "ab27e0b0-8dd8-4ce7-a651-9b0fc09e5bb3",
+   "at": "2026-10-10T22:09:58.265Z",
+   "type": "ANALYSIS_COMPLETED",
+   "message": "Structured analysis validated. Excerpts matched to the report; interpretation remains model-dependent."
+  },
+  {
+   "id": "ee086969-25d3-48af-8cc9-dace144cc611",
+   "at": "2026-10-10T22:09:58.281Z",
+   "type": "PERMITS_EVALUATED",
+   "message": "Server policy evaluated action dependencies and the exact note."
+  },
+  {
+   "id": "776396f8-ae49-435e-8076-bbbed0ce7ce1",
+   "at": "2026-10-10T22:11:27.565Z",
+   "type": "ANALYSIS_STARTED",
+   "message": "Provider analysis started. Previous content authorization cleared."
+  },
+  {
+   "id": "1f6ef051-4e99-40a4-89a8-8bd0ad6f2d9c",
+   "at": "2026-10-10T22:12:19.332Z",
+   "type": "ANALYSIS_COMPLETED",
+   "message": "Structured analysis validated. Excerpts matched to the report; interpretation remains model-dependent."
+  },
+  {
+   "id": "88665811-5d28-44b3-bc56-0ba0d18711ce",
+   "at": "2026-10-10T22:12:19.347Z",
+   "type": "PERMITS_EVALUATED",
+   "message": "Server policy evaluated action dependencies and the exact note."
+  }
+ ],
+ "research": [
+  {
+   "id": "e0584dc7-7f39-4d1e-9e59-bfd2371b70fe",
+   "actionId": "a2",
+   "claimId": "c2",
+   "claimIds": [
+    "c2"
+   ],
+   "query": "BYD, Tesla and Geely Group were the top three manufacturers by EV volume in the stated order. The report could not verify this ranking; it did not establish that the ranking is false.",
+   "mode": "KEYLESS_PUBLIC",
+   "at": "2026-10-10T21:47:10.376Z",
+   "analysisHash": "238115fe15a8cc518e0ffbc49d197ece917d4c4e17c63f3dd4133e2189994d99",
+   "status": "COMPLETE",
+   "results": [
+    {
+     "url": "https://techradar.com/vehicle-tech/hybrid-electric-vehicles/tesla-model-y-tops-global-ev-sales-figures-again-but-new-report-reveals-byd-is-closing-fast-with-4-of-the-top-10-models",
+     "title": "Tesla Model Y tops global EV sales figures again — but new report reveals BYD is closing fast with 4 of the top 10 models",
+     "snippet": "vehicles, models from Chinese automakers [Geely](https://www.techradar.com/vehicle-tech/hybrid-electric-vehicles/a-full-ev-charging-session-in-4-minutes-theres-a-new-challenger-to-byd-in-the-megawatt-charging-game) and [BYD](https://www.te…",
+     "publishedAt": "2026-10-05T18:00:00Z"
+    },
+    {
+     "url": "https://motorwatt.com/ratings/ev-manufacturers",
+     "title": "Top Electric Vehicle Manufacturers in 2026",
+     "snippet": "Global electric vehicle sales exceeded **20 million units in 2025** — one in every four new cars sold worldwide was electric. BYD overtook Tesla as the world's largest EV maker by the end of that year.\n\nBYD became the world's largest elect…",
+     "publishedAt": "2026-06-04T10:00:05Z"
+    }
+   ],
+   "pages": [
+    {
+     "url": "https://www.techradar.com/vehicle-tech/hybrid-electric-vehicles/tesla-model-y-tops-global-ev-sales-figures-again-but-new-report-reveals-byd-is-closing-fast-with-4-of-the-top-10-models",
+     "title": "Tesla Model Y tops global EV sales figures again — but new report reveals BYD is closing fast with 4 of the top 10 models",
+     "content": "[Page text not republished in the public demo. Open the link to read the source.]",
+     "truncated": false,
+     "fetchedAt": "2026-10-10T21:47:10.947Z",
+     "state": "UNVERIFIED"
+    },
+    {
+     "url": "https://motorwatt.com/ratings/ev-manufacturers",
+     "title": "Top Electric Vehicle Manufacturers in 2026",
+     "content": "[Page text not republished in the public demo. Open the link to read the source.]",
+     "truncated": false,
+     "fetchedAt": "2026-10-10T21:47:17.811Z",
+     "state": "UNVERIFIED"
+    }
+   ],
+   "assessments": [
+    {
+     "claimId": "c2",
+     "url": "https://www.techradar.com/vehicle-tech/hybrid-electric-vehicles/tesla-model-y-tops-global-ev-sales-figures-again-but-new-report-reveals-byd-is-closing-fast-with-4-of-the-top-10-models",
+     "publishedAt": "2026-10-05T18:00:00Z",
+     "fetchedAt": "2026-10-10T21:47:10.947Z",
+     "stance": "INSUFFICIENT",
+     "quote": "Geely is second with 9.9%, while Tesla sits third with 8.3%.",
+     "quoteFound": true,
+     "context": {
+      "entity": true,
+      "period": false,
+      "scope": true
+     },
+     "rationale": "The page ranks manufacturers by global plug-in vehicle sales for 2026 year to date through August, placing Geely ahead of Tesla. The claim specifies no period, so this period-specific ranking does not establish that the claimed order is false for the intended period."
+    },
+    {
+     "claimId": "c2",
+     "url": "https://motorwatt.com/ratings/ev-manufacturers",
+     "publishedAt": "2026-06-04T10:00:05Z",
+     "fetchedAt": "2026-10-10T21:47:17.811Z",
+     "stance": "INSUFFICIENT",
+     "quote": "All others: approximate BEV figures, mostly 2024 data (2025 figures for legacy OEMs not yet fully reported).",
+     "quoteFound": true,
+     "context": {
+      "entity": true,
+      "period": false,
+      "scope": false
+     },
+     "rationale": "The page lists Volkswagen Group rather than Geely third, but its comparison mixes years and BYD’s BEV+PHEV volume with other manufacturers’ BEV-only figures. It therefore does not establish or refute the claimed ranking on a consistent period and measurement scope."
+    }
+   ]
+  }
+ ],
+ "humanReviews": [
+  {
+   "id": "076e936d-2e69-4e04-bfde-23b839e62e08",
+   "at": "2026-10-10T21:47:24.099Z",
+   "reviewer": "Analyst (client note owner)",
+   "decision": "ACCEPT_QUALIFIED",
+   "comment": "Qualified rewrite accepted for review only; unknowns stay unknown.",
+   "actionIds": [
+    "a1"
+   ],
+   "issueIds": [
+    "i1",
+    "i6"
+   ],
+   "withdrawClaimIds": [],
+   "question": "Which Geely entity, reporting year and vehicle definition does the cited 1.49 million figure cover, and do those match the entity and scope intended in the 2024 client note?",
+   "analysisHash": "238115fe15a8cc518e0ffbc49d197ece917d4c4e17c63f3dd4133e2189994d99",
+   "noteHash": "b14dde6709d3660b14d65ea32ed556f919c0ee043de882aa40849c2ea8ae7f06"
+  }
+ ],
+ "analysis": {
+  "claims": [
+   {
+    "id": "c1",
+    "text": "Geely Group had approximately 1.49 million new-energy vehicles in 2024. The report's original verdict is 'Contradicted: amount', but its cited amount is also 1.49 million; entity, year and scope remain unresolved.",
+    "status": "DISPUTED",
+    "evidenceIds": [
+     "e1",
+     "e2"
+    ]
+   },
+   {
+    "id": "c2",
+    "text": "BYD, Tesla and Geely Group were the top three manufacturers by EV volume, in that order. The report could not verify this ranking; it did not establish that the ranking is false.",
+    "status": "UNVERIFIABLE",
+    "evidenceIds": [
+     "e3",
+     "e4"
+    ]
+   },
+   {
+    "id": "c3",
+    "text": "Tesla reported $97.7 billion in revenue in 2024. The report explicitly marks the amount and year as matching its source.",
+    "status": "SUPPORTED",
+    "evidenceIds": [
+     "e5"
+    ]
+   },
+   {
+    "id": "c4",
+    "text": "The heading describes a 2024 global EV market snapshot. The report supports this heading, not every statement in the body.",
+    "status": "SUPPORTED",
+    "evidenceIds": [
+     "e6",
+     "e7"
+    ]
+   },
+   {
+    "id": "c5",
+    "text": "Worldwide battery-electric and plug-in hybrid vehicle sales were about 17.1 million in 2024, versus roughly 13.9 million in 2023. The report marks this claim as supported.",
+    "status": "SUPPORTED",
+    "evidenceIds": [
+     "e8"
+    ]
+   },
+   {
+    "id": "c6",
+    "text": "BYD's 2024 vehicle volume was 4.27 million. This individual volume was not separately listed as assessed.",
+    "status": "UNASSESSED",
+    "evidenceIds": [
+     "e3",
+     "e7"
+    ]
+   },
+   {
+    "id": "c7",
+    "text": "Tesla delivered 1.79 million vehicles in 2024. This individual delivery figure was not separately listed as assessed.",
+    "status": "UNASSESSED",
+    "evidenceIds": [
+     "e3",
+     "e7"
+    ]
+   },
+   {
+    "id": "c8",
+    "text": "The 2024 global average lithium-ion battery pack price fell to $115 per kWh, a sharp year-over-year decline. This was not listed as assessed.",
+    "status": "UNASSESSED",
+    "evidenceIds": [
+     "e9",
+     "e7"
+    ]
+   },
+   {
+    "id": "c9",
+    "text": "China accounted for roughly 70% of global EV production in 2024 and maintained its dominant manufacturing position. This was not listed as assessed.",
+    "status": "UNASSESSED",
+    "evidenceIds": [
+     "e10",
+     "e7"
+    ]
+   },
+   {
+    "id": "c10",
+    "text": "Battery recycling expanded quickly in 2024; leading processes can recover over 90% of nickel, cobalt and lithium, improving supply security and reducing raw-material intensity. These statements were not listed as assessed.",
+    "status": "UNASSESSED",
+    "evidenceIds": [
+     "e11",
+     "e7"
+    ]
+   },
+   {
+    "id": "c11",
+    "text": "2024 was a record EV year, battery costs fell materially, China remained the production hub, and recycling became more important to industry economics. This concluding synthesis was not separately assessed, although the report supports the stated sales increase.",
+    "status": "UNASSESSED",
+    "evidenceIds": [
+     "e12",
+     "e7",
+     "e8"
+    ]
+   }
+  ],
+  "evidence": [
+   {
+    "id": "e1",
+    "text": "Geely Group: 1.49 million new-energy vehicles\n\nVerdict: Contradicted: amount\n\nVerification: Completed",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e2",
+    "text": "- What: Geely Group: 1.49 million new-energy vehicles — Not found in the sources checked.\n- Amount: 1.49 million new-energy vehicles — sources say 1.49 million, growing 52 percent compared with 2023 (Source 4)",
+    "source": "https://www.chinadaily.com.cn/a/202501/13/WS67847095a310f1265a1da677.html",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e3",
+    "text": "- **Top 3 manufacturers by EV volume:**\n  1. **BYD:** **4.27 million** vehicles\n  2. **Tesla:** **1.79 million** vehicles delivered\n  3. **Geely Group:** **~1.49 million** new-energy vehicles",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e4",
+    "text": "Top 3 manufacturers by EV volume:\n\nVerdict: Not enough evidence\n\nVerification: Completed\n\nCould not be checked against reliable sources.\n\n- What: Top 3 manufacturers by EV volume — Not found in the sources checked.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e5",
+    "text": "- What: Tesla annual revenue: Tesla reported $97.7 billion in 2024 revenue — matches (Source 1)\n- Amount: $97.7 billion — matches (Source 1)\n- When: 2024 — matches (Source 1)",
+    "source": "https://www.sec.gov/Archives/edgar/data/1318605/000162828025003063/tsla-20241231.htm",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e6",
+    "text": "2024 global EV market snapshot\n\nVerdict: Supported\n\nVerification: Completed\n\n- What: 2024 global EV market snapshot — matches (Source 1)\n- When: 2024 — matches (Source 1)",
+    "source": "https://www.iea.org/reports/global-ev-outlook-2026/trends-in-electric-cars",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e7",
+    "text": "Only the listed claims were assessed. Other statements may not have been checked.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e8",
+    "text": "Worldwide EV unit sales: About 17.1 million electric vehicles were sold globally in 2024 (battery-electric + plug-in hybrid), up from roughly 13.9 million in 2023.\n\nVerdict: Supported\n\nVerification: Completed\n\n- What: About 17.1 million electric vehicles were sold globally in 2024 (battery-electric + plug-in hybrid), up from roughly 13.9 million in 2023 — matches (Source 1)\n- When: 2024 — matches (Source 1)\n- Amount: roughly 13.9 million — matches (Source 1)\n- When: 2023 — matches (Source 1)",
+    "source": "https://www.iea.org/reports/global-ev-outlook-2025/trends-in-electric-car-markets-2",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e9",
+    "text": "- **Average lithium-ion battery pack price:** The 2024 global average fell to **$115 per kWh**, a sharp year-over-year decline.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e10",
+    "text": "- **China’s share of global EV production:** China accounted for roughly **70%** of global EV production in 2024, maintaining its dominant manufacturing position.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e11",
+    "text": "- **Battery recycling:** Battery recycling expanded quickly in 2024, with leading processes now able to recover **over 90%** of key metals such as **nickel, cobalt, and lithium**, improving supply security and reducing raw-material intensity.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e12",
+    "text": "Overall, 2024 was another record year for EVs: sales kept growing, battery costs fell materially, China remained the production hub, and recycling became a more important part of the industry’s economics.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e13",
+    "text": "Framing is balanced. The response presents multiple perspectives without pushing a single stance.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e14",
+    "text": "No significant sycophancy markers detected. Response reads as independent.",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e15",
+    "text": "- [1 Official · tsla-20241231](https://www.sec.gov/Archives/edgar/data/1318605/000162828025003063/tsla-20241231.htm) — Published: 2025-01-29",
+    "state": "VERIFIED"
+   },
+   {
+    "id": "e16",
+    "text": "**Accuracy:** Extracts factual claims and checks each one against reliable web sources. The bar counts only claims that could be checked; claims that could not be checked are reported separately and never counted as wrong. Fewer than two checkable claims shows no score.",
+    "state": "VERIFIED"
+   }
+  ],
+  "signals": [
+   {
+    "kind": "FACT_CHECK",
+    "assessment": "CONCERN",
+    "explanation": "The report explicitly verifies Tesla revenue, worldwide sales and the heading, but its Geely amount verdict contradicts its own matching numerical detail. Verification also leaves the ranking unresolved and substantial body claims unassessed.",
+    "evidenceIds": [
+     "e1",
+     "e2",
+     "e4",
+     "e5",
+     "e6",
+     "e7",
+     "e8"
+    ]
+   },
+   {
+    "kind": "CITATIONS",
+    "assessment": "POSITIVE",
+    "explanation": "The report supplies claim-specific source links, including an SEC filing and IEA reports. Citation presence establishes traceability, not independent factual verification or adequate support for the entire text.",
+    "evidenceIds": [
+     "e15",
+     "e6",
+     "e8"
+    ]
+   },
+   {
+    "kind": "BIAS",
+    "assessment": "POSITIVE",
+    "explanation": "The report explicitly assesses the framing as balanced. This finding does not resolve factual gaps.",
+    "evidenceIds": [
+     "e13"
+    ]
+   },
+   {
+    "kind": "SYCOPHANCY",
+    "assessment": "POSITIVE",
+    "explanation": "The report explicitly states that no significant sycophancy markers were detected.",
+    "evidenceIds": [
+     "e14"
+    ]
+   },
+   {
+    "kind": "UNCERTAINTY",
+    "assessment": "POSITIVE",
+    "explanation": "The report acknowledges insufficient evidence for the ranking, limits assessment to listed claims, and distinguishes unchecked claims from wrong claims.",
+    "evidenceIds": [
+     "e4",
+     "e7",
+     "e16"
+    ]
+   }
+  ],
+  "issues": [
+   {
+    "id": "i1",
+    "description": "The original Geely 'Contradicted: amount' verdict must be preserved pending human review: the contested and cited amounts are identical. Check whether the discrepancy concerns Geely Group versus Geely Auto, the reporting year, or the vehicle and consolidation scope.",
+    "severity": "HUMAN",
+    "claimIds": [
+     "c1"
+    ],
+    "evidenceIds": [
+     "e1",
+     "e2",
+     "e3"
+    ]
+   },
+   {
+    "id": "i2",
+    "description": "The Top 3 ranking lacks reliable verification. A client note needs a consistent calendar year, manufacturer/group boundary and EV definition, with comparable sales or delivery measures. The report does not show the ranking to be false.",
+    "severity": "MISSING",
+    "claimIds": [
+     "c2",
+     "c1",
+     "c6",
+     "c7"
+    ],
+    "evidenceIds": [
+     "e3",
+     "e4"
+    ]
+   },
+   {
+    "id": "i3",
+    "description": "BYD and Tesla volumes, battery pack pricing and China's production share were not individually assessed. Their numerical accuracy and measurement scope remain unresolved.",
+    "severity": "MISSING",
+    "claimIds": [
+     "c6",
+     "c7",
+     "c8",
+     "c9"
+    ],
+    "evidenceIds": [
+     "e3",
+     "e7",
+     "e9",
+     "e10"
+    ]
+   },
+   {
+    "id": "i4",
+    "description": "Recycling growth, metal-specific recovery above 90%, supply-security benefits and industry-economic importance lack listed verification. Process capability should not be presented as industry-wide realized recovery without supporting scope.",
+    "severity": "MISSING",
+    "claimIds": [
+     "c10",
+     "c11"
+    ],
+    "evidenceIds": [
+     "e7",
+     "e11",
+     "e12"
+    ]
+   },
+   {
+    "id": "i5",
+    "description": "Support for the heading and selected claims cannot authorize the whole client-facing summary. The record-year assertion and concluding synthesis extend beyond the report's verified findings.",
+    "severity": "MISSING",
+    "claimIds": [
+     "c4",
+     "c11"
+    ],
+    "evidenceIds": [
+     "e6",
+     "e7",
+     "e12"
+    ]
+   }
+  ],
+  "actions": [
+   {
+    "id": "a1",
+    "kind": "REQUEST_HUMAN",
+    "title": "Resolve the internally inconsistent Geely verdict by checking entity, year and scope without silently changing the original verdict",
+    "claimIds": [
+     "c1"
+    ],
+    "evidenceIds": [
+     "e1",
+     "e2",
+     "e3"
+    ],
+    "dependsOn": [],
+    "permit": null
+   },
+   {
+    "id": "a2",
+    "kind": "RESEARCH",
+    "title": "Obtain comparable ranking evidence and verify the unassessed volumes, pricing, production, recycling and concluding claims",
+    "claimIds": [
+     "c2",
+     "c6",
+     "c7",
+     "c8",
+     "c9",
+     "c10",
+     "c11"
+    ],
+    "evidenceIds": [
+     "e3",
+     "e4",
+     "e7",
+     "e9",
+     "e10",
+     "e11",
+     "e12"
+    ],
+    "dependsOn": [],
+    "permit": null
+   },
+   {
+    "id": "a3",
+    "kind": "CORRECT",
+    "title": "Prepare a scoped client-note revision using resolved findings, removing or qualifying claims that remain unsupported; revision alone does not verify them",
+    "claimIds": [
+     "c1",
+     "c2",
+     "c3",
+     "c4",
+     "c5",
+     "c6",
+     "c7",
+     "c8",
+     "c9",
+     "c10",
+     "c11"
+    ],
+    "evidenceIds": [
+     "e1",
+     "e4",
+     "e5",
+     "e6",
+     "e7",
+     "e8",
+     "e12"
+    ],
+    "dependsOn": [
+     "a1",
+     "a2"
+    ],
+    "permit": null
+   }
+  ],
+  "recommendation": "ESCALATE",
+  "justification": "Do not approve the complete summary for the client note on this report alone. Human review is needed for the contradictory Geely verdict, and research is needed for the ranking and unassessed body claims. The supported sales and revenue findings provide limited report-backed material, not blanket validation.",
+  "useAssessment": {
+   "risk": "HIGH",
+   "rationale": "A financial-market summary in a client-facing analyst note can influence consequential financial judgments. Incorrect rankings, entity boundaries or industry metrics could materially mislead readers."
+  },
+  "caveats": [
+   "SUPPORTED means supported by this report, not independently verified here; no external checks were performed.",
+   "Preserve the Geely verdict 'Contradicted: amount' until human review resolves the report's internal inconsistency.",
+   "The Top 3 ranking is unverified, not demonstrated false.",
+   "Unlisted body statements remain unassessed; heading validation does not validate the body.",
+   "Preserve approximate quantities, calendar years, BEV-plus-PHEV scope and distinctions among sales, deliveries and new-energy vehicles.",
+   "Module bars are not probabilities of truth, and source age alone does not invalidate a citation.",
+   "Rewriting is preparation, not verification or authorization to publish."
+  ],
+  "nextQuestion": "Which legal entity, reporting year and vehicle scope does the cited 1.49 million Geely figure cover, and what supports the report's 'Contradicted: amount' verdict despite the identical amount?"
+ },
+ "note": {
+  "content": "PLOT TWIST — Decision note\n\nIntended use\nAn analyst decides whether this 2024 EV market summary can go into a note for a client. Examine the inconsistent Geely flag (contested and cited figures identical: keep the original verdict, check entity, year and scope), the unverified Top 3 ranking (not shown false) and the unassessed claims. Validation of the heading does not validate the whole text. Do not approve the whole text automatically.\n\nModel recommendation: ESCALATE\nDo not approve the complete summary for the client note on this report alone. Human review is needed for the contradictory Geely verdict, and research is needed for the ranking and unassessed body claims. The supported sales and revenue findings provide limited report-backed material, not blanket validation.\n\nUse assessment: HIGH\nA financial-market summary in a client-facing analyst note can influence consequential financial judgments. Incorrect rankings, entity boundaries or industry metrics could materially mislead readers.\n\nReport-supported elements (not independently verified)\n- [c3] Tesla reported $97.7 billion in revenue in 2024. The report explicitly marks the amount and year as matching its source. [e5]\n- [c4] The heading describes a 2024 global EV market snapshot. The report supports this heading, not every statement in the body. [e6, e7]\n- [c5] Worldwide battery-electric and plug-in hybrid vehicle sales were about 17.1 million in 2024, versus roughly 13.9 million in 2023. The report marks this claim as supported. [e8]\n\nNuanced wording required (contested or framed claims)\n- [c1] Some sources or the report itself contest: Geely Group had approximately 1.49 million new-energy vehicles in 2024. The report's original verdict is 'Contradicted: amount', but its cited amount is also 1.49 million; entity, year and scope remain unresolved. — DISPUTED; present as a contested position, not as fact. [e1, e2]\n\nUnknown — not evaluated or lacking evidence (unknown does not mean false)\n- [c2] BYD, Tesla and Geely Group were the top three manufacturers by EV volume, in that order. The report could not verify this ranking; it did not establish that the ranking is false. — UNVERIFIABLE; neither confirmed nor refuted. Do not assert. [e3, e4]\n- [c6] BYD's 2024 vehicle volume was 4.27 million. This individual volume was not separately listed as assessed. — UNASSESSED; neither confirmed nor refuted. Do not assert. [e3, e7]\n- [c7] Tesla delivered 1.79 million vehicles in 2024. This individual delivery figure was not separately listed as assessed. — UNASSESSED; neither confirmed nor refuted. Do not assert. [e3, e7]\n- [c8] The 2024 global average lithium-ion battery pack price fell to $115 per kWh, a sharp year-over-year decline. This was not listed as assessed. — UNASSESSED; neither confirmed nor refuted. Do not assert. [e9, e7]\n- [c9] China accounted for roughly 70% of global EV production in 2024 and maintained its dominant manufacturing position. This was not listed as assessed. — UNASSESSED; neither confirmed nor refuted. Do not assert. [e10, e7]\n- [c10] Battery recycling expanded quickly in 2024; leading processes can recover over 90% of nickel, cobalt and lithium, improving supply security and reducing raw-material intensity. These statements were not listed as assessed. — UNASSESSED; neither confirmed nor refuted. Do not assert. [e11, e7]\n- [c11] 2024 was a record EV year, battery costs fell materially, China remained the production hub, and recycling became more important to industry economics. This concluding synthesis was not separately assessed, although the report supports the stated sales increase. — UNASSESSED; neither confirmed nor refuted. Do not assert. [e12, e7, e8]\n\nAvailable report signals\n- FACT_CHECK: CONCERN — The report explicitly verifies Tesla revenue, worldwide sales and the heading, but its Geely amount verdict contradicts its own matching numerical detail. Verification also leaves the ranking unresolved and substantial body claims unassessed. [e1, e2, e4, e5, e6, e7, e8]\n- CITATIONS: POSITIVE — The report supplies claim-specific source links, including an SEC filing and IEA reports. Citation presence establishes traceability, not independent factual verification or adequate support for the entire text. [e15, e6, e8]\n- BIAS: POSITIVE — The report explicitly assesses the framing as balanced. This finding does not resolve factual gaps. [e13]\n- SYCOPHANCY: POSITIVE — The report explicitly states that no significant sycophancy markers were detected. [e14]\n- UNCERTAINTY: POSITIVE — The report acknowledges insufficient evidence for the ranking, limits assessment to listed claims, and distinguishes unchecked claims from wrong claims. [e4, e7, e16]\n\nUnresolved issues\n- HUMAN: The original Geely 'Contradicted: amount' verdict must be preserved pending human review: the contested and cited amounts are identical. Check whether the discrepancy concerns Geely Group versus Geely Auto, the reporting year, or the vehicle and consolidation scope.\n- MISSING: The Top 3 ranking lacks reliable verification. A client note needs a consistent calendar year, manufacturer/group boundary and EV definition, with comparable sales or delivery measures. The report does not show the ranking to be false.\n- MISSING: BYD and Tesla volumes, battery pack pricing and China's production share were not individually assessed. Their numerical accuracy and measurement scope remain unresolved.\n- MISSING: Recycling growth, metal-specific recovery above 90%, supply-security benefits and industry-economic importance lack listed verification. Process capability should not be presented as industry-wide realized recovery without supporting scope.\n- MISSING: Support for the heading and selected claims cannot authorize the whole client-facing summary. The record-year assertion and concluding synthesis extend beyond the report's verified findings.\n\nReservations and uncertainty\n- SUPPORTED means supported by this report, not independently verified here; no external checks were performed.\n- Preserve the Geely verdict 'Contradicted: amount' until human review resolves the report's internal inconsistency.\n- The Top 3 ranking is unverified, not demonstrated false.\n- Unlisted body statements remain unassessed; heading validation does not validate the body.\n- Preserve approximate quantities, calendar years, BEV-plus-PHEV scope and distinctions among sales, deliveries and new-energy vehicles.\n- Module bars are not probabilities of truth, and source age alone does not invalidate a citation.\n- Rewriting is preparation, not verification or authorization to publish.\nExtraction and interpretation depend on the model. Matching excerpts confirms provenance only. Web sources collected later stay unverified and are not cited here. This rewrite adds no evidence and does not verify unknown facts.\n\nNext question\nWhich legal entity, reporting year and vehicle scope does the cited 1.49 million Geely figure cover, and what supports the report's 'Contradicted: amount' verdict despite the identical amount?\n\nSources and exact report excerpts\n- [e1] Imported report; no source label supplied\n  Geely Group: 1.49 million new-energy vehicles\n\nVerdict: Contradicted: amount\n\nVerification: Completed\n- [e2] https://www.chinadaily.com.cn/a/202501/13/WS67847095a310f1265a1da677.html\n  - What: Geely Group: 1.49 million new-energy vehicles — Not found in the sources checked.\n- Amount: 1.49 million new-energy vehicles — sources say 1.49 million, growing 52 percent compared with 2023 (Source 4)\n- [e3] Imported report; no source label supplied\n  - **Top 3 manufacturers by EV volume:**\n  1. **BYD:** **4.27 million** vehicles\n  2. **Tesla:** **1.79 million** vehicles delivered\n  3. **Geely Group:** **~1.49 million** new-energy vehicles\n- [e4] Imported report; no source label supplied\n  Top 3 manufacturers by EV volume:\n\nVerdict: Not enough evidence\n\nVerification: Completed\n\nCould not be checked against reliable sources.\n\n- What: Top 3 manufacturers by EV volume — Not found in the sources checked.\n- [e5] https://www.sec.gov/Archives/edgar/data/1318605/000162828025003063/tsla-20241231.htm\n  - What: Tesla annual revenue: Tesla reported $97.7 billion in 2024 revenue — matches (Source 1)\n- Amount: $97.7 billion — matches (Source 1)\n- When: 2024 — matches (Source 1)\n- [e6] https://www.iea.org/reports/global-ev-outlook-2026/trends-in-electric-cars\n  2024 global EV market snapshot\n\nVerdict: Supported\n\nVerification: Completed\n\n- What: 2024 global EV market snapshot — matches (Source 1)\n- When: 2024 — matches (Source 1)\n- [e7] Imported report; no source label supplied\n  Only the listed claims were assessed. Other statements may not have been checked.\n- [e8] https://www.iea.org/reports/global-ev-outlook-2025/trends-in-electric-car-markets-2\n  Worldwide EV unit sales: About 17.1 million electric vehicles were sold globally in 2024 (battery-electric + plug-in hybrid), up from roughly 13.9 million in 2023.\n\nVerdict: Supported\n\nVerification: Completed\n\n- What: About 17.1 million electric vehicles were sold globally in 2024 (battery-electric + plug-in hybrid), up from roughly 13.9 million in 2023 — matches (Source 1)\n- When: 2024 — matches (Source 1)\n- Amount: roughly 13.9 million — matches (Source 1)\n- When: 2023 — matches (Source 1)\n- [e9] Imported report; no source label supplied\n  - **Average lithium-ion battery pack price:** The 2024 global average fell to **$115 per kWh**, a sharp year-over-year decline.\n- [e10] Imported report; no source label supplied\n  - **China’s share of global EV production:** China accounted for roughly **70%** of global EV production in 2024, maintaining its dominant manufacturing position.\n- [e11] Imported report; no source label supplied\n  - **Battery recycling:** Battery recycling expanded quickly in 2024, with leading processes now able to recover **over 90%** of key metals such as **nickel, cobalt, and lithium**, improving supply security and reducing raw-material intensity.\n- [e12] Imported report; no source label supplied\n  Overall, 2024 was another record year for EVs: sales kept growing, battery costs fell materially, China remained the production hub, and recycling became a more important part of the industry’s economics.\n- [e13] Imported report; no source label supplied\n  Framing is balanced. The response presents multiple perspectives without pushing a single stance.\n- [e14] Imported report; no source label supplied\n  No significant sycophancy markers detected. Response reads as independent.\n- [e15] Imported report; no source label supplied\n  - [1 Official · tsla-20241231](https://www.sec.gov/Archives/edgar/data/1318605/000162828025003063/tsla-20241231.htm) — Published: 2025-01-29\n- [e16] Imported report; no source label supplied\n  **Accuracy:** Extracts factual claims and checks each one against reliable web sources. The bar counts only claims that could be checked; claims that could not be checked are reported separately and never counted as wrong. Fewer than two checkable claims shows no score.\n",
+  "contentHash": "24de45640d7186aab1c38873581cd6d527138b53fa45a93877043b9018e6b1cd",
+  "analyzedHash": "24de45640d7186aab1c38873581cd6d527138b53fa45a93877043b9018e6b1cd",
+  "revision": 1
+ }
+}
